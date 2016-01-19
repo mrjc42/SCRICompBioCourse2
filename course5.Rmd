@@ -1,0 +1,8 @@
+---
+title: "Using R for Computational Biology"
+author: "Bronson, Debbie, Sean and Marc"
+date: "3/9/2016"
+output: html_document
+---
+
+
