@@ -31,7 +31,7 @@ names(knitr::knit_engines$get())
 Lets do a quick exercise to learn what markdown looks like and how you can edit it
 
 ***
-####  <span style="color:blue">__Exercise R4:__</span> 
+####  <span style="color:blue">__Exercise R1:__</span> 
 
 Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
 
@@ -85,7 +85,7 @@ As you do that, pay close attention to the tree hierarchy and to the search boxe
 ***
 
 
-####  <span style="color:blue">__Exercise R4:__</span> 
+####  <span style="color:blue">__Exercise R1:__</span> 
 
 Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
 
@@ -93,7 +93,7 @@ Now look at the document that is opened up in RStudio.  Notice how certain secti
 
 Now add a new code chunk to the document to define and test the function you created in exercise 1.
 
-#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
+#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
 
 
 The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge of the following display).  The reason for the "|" is because it is hard to get RStudio to render what a code chunk should look like since it wants to interpret that code chunk...

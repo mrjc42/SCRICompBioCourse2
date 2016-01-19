@@ -10,7 +10,7 @@ This week we will try to learn more about how to actually program in R.  From th
 
 
 ### Getting help 
-If you forget everything else we teach you today, I want to make sure that you know how and where to look for help. The next set of topics will cover that because R has a large number of ways that new users can get assistance for learning about it.
+Before you try to make something new, you probably want make sure that it doesn't already exist. If you forget everything else we teach you today, I want to make sure that you know how and where to look for help. The next set of topics will cover that because R has a large number of ways that new users can get assistance for learning about it.
 
 #### Man pages
 The manual page is usually the first place you will look if you are wondering what an R command will do.  R man pages will explain both what something is, and how to use it  You can usually pull up a manual page for a command by typing `?` followed by the command.  Like this:
@@ -64,13 +64,13 @@ This cheat sheet is valuable enough for new students that I plan to give you a c
 
 
 ***
-####  <span style="color:blue">__Exercise R6:__</span> 
+####  <span style="color:blue">__Exercise R1:__</span> 
 
-#####   <span style="color:blue">__Exercise R6 part 1:__</span> 
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
 
 Go look up the help pages for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working for you, you might need to launch a vignette using `openVignette`.  Please note that `openVignette` requires that you have loaded the `Biobase` package to use.  Or you can look at the man pages using `help`. Find an example package and explore each of these.
 
-#####   <span style="color:blue">__Exercise R6 part 2:__</span> 
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
 
 Lets look more closely at the help page for data.frames.  Notice the first argument?  This is a special argument that allows for multiple comma separated values to be passed in.  Because of the nature of this argument, all subsequent arguments will require being named.  Now scroll down and look at the other arguments.  Which arguments have default values?  How can you tell?
 
@@ -187,13 +187,13 @@ myFun(2)
 
 
 ***
-####  <span style="color:blue">__Exercise R1:__</span> 
+####  <span style="color:blue">__Exercise R2:__</span> 
 
-#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
 
 While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
 
-#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
 
 Write a function that appends a fictional extension '.extension' to any string.
 
@@ -338,9 +338,9 @@ One quick word of caution if you are going to be writing `for` loops.  In R it i
 
 
 ***
-####  <span style="color:blue">__Exercise R2:__</span>
+####  <span style="color:blue">__Exercise R3:__</span>
 
-#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
+#####   <span style="color:blue">__Exercise R3 part 1:__</span> 
 
 You have the following vector of base calls:
 
@@ -350,7 +350,7 @@ bases <- c('A','C','A','C','G','T')
 
 You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
 
-#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+#####   <span style="color:blue">__Exercise R3 part 2:__</span> 
 
 Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
 
@@ -428,7 +428,7 @@ https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
 
 
 ***
-####  <span style="color:blue">__Exercise R3:__</span> 
+####  <span style="color:blue">__Exercise R4:__</span> 
 
 Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
 
@@ -473,23 +473,23 @@ Use the debug function to step through and find the bug.  Once you have found th
 
 
 
-####  <span style="color:blue">__Exercise R6:__</span> 
+####  <span style="color:blue">__Exercise R1:__</span> 
 
-#####   <span style="color:blue">__Exercise R6 part 1:__</span> 
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
 
 Go look up the help pages for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working for you, you might need to launch a vignette using `openVignette`.  Please note that `openVignette` requires that you have loaded the `Biobase` package to use.  Or you can look at the man pages using `help`. Find an example package and explore each of these.
 
-#####   <span style="color:blue">__Exercise R6 part 2:__</span> 
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
 
 Lets look more closely at the help page for data.frames.  Notice the first argument?  This is a special argument that allows for multiple comma separated values to be passed in.  Because of the nature of this argument, all subsequent arguments will require being named.  Now scroll down and look at the other arguments.  Which arguments have default values?  How can you tell?
 
 
-#####  <span style="color:blue">__Answer for Exercise R6:__</span> 
+#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
 
-######  <span style="color:blue">__Answer for Exercise R6 (part 1):__</span> 
+######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
 There is no single correct answer for this question.
 
-######  <span style="color:blue">__Answer for Exercise R6 (part 2):__</span> 
+######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
 This is a tricky question, but you can probably see what the answer is by looking closely at the manual page. You can tell which values have default values by looking at the usage statement.  If the usage statement has a value assigned within it, then that is the default for that argument and will be used if an alternative value is not supplied.
 
 
@@ -497,21 +497,21 @@ This is a tricky question, but you can probably see what the answer is by lookin
 
 
 
-####  <span style="color:blue">__Exercise R1:__</span> 
+####  <span style="color:blue">__Exercise R2:__</span> 
 
-#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
 
 While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
 
-#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
 
 Write a function that appends a fictional extension '.extension' to any string.
 
 
 
-#####  <span style="color:blue">__Answers for Exercise R1:__</span> 
+#####  <span style="color:blue">__Answers for Exercise R2:__</span> 
 
-######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
+######  <span style="color:blue">__Answer for Exercise R2 (part 1):__</span> 
 
 As mentioned in the question, there are at least two different ways you can do this.  The first one is to use R exclusively like this:
 
@@ -531,7 +531,7 @@ system('pwd')
 system('ls -alh')
 ```
 
-######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
+######  <span style="color:blue">__Answer for Exercise R2 (part 2):__</span> 
 
 You can do this by just calling the paste function inside your custom function.
 
@@ -546,9 +546,9 @@ myPasteFun('testStr')
 ***
 
 
-####  <span style="color:blue">__Exercise R2:__</span>
+####  <span style="color:blue">__Exercise R3:__</span>
 
-#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
+#####   <span style="color:blue">__Exercise R3 part 1:__</span> 
 
 You have the following vector of base calls:
 
@@ -558,13 +558,13 @@ bases <- c('A','C','A','C','G','T')
 
 You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
 
-#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+#####   <span style="color:blue">__Exercise R3 part 2:__</span> 
 
 Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
 
 
-#####  <span style="color:blue">__Answers for Exercise R2:__</span> 
-######  <span style="color:blue">__Answer for Exercise R2 (part 1):__</span> 
+#####  <span style="color:blue">__Answers for Exercise R3:__</span> 
+######  <span style="color:blue">__Answer for Exercise R3 (part 1):__</span> 
 
 First lets write a simple function to decide which is which.
 
@@ -581,7 +581,7 @@ isPurine('A')
 isPurine('T')
 ```
 
-######  <span style="color:blue">__Answer for Exercise R2 (part 2):__</span> 
+######  <span style="color:blue">__Answer for Exercise R3 (part 2):__</span> 
 
 Now we just have to call our function using lapply to iterate over all elements of the vector:
 
@@ -596,7 +596,7 @@ res
 ***
 
 
-####  <span style="color:blue">__Exercise R3:__</span> 
+####  <span style="color:blue">__Exercise R4:__</span> 
 
 Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
 
@@ -627,7 +627,7 @@ middleString(test2)
 Use the debug function to step through and find the bug.  Once you have found the problem, try to write a new version of this function that always returns either the middle value or the lowest middle value.
 
 
-#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
 
 If you step through the function and have a look around, you will notice that the line of this function that is suspicious looking is this one:
 
