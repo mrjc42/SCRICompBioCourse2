@@ -1,12 +1,12 @@
 ---
 title: "Introduction to R and interactive programming"
-author: "Bronson, Debbie, Sean and Marc"
+author: "Marc, Bronson, Debbie and Sean"
 date: "2/24/2016"
 output: html_document
 ---
 
 
-Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
+This week we will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  Next weeks course will then extend what we learned today so that you can actually get started with writing your own code and scripts.
 
 # A quick review
 
@@ -654,5 +654,152 @@ Now, using what you understand about subsetting operators, see if you can figure
 #### What are these 'factors' about?
 
 Because R is a statistical language, it is often useful to have categorical data like 'gender'.  For data like this, R has a special kind of vector called a `factor`.  Don't worry too much about factors today, but be aware that they are out there, and you might notice that in many cases your character data will by default be assumed to be this kind of data.  Because of this, a lot of import functions like `read.table` will have a special argument called `stringsAsFactors` that can let you decide how your data will be treated after importing.  
+
+
+***
+***
+***
+
+
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+First use the paste function to append a letter to a number. The output should look like this:
+
+```{r, echo=FALSE}
+paste("A", "1", sep="")
+```
+
+Be sure to use the `help` function in order to learn how to use the `paste` function.  Be aware that in R if you call an argument that expects a character vector, you will need to use quotes to indicate that it's a vector.  You might also wonder what an argument called "..." means.  That is a special argument that just means you can pass a lot of values in (instead of just one).  In the case of paste it means that unless you call a named argument (the other arguments are all named), paste will assume that your arguments are all character vectors that you want pasted together.  So to paste two characters (a letter and a number) together, you should include at least two character vectors (of length one each).
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+Now create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+
+```{r, echo=FALSE}
+paste(month.name, "1",sep='_')
+```
+
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  
+
+#####   <span style="color:blue">__Exercise R1 part 3:__</span> 
+Now pass in two character vectors of unequal length.  Notice how paste handles the fact that you have passed in two different vectors by reusing the elements of the shorter vector...  This behavior is called "recycling".
+
+
+
+
+#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
+To just append one character to one number, you can do it like this:
+
+```{r}
+paste("A", "1", sep="")
+```
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
+For the months example you can also use the the paste function like this with two longer vectors.
+
+```{r, eval=FALSE}
+paste(1:12, month.name, sep='_')
+```
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 3):__</span> 
+To two unequal character vectors, you can just enter two vectors with different amounts of values for each like below.  Notice how the shorter vector is 'recycled' by the paste function. 
+
+```{r}
+paste(c("A","B","C"), "1", sep="_")
+```
+
+
+
+
+
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+Make the list `lst` from the example above and then make a second list `ls2` that contains both `lst` and the LETTERS vector.
+
+#####  <span style="color:blue">__Answer for Exercise R2:__</span> 
+
+```{r}
+lst2 <- list(lst, LETTERS)
+lst2
+
+length(lst2)
+```
+
+
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Use read.table to read in the file that you unpacked earlier called `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the header is ignored?
+
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+```{r}
+myTable <- read.table(file='genesFile.txt', header=TRUE)
+
+class(myTable)
+```
+
+
+
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  Now subset the `month.abb` vector so that you only see those months.  Now do the same thing, but this time use `%in%` instead of `grepl` and look for every month __except__ Jun.
+
+
+#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
+
+```{r}
+grepl('J',month.abb)
+
+month.abb[grepl('J',month.abb)]
+
+month.abb[!month.abb %in% 'Jun']
+```
+
+
+####  <span style="color:blue">__Exercise R5:__</span> 
+
+#####   <span style="color:blue">__Exercise R5 part 1:__</span> 
+Remember that list (`lst2`) we made in exercise R2?  Well go back to that list now and extract out the original list (`lst`) by using the appropriate subsetting operator.  Assign that recovered value into a variable called `recoveredLst`.  How do you know which kind of operator to choose?  How can you verify whether your `recoverdLst` is now the correct thing?
+
+#####   <span style="color:blue">__Exercise R5 part 2:__</span> 
+Now lets look at the `myTable` data.frame object we created when we used the `read.table` function.  Using what we just learned about subset operators, extract out a vector of gene symbols.  Now make those symbols unique with the `unique` function and assign the resulting value to a variable called `symbols`.  If you look at the value for `symbols`, you will notice that it's not a character vector but is instead something called a factor.  Convert it to a character vector using as.character().
+
+Now, using what you understand about subsetting operators, see if you can figure out a convenient way to store the value of `symbols` inside of a third element for `lst2`...
+
+
+
+#####  <span style="color:blue">__Answers for Exercise R5:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R5 (part 1):__</span> 
+
+```{r}
+recoveredLst <- lst2[[1]]
+
+class(recoveredLst)
+```
+######  <span style="color:blue">__Answer for Exercise R5 (part 2):__</span> 
+At this point you now know at least two different ways to do this:
+```{r}
+symbols <- unique(myTable[[2]])
+symbols <- as.character(symbols)
+```
+And this:
+```{r}
+symbols <- unique(myTable[,2])
+symbols <- as.character(symbols)
+```
+And just for fun here is a third way:
+```{r}
+symbols <- unique(myTable$symbol)
+symbols <- as.character(symbols)
+```
+To append another element into your list, there are many ways to do it.  But one very 'R-ish' way is this:
+```{r}
+lst2[[3]] <- symbols
+lst2
+```
+
 
 

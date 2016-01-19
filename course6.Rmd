@@ -1,6 +1,6 @@
 ---
 title: "Getting work done"
-author: "Bronson, Debbie, Sean and Marc"
+author: "Sean, Bronson, Debbie and Marc"
 date: "3/16/2016"
 output: html_document
 ---
