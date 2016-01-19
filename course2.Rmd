@@ -6,3 +6,728 @@ output: html_document
 ---
 
 
+### __`less`__ is __`more`__
+
+Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
+
+```{bash, eval=FALSE}
+less myFile.txt
+```
+
+And when you were done looking around, you could exit by again pressing `q`.  Why the similarity to `man`?  Because the man command is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.  
+
+Another super useful thing to know about less is that you can search for a specific string while you have it open.  All you need to do is to type the `/` key while less is open and then you can type a string to search for and then hit enter.
+
+### Using __`cp`__, __`mv`__ and __`rm`__
+
+`cp` copies a file to another place.  `mv` moves a file (and so does not leave the original behind).  Here is an example of each of these:
+
+```{bash, eval=FALSE}
+cp file.txt filecopy.txt
+mv file.txt ..
+```
+
+The first of these commands copies `file.txt` to another file with a different name `filecopy.txt` (in this example, the new file it would be in the same directory).  The second command moves file.txt up a directory from where it is currently located.
+
+But sometimes you may just want to get rid of something altogether.  `rm` will do that for you.  Here is an example that just removed file.txt:
+
+```{bash, eval=FALSE}
+rm file.txt
+```
+
+Another common case with rm is when you have a directory and you want to remove it AND everything in it  When that happens you can tell rm to remove things recursively like this:
+
+```{bash, eval=FALSE}
+rm -r myDir
+```
+
+Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So please be very careful!
+
+
+### Fixing bad line endings with __`dos2unix`__
+
+`dos2unix` is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. `dos2unix` fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
+
+```{bash, eval=FALSE}
+dos2unix myFile.txt
+```
+
+If you are wondering whether your file has the wrong kind of line endings, you can see them by either looking at the file using the emacs text editor OR by feeding them through cat and using the -v flag like this:
+
+```{bash, eval=FALSE}
+cat -v myFile
+```
+
+If when you do the above command, a file with windows style line endings will have ^M on the end of all the lines.  
+
+
+### Compression and decompression with __`tar`__
+
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
+
+```{bash, eval=FALSE}
+tar -zxvf myFile.tar.gz
+```
+
+ 
+
+#### __Exercise L2:__ 
+
+Now lets look at another directory. Change to this directory: `/tools/references`.  What reference organisms are available?  Use tab completion to find the human UCSC hg19 whole genome reference sequence.  Now use it to find the human Ensembl GRCh37 chr22 reference sequence.  
+
+Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes`. Now use `less` to look at the `.gtf` file for this genome. Using `less` and `/` see if you can determine how many exons are in the gene PCA3?
+
+Make a directory in your home directory called `sampledata`. Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/sampledata.tar.gz` into `sampledata`.  Now unpack it within `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
+
+In the sampledata directory navigate to the `examples` directory, and inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
+
+
+
+ 
+
+### Using __`cat`__ and __`zcat`__
+
+Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of `myFile.txt` to the screen.  So by itself `cat` is not so useful.  But in combination with other commands, it can be very useful (more on this in a moment).  Another command you will sometimes see is `zcat`, which allows you to call cat on files that are zipped (end with a `.gz` extension).
+
+```{bash, eval=FALSE}
+cat myFile.txt
+```
+
+But: the more common use for `cat` is to send a command to a pipe.  What is a pipe you say?
+
+
+### What are pipes?
+
+So glad you asked! A pipe is a way of moving data around in unix.  Technically, it is an "operator" (like "+" and "-").  And you use it to indicate something specific that you want to happen between a couple of other things.  Let me give an example to clarify:
+
+```{bash, eval=FALSE}
+cat myFile.txt | less
+```
+
+Here cat is streaming the contents of myFile "in" to a pipe.  Where doed the data go next?  Well in the example above it goes "in" to the less command.  So when you see the `|` operator, what it means is that the output of the thing to it's left is being sent "in" to the thing to it's right.  Just like a pipe would.  
+
+Ok, I will admit that the example above could be a lot more interesting.  Right now you are probably wondering why not just use less on the file like a normal person?  But just wait till we show you some other tricks that you can use with pipe.  I promise we will make this worth your time...
+
+
+### Finding in file matches with __`grep`__
+
+The grep command is usually used to find strings in text files. For example you could search a file called `file.txt` for the string `var` like this:
+
+```{bash, eval=FALSE}
+grep 'var' file.txt
+```
+
+This is useful all by itself, and grep is extremely powerful since it is a fast and efficient way to search your files for lines that match.  But look at what happens when we pair it with a pipe and less like above:
+
+```{bash, eval=FALSE}
+grep 'var' file.txt | less
+```
+
+Now if I have a Large number of search results, I can easily page through them (or use the additional search feature inside of less).  Or I can take the results of the 1st grep search and send that along to another grep search like this:
+
+
+```{bash, eval=FALSE}
+grep 'var' file.txt | grep 'car' | less
+```
+
+
+
+### Using __`>`__ and __`>>`__
+
+What happens if you link together a set of pipes that does something useful?  In that case you might want to save the output.  This is when you would use the "bent pipe" or `>`
+
+```{bash, eval=FALSE}
+grep 'var' file.txt | grep 'car' > saveFile.txt
+```
+
+And sometimes, you might want to simply append to an existing file without overwriting it.  In that case you would use the "double bent pipe" or `>>`.  So if we repeat the example above, then you will see that we have appended the same thing into `saveFile.txt`.
+
+```{bash, eval=FALSE}
+grep 'var' file.txt | grep 'car' >> saveFile.txt
+```
+
+### Using __`head`__ and __`tail`__ to see both sides of things
+
+Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
+
+
+### Using __`wc`__
+
+The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
+
+```{bash, eval=FALSE}
+ls | wc
+```
+
+
+
+#### __Exercise L3:__ 
+
+Once again explore the GTF file for GRCh37 from exercise #1.  This time use `grep` to extract lines from the file that mention the 'PCA3' gene. Now use `grep` and `wc` and to return a count of how many lines are like that in the file.
+
+Now enter the data directory that you unpacked from exercise #2 (sampledata) and use `zcat` to view the first two read records of a file (in fastq format each read corresponds to exactly 4 lines of data)
+
+Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads are there in the first library?
+
+
+
+
+### What are wildcards?
+
+In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with `.txt` then I can move them both into myDir by doing this:
+
+```{bash, eval=FALSE}
+mv *.txt /myDir
+```
+
+Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with dangerous commands like `rm`, you might end up wishing that you could rewind time.
+
+
+### Dividing files with __`split`__
+
+Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that. By default split will produce files that are 1000 lines long, but this is adjustable of course.
+
+```{bash, eval=FALSE}
+split myFile.txt
+```
+
+### Using __`sort`__
+
+Need to put the contents of a command into a particular order?  The `sort` command is your friend for this task.
+
+```{bash, eval=FALSE}
+sort test.txt
+```
+
+### Using __`uniq`__
+Want to filter out rows that are not unique?  Use the `uniq` command.
+
+```{bash, eval=FALSE}
+sort test.txt | uniq
+```
+
+
+### Using __`cut`__
+
+Cut is especially useful if you have to deal with delimited files.  It allows you to extract only the columns that are of interest.  For example, the following gets the 2nd column from a tab delimited file
+
+```{bash, eval=FALSE} 
+cut -f2 testTabs.txt
+```
+
+
+### Using __`find`__
+
+The find command is for finding files in the filesystem.  But it is actually VERY powerful because like everything else today it can be paired with the other toys in the Linux toybox.  The find command takes a couple of arguments. The 1st is the part of the directory to search in and the secons is what to look for.  A common way to use find is to find a file with a specific name.  So to find a file named `bob.txt` in your local directory could could do this
+
+```{bash, eval=FALSE}
+find . -name 'bob.txt'
+```
+
+But as I stated before find is quite powerful.  You can also do partial matches, and choose from a huge array of other flags etc. to find things depending on what you happen to remember.
+
+
+#### __Exercise L4:__ 
+
+Go to `~/sampledata/rnaseq/expression`. Take a look at the contents of this directory. Note that there are several subdirectories for different sample libraries. Each of these contains a gene annotation file (`.gtf`). Later in the course we will see that we will want to pass each of these into the `cuffmerge` program, which is expecting a text file with a list of all annotations to merge. Use the ls command with the * and > operators to create a file containing a list of all instances of the 'transcripts.gtf' file from all subdirectories.
+
+What does the raw output from Cufflinks look like? If you go to this directory: `~/sampledata/rnaseq/expression`, you will find example files there inside of subdirectories that are all named `isoforms.fpkm_tracking`. Go there now and have a look at one of these files. Note the column headers.  Now use cut to only display tracking_id, gene-id, and columns 7-13
+
+Go to `~/sampledata/rnaseq/de` and take a peak at differential splicing, differential promoter usage and differential CDS results files (HINT: these all have a `.diff` extension).
+
+Now for each of those results files, sort the results by the p-value and view the top 10 isoforms, ignoring entries classified as 'LOWDATA'
+
+The file `gene_exp.diff` contains a list of differentially expressed genes. See if you can display the top 20 DE genes.
+
+### Using __`who`__ and __`top`__
+
+Sometimes you want to know who else is logged in. IOW, if there are multiple machines to work on, you might prefer to work on a less crowded one...
+
+Other times when you log into a computer you might be wondering what it is doing overall.  This is what the top command is for.  If you call top, you will get a high level overview of what the computer is doing right now.  Top will tell you what processes are running, and how many resources they are using.  And by using it you can spot problems.  For example, you might want to know about long running processes that are consuming up all the system resources and slowing you down.
+
+
+### Using __`ps`__ and __`kill`__
+
+Top is useful for seeing whether there is a problem, but it updates frequently and only tends to display long running processes that are using a lot of resources.  Sometimes you just want to see all the things that you are running.  `ps` is a good way to list all the processes that you have running.  This command will list all the processed run by a particular user:
+
+```{bash, eval=FALSE}
+ps -U username
+```
+
+Once you have done that, you will see an output that looks like this:
+
+
+```{bash, eval=FALSE}
+[username@EWRLNXRD29 SCRICompBioCourses]$ ps -U username
+  PID TTY          TIME CMD
+ 5101 ?        00:00:00 sshd
+ 5106 ?        00:00:00 sshd
+ 5108 ?        00:00:00 sftp-server
+```
+
+The `PID` stands for the process identifier.  It's a unique number that can be used to specify precisely which process you mean.  This is important, because if you make a mistake and accidentally launch some long running resource hogging process, you might not want to wait (or make others wait) for it to finish.  In that case you might need to `kill` it.  Here is an example of how you could do just that:
+
+
+```{bash, eval=FALSE}
+kill 5106
+```
+
+The above command will kill the process where the PID = 5106.
+
+
+### Using __`bg`__ and the __`&`__ operator
+
+Sometimes you have a job that you want to run and you don't want to wait for it to finish before you get your terminal back.  When that happens you can hit [CTRL-Z] to get your command prompt back and then use the `bg` command to continue that process in the background.
+
+```{bash, eval=FALSE}
+commandThatTakesALongTimeToRun
+[CTRL-Z]
+bg
+```
+
+Or if you know something will run for a while, you can plan ahead and use the `&` operator.
+```{bash, eval=FALSE} 
+commandThatTakesALongTimeToRun &
+```
+
+
+### Using __`nohup`__ 
+
+Sometimes you will want a job to run and you already know that it's going to take several hours. When that happens, you might worry that if you log out your job will not complete. For this circumstance you will want to use the `nohup` command (or: no hang up).  You can use it to run a command in the background.  `nohup` will keep running that process untill it either finishes or until someone kills it.  You can use `nohup` like this:
+
+```{bash, eval=FALSE}
+nohup command &
+```
+
+
+
+#### __Exercise L5:__ 
+
+Now launch the following command (which will not finish anytime soon):
+
+```{bash, eval=FALSE}
+du -sh /tools
+```
+
+Now find that process and kill it.
+
+
+### Using __`echo`__
+
+Sometimes you may need to look at the contents of shell variables.  Linux systems will often use environment variables and sometimes you might need to see what these have been set to.  The `echo` command will let you see what these values are.  When you use the echo command, you have to prefix any variable names with `$`.
+
+```{bash, eval=FALSE}
+echo $PATH
+```
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+This document expands on some important topics from Course 1 that will be important for you to know as you navigate your way around the Linux environment within SCRI. This module will help you understand how the file system is organized, what things you can, cannot, and should not access, and other policies and best practices that will make your life easier as you use these resources.
+
+# Why Linux?
+
+A question that came up and that perhaps you have asked, "Is this really worth it? Why should I invest my time in learning Linux?" The answer to this topic could be a course all by itself. Let us just try to point out what we think are a few of the advantages
+
+* Many of the 'industry standard' tools used to analyze today's data are only available in Linux. GATK, tophat, bwa, cufflinks, samtools, many of these are open source tools that are meant to be distributed for free. These tools aren't readily available outside of the command-line environment
+
+* Fine control. Whenever you make a graphical user interface, it becomes very hard to expose all the options that the program is capable of in an easy way. Therefore, you usually make assumptions and lock in some defaults. At the command-line, you can more easily allow the user to specify parameters and gain fine control of the program.
+
+* Modularity. With a command-line interface, you can string small programs together like Legos and build your own custom workflows and programs that work exactly the way you want them to.
+
+* Reproducibility. When you use command-line and/or write scripts, you create a record of exactly what you did to your data. Anytime you re-run the commands you wrote, you will get the same result.
+
+* Speed. In the short-term, it may seem like a huge investment of time and energy to learn how to work in this environment and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with Linux, you can take better advantage of parallel processing to vastly speed up the processing time.
+
+* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Hopefully you have seen how that those simple tasks are quite trivial with Linux systems. Dealing with large files and scaling up your analyses are easy for Linux.
+
+# The Linux file structure
+
+### Root
+
+If you are used to interfacing with your computer via a graphical user interface such as Finder (Mac) or Windows Explorer (PC), the concept of a __root directory__ may be somewhat vague. The root directory is simply the most inclusive folder on the system, or in other words, the folder that contains all other folders and files. When working with the command line, no matter what system you use, you can designate an absolute path by describing its location relative to root. For Window's users, each disk drive has it's own root, for example `C:`, `D:`, etc. Unix based systems, including Mac OS X and Linux, have a single root designated simply by `/`.
+
+***
+####  <span style="color:blue">__Exercise L1:__</span>
+* Using the `cd` command, navigate to the root directory. <Hint: the root directory is designated by `/`.
+* Using the `ls` command, take a look at the contents of root. Just for fun, try adding the `-a` and `-l` flags, separately and together. What files do you see? Can you tell if these are actual files or directories?
+
+***
+
+### Common system directories
+
+In the last example, you noticed that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. Most of these are system directories that are common to nearly every Linux OS. __They have specific functions, and unless you really know what they are for and are authorized to change them, it is best to leave these alone.__ To satisfy your curiosity, here is a brief description of some of the common ones:
+
+* __`/bin`__: This directory contains many *binary* files for the common commands such as `ls`, `mv`, `cp`, etc.
+
+* __`/dev`__: This directory contains system files related to any attached *devices*, such as hard drives, DVD drives, modems, speakers, etc.
+
+* __`/etc`__: This stands for *et cetera*. But that doesn't mean that the contents are miscellaneous, although it's likely it once meant that. Now, this drive contains all system related configuration files. It is considered the nerve center of the system.
+
+* __`/home`__: We will talk about *home* later.
+
+* __`/lib`__: This directory contains the system *library*. Libraries are modules of code that provide key functionality. Think of them as mini code repositories.
+
+* __`/usr`__: This directory often contains the largest share of data. `usr` stands for *User System Resources* (not 'User'). This directory contains many more binaries, libraries and configuration files for all the additional, non-system applications that have been installed on the computer.
+
+* __`/tmp`__: This directory contains mostly files that are only required *temporarily*. Just because they are temporary though doesn't mean they aren't important. Many of these files are important for currently running programs and deleting them may result in a system crash.
+
+### Home
+
+__`/home`__ deserves a little special attention. __home__ is not to be confused with __root__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In Linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~/`.
+
+Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is also a convenient place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. After all, when you first log in to the system, this is where you land. Even in our exercises, we had you start dumping the example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, while it is a good place to stash some small files that you want to persist on the system, you really don't want to store your actual data in `/home`. Below, we will discuss some better alternatives.
+
+***
+####  <span style="color:blue">__Exercise L2:__</span>
+* Navigate to your home directory using the `cd` command. <Hint: the home directory is given the special designation `~`.>
+* Find out how much disk space you are using in your home directory by typing the following command:
+```{bash, eval=FALSE}
+du -sh
+```
+
+***
+
+### SCRI-specific directories
+
+There are two directories in `root` that are specific to the SCRI environment and that will be key to successfully working with the autobots:
+
+* __`/tools`__ The tools directory contains a collection of bioinformatics related applications, programs and tools that we have pre-compiled for your use. You will see a few programs of interest here, such as `GATK`, `freebayes`, `snpEFF`, etc. I want to briefly point out a few interesting locations:
+
+    + __`/tools/BioBuilds-2014.04/bin`__: Most of the bioinformatics tools that you will need have been obtained through a software bundle called __`BioBuilds`__. This BioBuilds `bin` directory contains a bunch of executables for many common bioinformatics tools. If you want, you can look inside and see what is available. In practice though, you should never really need to physically look around in here. If you want to know if a particular program is available and ready to execute, such as the BWA aligner, the easiest thing to do is to use the `which` command. 
+```{bash, eval=FALSE}
+which bwa
+```
+The output of this will either tell you the path of where this command lives or will tell you that it couldn't find it in any of the expected locations (meaning it either isn't installed or it isn't ready to be executed easily).
+
+
+    + __`/tools/BioBuilds-2014.04/share/java`__: One of the more useful utilities included in BioBuilds is one called `picard`. `picard` is a collection of mini programs that allow you to manipulate sequence files and alignment files. It is a java script `jar` file, which means that it executes a little differently than other programs. It has to be called from `java` and you will have to supply the full path to it. So in case you are wondering, here is how you call picard:
+```{bash, eval=FALSE}
+java -jar /tools/BioBuilds-2015.04/share/java/picard/picard.jar
+```
+The output of this will be a list of all the mini programs available through `picard`. We will go over how to use some of these at another time, or as needed through drop-in office hours.
+
+
+    + __`/tools/references`__. As you saw in the Course 1 exercises, this directory contains reference sequences and genome annotations for a number of model organisms. If there are additional tools or references that you think you may need frequently and that could be of interest to others generally, you can request that they be added by sending an email to ResearchScientificComputing@seattlechildrens.org.
+
+
+* __`/data`__ The data directory provides some local scratch space for users. The term __"local"__ just means that that space is physically located on the computer you are using. Therefore the read/write speed to this disk is relatively fast compared to a mounted (remote) file system. The term __"scratch space"__ means that the space is not intended to keep anything permanently. It is a temporary holding spot. The data directory provides you a convenient local place to temporarily stash files that you are actively working on. When you are done with them, they should be deleted or moved elsewhere to free up this space for others. The `/data` directory provides 2 TB of shared space. __Note: You should not use your `home` directory for scratch space. Use `/data` instead.__ 
+
+***
+####  <span style="color:blue">__Exercise L3:__</span>
+* Using the `which` command, discover if the tools `tophat` and `velvet` are available.
+* Navigate to `/data`. Feel free to make a new directory there with your user id. <Hint: use the `mkdir` command.>
+
+*** 
+
+### The best place to read and write
+You may be asking "If I can't stash stuff in my home directory because it's too small and the data directory is only for scratch space, then where am I supposed to store my stuff?" The answer is that this is the intended use of your departmental share drives. 
+
+Unlike your O drive, departmental share drives are not automatically issued. They are provisioned by request to departments, centers, or PIs, and access to a drive is controlled by permissions. It is likely that you already have access to one or more departmental shares through your lab. Share drives are backed up to tape on a daily basis, so the information stored there is very secure and easily recoverable. Also, share drives typically provide space enough for larger amounts of information, so they are really the best place to be storing your scientific data.  
+
+These drives can be mounted (or mapped to use the Windows phrase) on the Linux system and accessed directly. __The best practice for doing work on these machines is to read from and write directly to your departmental share drives.__ If performance is an issue, you can temporarily write to `/data`, but please remember to move or delete when finished. You should not regularly write output to `/home`.
+
+In order to get access to your share drives, we have written a helper program that will mount the share for you.
+
+***
+####  <span style="color:blue">__Exercise L4:__</span>
+
+* Find out what departmental shares you have access to:
+    + Open 'My Citrix Computer' from your desktop.
+    + In the address bar, type `\\childrens.research\` and hit enter
+    + You will now see a list of departmental shares that you have access to.
+    
+* In your Linux terminal, run the following commands
+```{bash, eval=FALSE}
+cd ~
+Mountscript
+```
+Follow the prompts to add one or more of your departmental shares. Start with the one that you will primarily use to store your data. Be sure to follow the instructions regarding the use of forward slashes `/` for path separators.
+
+* If you have been successful, you will now see a series of new directories in your home drive: `share0`, `share1`, etc depending on how many drives you mounted. You will also see a new text file called `share_list`. This file simply records the names of the departmental shares that you have tried to mount. Try navigating through the file structure of your newly mounted shares
+```{bash, eval=FALSE}
+cd share0
+ls -l
+```
+
+* When you are done with your Linux session, it is good practice to unmount your drives before you log out. We are working on a way to do this automatically. In the meantime, you will want to manually unmount each drive as follows:
+```{bash, eval=FALSE}
+cd ~
+unmount share0
+```
+When you do this, you will see that `share0` is still there, but now it's contents are empty.
+
+*** 
+
+# Miscellaneous review
+
+### __`cat`__ vs __`less`__
+Both of these functions will open up a file and display it's contents. What is the difference between the two and when should you use one over the other?
+
+* `cat` opens a file and traverses row by row, sending the row's contents to *standard output*, which means that unless otherwise specified, it gets dumped onto your screen. That usually isn't very helpful, especially if it's a really big file. This usually isn't the best way to just take a peak. Typically, use `cat` when you want to stream the contents of the file row by row into some other function that will transform the data. 
+
+* `less` allows you to open a file, but it only shows you the first page. Because it doesn't ever load the whole thing into memory, it is a great way to 'take a peak' inside a very big text file. As you scroll down, it quietly loads more into the memory as needed. Notice that `less` opens an actual program. Unlike `cat` you actually have to quit the program to get back to the command prompt.
+
+### Choosing command flags, parameters, and using `--help`
+The behavior of each command can be modified by setting different parameters. Most commands have a default parameter setting that runs when nothing is specified. But this can be modified by specifying different options, parameters or settings. 
+
+* __flags__ are typically options that you can set to turn certain behaviors on or off. Because they are typically yes/no, they don't require any further arguments. In Linux, flags are set using the minus sign `-` and are typically followed by a letter. You can set multiple flags at once by specifying multiple letters after the `-`. There's often a long form version of flags that is set using the double minus sign `--` followed by a word. The double minus usually distinguishes between a long form flag vs a set of multiple flags.
+```{bash, eval=FALSE}
+ls
+ls -a
+ls -l
+ls -al
+ls --all
+```
+
+* __parameters__ are special flags that require some additional input. For instance, you could specify the name of an input file or search string. Parameters are also typically designated with the minus sign `-` followed by a letter, `=` (or sometimes a space), and parameter value. As above, sometimes the parameter is designated with a word rather than a single letter. In this case, you would usually use a double minus `--`. (Just be aware that the double minus thing isn't a hard fast rule!)
+```{bash, eval=FALSE}
+cd /
+ls --ignore=tools
+```
+
+* __`--help`__ is how you find out what flags and parameters are available and how you use them.
+```{bash, eval=FALSE}
+ls --help
+```
+
+### Cheat sheets
+We have included some cheat sheets that could come in handy for you down the road. These were taken from a book called *Practical Computing for Biologists* by Steven Haddock and Casey Dunn. It is an excellent reference and highly recommended for anyone who would like to go deeper than what we have had time to do.
+
+#### Appendix 2: Regular Expressions
+Regular expressions are one of the most powerful tools for command line users. A startling number of problems you will encounter can be reformulated as some kind of simple text manipulation. These manipulations will follow patterns that easy for humans to define, but difficult for simple search and replace engines like you find in Excel or Word. For example, you may have a list of species as follows
+```{bash, eval=FALSE}
+Homo sapiens
+Drosophila melanogaster
+Caenorhabditis elegans
+Danio rerio
+```
+You would like to easily rename these to the more common short form
+```{bash, eval=FALSE}
+H. sapiens
+D. melanogaster
+C. elegans
+D. rerio
+```
+The pattern is easy enough: abbreviate the first word to the first letter, add a period, and retain the second word. But can you accomplish this with a simple search and replace in Excel? You would have to individually search for the strings *Homo*, then *Drosophila*, etc and replace each one, which is not very efficient.
+
+Regular expressions provide a powerful way to perform these sorts of pattern based search and replace queries. The above problem would be mind-blowingly trivial for a single regular expression query, even if the list were hundreds of species long. Using regular expressions could fill a course on its own. We will touch only briefly on these in Course 4, but we encourage you to explore them more on your own or come to office hours where we can spend more time on them.
+
+#### Appendix 3: Shell Commands
+A list of many of the most common shell commands. For most of you, these will cover ~95% of all of your Linux command needs, so they are worth spending time getting to know.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+   
+      
+### __Answers for Exercises__ 
+
+Here you can find answers to the questions posed above.   
+
+
+##### __Answer for Question L1:__
+
+Display the contents of your home dir:
+
+```{bash, eval=FALSE}
+cd ~/
+ls
+```
+
+Find where other home dirs are located:
+```{bash, eval=FALSE}
+pwd
+cd ..
+ls
+```
+
+Are you allowed to see other working directories?
+
+```{bash, eval=FALSE}
+ls -l
+```
+No: the permissions prevent this
+
+
+
+
+
+
+
+##### __Answer for Question L2:__
+
+Change directories
+```{bash, eval=FALSE}
+cd /tools/references
+```
+What reference organisms are available?
+```{bash, eval=FALSE}
+ls -l
+```
+Use tab completion to find the human UCSC hg19 whole genome reference sequence
+```{bash, eval=FALSE}
+ls -l /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta
+```
+Use tab completion to find the human Ensembl GRCh37 chr22 reference sequence
+```{bash, eval=FALSE}
+ls /tools/references/Homo_sapiens/Ensembl/GRCh37/Sequence/Chromosomes/
+```
+
+Now use the Ensembl GRCh37 most current gene annotation to discover how many exons does the gene PCA3 have?
+```{bash, eval=FALSE}
+cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+```
+Now look at the `.gtf` file with less:
+```{bash, eval=FALSE}
+less genes.gtf
+```
+And while inside of `less`, use the / search feature to look for the string 'PCA3'
+
+
+Now use the copy command to pull down a tarball.  First go to your home directory and make a directory to put this stuff:
+```{bash, eval=FALSE}
+cd ~
+mkdir sampledata
+```
+Now go into your new directory and copy the file there. 
+```{bash, eval=FALSE}
+cd sampledata
+cp /tools/sampledata/sampledata.tar.gz .
+```
+Then unpack it.
+```{bash, eval=FALSE}
+tar -zxvf sampledata.tar.gz
+```
+
+Now for the final part of this exercise, inspect 'badtextfile.txt' using `cat -v`, and then 'fix' the line endings to match what unix expects.
+```{bash, eval=FALSE}
+cd examples
+cat -v badtextfile.txt | less
+dos2unix badtextfile.txt
+cat -v badtextfile.txt | less
+```
+
+##### __Answer for Question L3:__
+
+
+Lets have another look at that `.gtf` file.
+```{bash, eval=FALSE}
+cd /tools/references/Homo_sapiens/Ensembl/GRCh37/Annotation/Genes
+```
+Now use grep to look at just the lines that contain 'PCA3'
+```{bash, eval=FALSE}
+grep PCA3 genes.gtf
+```
+Now count how many of those lines there are...
+```{bash, eval=FALSE}
+grep PCA3 genes.gtf| wc -l
+```
+
+Now enter the sampledata directory back in your working directory and view the first two read records of a file (in fastq format each read corresponds to 4 lines of data)
+```{bash, eval=FALSE}
+cd ~/sampledata/rnaseq/data
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | head -n 8
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_2.fastq.gz | head -n 8
+```
+
+Decompress file on the fly with 'zcat', pipe into 'grep', search for the read name prefix and pipe into 'wc' to do a word count ('-l' gives lines for word count)
+```{bash, eval=FALSE}
+zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep -P "^\@HWI" | wc -l
+```
+
+
+##### __Answer for Question L4:__
+
+Use ls with * and > to make a new file that has all the different transcripts.gtf files.
+```{bash, eval=FALSE}
+cd ~/sampledata/rnaseq/expression
+ls *_cDNA*_lib2/transcripts.gtf > assembly_GTF_list.txt
+```
+
+Use head to look at the raw output from cufflinks in the isoforms.fpkm_tracking file.
+```{bash, eval=FALSE}
+head Normal_cDNA1_lib2/isoforms.fpkm_tracking
+```
+
+Now use cut to extract just the columns that were requested
+```{bash, eval=FALSE}
+cut -f 1,4,7-13 Normal_cDNA1_lib2/isoforms.fpkm_tracking | less
+```
+
+Now go to `~/sampledata/rnaseq/de` and look at the files mentioned
+```{bash, eval=FALSE}
+cd ~/sampledata/rnaseq/de
+head splicing.diff
+head promoters.diff
+head cds.diff
+```
+
+For each results file, we sort the results by the p-value and view the top 10 isoforms, ignoring entries classified as 'LOWDATA'
+```{bash, eval=FALSE}
+sort -k 12n splicing.diff | grep -v LOWDATA | head
+sort -k 12n promoters.diff | grep -v LOWDATA | head
+sort -k 12n cds.diff | grep -v LOWDATA | head
+```
+
+How to display the top 20 DE genes:
+```{bash, eval=FALSE}
+grep -P "OK|gene_id" gene_exp.diff | sort -k 12n,12n | head -n 20 | cut -f 3,5,6,8,9,10,12,13,14
+```
+The above command is powerful.  But it is also getting a little carrried away and uses a few more advanced concepts. The first part uses a fancy search statement that includes the perl-style `OR` operator: `|`. So it is looking for lines that contain 'OK' OR 'gene_id'. This filters the list to include genes that are differentially expressed but also includes the column headers. The next bit sorts on the 12th column, then take the top 20, and then display only certain columns. Usually by the time you start doing things this complex, it starts to make sense to learn a high level programming language.  This will be the subject of course #2.
+
+
+
+##### __Answer for Question L5:__
+
+First you need to find the process
+```{bash, eval=FALSE}
+ps -U yourUsername
+```
+
+Then you have to get the pid and kill it like this (where pid is the process id listed on the left hand columns)
+
+```{bash, eval=FALSE}
+kill pid
+```
+
+
+
+
+
+
+
