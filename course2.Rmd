@@ -329,13 +329,11 @@ echo $PATH
 
 
 
+***
+***
+***
 
 
------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------
 
 
 This document expands on some important topics from Course 1 that will be important for you to know as you navigate your way around the Linux environment within SCRI. This module will help you understand how the file system is organized, what things you can, cannot, and should not access, and other policies and best practices that will make your life easier as you use these resources.
@@ -545,46 +543,15 @@ A list of many of the most common shell commands. For most of you, these will co
 
 
 
-
------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------
+***
+***
+***
+***
    
       
 ### __Answers for Exercises__ 
 
 Here you can find answers to the questions posed above.   
-
-
-##### __Answer for Question L1:__
-
-Display the contents of your home dir:
-
-```{bash, eval=FALSE}
-cd ~/
-ls
-```
-
-Find where other home dirs are located:
-```{bash, eval=FALSE}
-pwd
-cd ..
-ls
-```
-
-Are you allowed to see other working directories?
-
-```{bash, eval=FALSE}
-ls -l
-```
-No: the permissions prevent this
-
-
-
 
 
 
