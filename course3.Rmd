@@ -6,3 +6,653 @@ output: html_document
 ---
 
 
+Welcome to the second course in our series titled: 'Computational Biology for Biologists'.  This course will introduce you to the experience of using high level interactive programming languages and specifically: to R.  In this class we will be introducing you to the language as a tool that you can use to explore data.  The course after this will attempt to teach you enough to actually get started with writing your own scripts etc.
+
+# A quick review
+
+Before we begin, lets have a quick review of what we learned last week by doing something that will help us out this week.  First log into the sideswiper by using the ssh command:
+
+```{bash, eval=FALSE}
+ssh username@sideswiper
+```
+
+Now copy the following tarball down to your home directory with the copy command:
+
+```{bash, eval=FALSE}
+cp /tools/sampledata/course2Files.tar.gz .
+```
+
+Remember that in linux `.` means 'current directory'. Since you just logged in your current directory should be your home directory. You can check this by looking for the `~` in your prompt. 
+
+And now unpack that tarball so that the files are available for use during todays coursework:
+
+```{bash, eval=FALSE}
+tar -zxvf course2Files.tar.gz
+```
+
+This will create a folder called course2Files, but for today, we want those files to be in our home directory, so lets move them out of there:
+
+```{bash, eval=FALSE}
+mv course2Files/* .
+```
+If this all seems like we could have made it 'easier' for you, please remember that we are trying to teach you how to do this stuff.  ;)
+
+
+# Introduction to R
+
+### Opening RStudio
+We will be using a program called __RStudio__ to interface with R. RStudio is currently hosted on the Sideswiper machine until a more permanent home can be found for it. You access RStudio from a web browser and log in using your SCH credentials. Behind the scenes, you will be using the R instance that is built onto Sideswiper.
+
+***
+####  <span style="color:blue">__Exercise R0:__</span> 
+
+* Make sure that you are either in the Childrens network already (not just the PDN) OR use a Gemalto key to connect to a machine in the Childrens network. 
+* Open a browser window. Firefox and chrome work great. Internet Explorer 9 has some issues. 
+* In the address bar, type http://sideswiper:8787
+* Enter your SCH userid and password
+
+***
+
+
+### Getting familiar with RStudio
+First lets get you used to RStudio.  RStudio is one of the most popular tools for working with R today.  It normally has four main panels: 'Console', 'Source', 'Environment', and 'Files'.  Lets take a minute and look at each of these:
+
+#### Console panel:
+This panel is your actual R console.  This panel is basically what you would see if you were to run R at the command line without any of the RStudio bells and whistles.
+
+#### Source panel:
+The Source panel is where you can edit scripts and markdown documents etc.  It's primary function is to be a text editor.  You can use any text editor that you like to write R, but this one is nice because it comes pre-configured with sensible defaults for source code highlighting.  This makes it easier to read your source code.  Also convenient: if you highlight a command and then hit CTRL-ENTER keys, it will send the highlighted text directly to the console to be executed.  If this panel is not open yet, you can activate it by opening a file.
+
+#### Environment panel:
+This panel is where you will see important details about your R session.  Any local variables will be shown here, and there is also a tab to see your command history.  This can be convenient if you are debugging or need to look at what is in a local object.
+
+#### Files panel:
+The Files panel has many tabs.  The Files tab will let you look at the files in the current working directory.  And the plots tab is where RStudio will draw plots that you generate. The Packages tab will let you browse installed packages to look at their helpful vignettes, and the help tab is where RStudio will render manual pages that you open.  The Viewer tab has a similar role to the plots tab, except that it's usually used for looking at interactive shiny widgets when using RStudio.
+
+
+### What is R?
+
+R is the free and open source version of another language called 'S' which was the original 'statistical' language. Today it is more popular and widely used than ever for doing statistics and data modeling.  If you want to learn a language to do data analysis or science: you should consider learning R.  The R language is often called a "high level" language, which is another way of saying that it's more human friendly than a lot of other "low level" languages.  And R already has a large existing collection of friendly and powerful software packages that you can harness to do useful work.  
+
+Also important: R is written entirely as an open source piece of software. This is very good for scientific computing since it means that don't have to blindly trust anyone else that R will work as advertised.  If for some reason you find something with the software that you think is a bug, you can find and bother the people who authored it or even explore the source code for yourself.  This is important because while all software has bugs: only open sourced software allows you easy access to discover and fix them.  All R packages have a DESCRIPTION file that lists both who wrote it and also provides information about who maintains it.
+
+
+#### Object oriented programming
+
+R, like many other languages, has the concept of "objects". Objects are like variables in algebra, i.e. they are merely symbolic variables that can be used to represent values or other bits of information. That information can be simple, such as a numerical value, a string of text, or a logical (computer talk for `TRUE` or `FALSE`). Objects can also represent much more complicated data structures such as lists, tables, and high dimensional matrices. We will discuss these in more detail later in the course. For now, lets stick with some fairly simple objects.
+
+#### Sample objects
+
+Some R objects are always available for demonstration.  An example of this is a simple variable called `pi`
+
+```{r}
+pi
+```
+
+This is handy. You can use the `pi` variable in any operation where you want to use the value of pi.
+
+```{r}
+pi * 2
+```
+
+What if you wanted to create your own variables?
+
+#### Assignment operators 
+
+Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't know what a function is: just hang on a few more minutes and we will explaining those too.  :)  As an example of an operator the `+` operator works like this:
+
+```{r}
+1 + 2
+```
+
+As you use R you will learn that there are many other operators that you can leverage, and for most of them the way you use them is very straightforward.  Here we are going to learn about the assignment operators.
+
+Now lets consider the case where we want to assign a simple variable.  In R there are actually __two__ different symbols used as assignment operators.  I will demonstrate each of them below:
+
+```{r}
+foo <- "yes"
+bar = "no"
+```
+
+Now lets look at the value for `foo`
+```{r}
+foo
+```
+
+Now you might be wondering: why would I have more than one way to assign values?  What is the difference between `=` and `<-`? Hold that thought. Because the next section should shed some light on this...
+
+#### Vectors
+Let's look at another built in object. 
+```{r}
+LETTERS
+```
+
+Here you can see that the object is storing more than one element, namely each letter of the alphabet. This type of structure is called a __vector__. A vector is basically a special type of list. It has the constraint that every element of the list be of the same "type" (e.g. numeric, string, logical, etc). 
+
+Compare the output from `LETTERS` and `pi`. One thing you will notice is that `pi` is a numeric object, whereas `LETTERS` is a character vector (as indicated by the quotes around each letter). You will also notice that in each case, there is a report (in brackets) at the start of each line to indicate which element number is at the start of each line. Why is this necessary for `pi` when it only has a single element?
+
+#### This is because in R: Vectors are atomic
+
+Therefore `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, similar to a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest data container in R is still just a short vector.  
+
+#### Creating vectors
+
+There are two ways to create vectors. If you are creating a numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
+
+```{r}
+numbers <- 1:10
+numbers
+```
+
+To create vectors quickly, you can also use the `seq` or `rep` functions.
+
+The second way to create vectors is by using the __concatenate__ function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
+
+```{r}
+string <- c('The', 'lazy', 'brown', 'fox')
+string
+```
+
+
+### Calling functions
+Now lets talk about basic R functions.  Languages like R use functions as a shortcut for doing specific sets of instructions over and over again.  And R has no shortage of helpful functions right out of the box.  But before you start using them there are a few things you might want to know.  This section will attempt to set you up for success.
+
+One of the simplest functions in R is the help function.    The help function only requires one argument to use and that is the topic you would like to look up information on.  Lets call it now to look up the man page for another function called `grepl`:
+
+```{r, eval=FALSE}
+help('grepl')
+```
+
+If you look at this help page, you will notice that the `grepl` function can take multiple different arguments.  But it always requires at least two arguments.  You know this because there are not default arguments set for the first two arguments when looking at its 'Usage' statement.  Reading further in the manual page, you should notice that it's role is to return a logical vector indicating where the 1st argument matched the contents of the second argument.  But in terms of passing these arguments to the function: R is pretty flexible about how it will interpret your attempts to call a function.
+
+
+#### Arguments can be passed in "in order"
+
+The quickest way to get R to do this is to just pass in the correct arguments in the correct order like this:
+
+```{r}
+grepl('A', LETTERS)
+```
+
+But this assumes that you remember the exact order that the arguments were designated in the original function, and that you pass them in in that exact same order.  This method is faster in the sense that it requires less typing.
+
+#### Alternatively, arguments can be passed in by name
+
+Sometimes instead you may wish to be more explicit and actually refer to the function arguments by name.  In that case, you can call the function like this:
+
+```{r}
+grepl(x=LETTERS, pattern='A')
+```
+
+Notice how I did not have to list the arguments in order this time?  This is a good approach if you are unsure about the order, but it is also a good idea for writing code that is more robust over time.  This method requires more typing, but in the event that someone changes the function you are calling, this method is more likely to keep working.  So this method represents a more robust way to write scripts and functions.
+
+Also please notice the use of the `=` sign to indicate argument names.  This is the reason why a lot of people prefer to type `<-` for assignment operations instead of `=`.  Because if you use `<-` instead of `=`, it means that you can do an assignment right in the middle of a function call (which is sometimes convenient).
+
+
+#### You can also use as a mixture of named and un-named arguments.
+
+But once you start using named arguments in your function call, you had better stick with it.  This is because R can only guess the un-named arguments if they are still in the correct order left to right.  R is pretty smart, but it can't actually read your mind.
+
+```{r}
+grepl('A', x=LETTERS)
+```
+
+#### The special argument: '`...`'
+
+This is a special argument which indicates that a function can take multiple comma separated values (written in the function call _as if_ they were actually separate un-named arguments) _when in fact_ they will be treated by the function as if they were actually a single argument.  The function will require that any arguments given after the use of a `...` argument be named since otherwise R will have no way to know when you meant to stop passing in values that apply to the `...`.  To really understand how `...` works, you should do exercise R1.
+
+
+***
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+First use the paste function to append a letter to a number. The output should look like this:
+
+```{r, echo=FALSE}
+paste("A", "1", sep="")
+```
+
+Be sure to use the `help` function in order to learn how to use the `paste` function.  Be aware that in R if you call an argument that expects a character vector, you will need to use quotes to indicate that it's a vector.  You might also wonder what an argument called "..." means.  That is a special argument that just means you can pass a lot of values in (instead of just one).  In the case of paste it means that unless you call a named argument (the other arguments are all named), paste will assume that your arguments are all character vectors that you want pasted together.  So to paste two characters (a letter and a number) together, you should include at least two character vectors (of length one each).
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+Now create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+
+```{r, echo=FALSE}
+paste(month.name, "1",sep='_')
+```
+
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  
+
+#####   <span style="color:blue">__Exercise R1 part 3:__</span> 
+Now pass in two character vectors of unequal length.  Notice how paste handles the fact that you have passed in two different vectors by reusing the elements of the shorter vector...  This behavior is called "recycling".
+***
+
+
+
+### Using external libraries
+
+Part of what makes R so powerful is the way that it leverages the code of an entire community of other software engineers.  It can do this because R makes it very straightforward to make or use external package libraries.  An external package library is just a collection of R functions and objects that do something useful.  To use an external package all you need to do is to load it with the library command.  Here is how you can load the MASS package:
+
+```{r}
+library("stats4")
+```
+
+Now that you have loaded a package, lets talk about the search path.  The search path is how R keeps track of everything that you have loaded into memory.  You can look at it by just calling the `search` function.  
+
+```{r}
+search()
+```
+
+This will print all the libraries/packages that your current R session has loaded as a single character vector.  This is an important thing to pay attention to since every time you add a new package to the search path, it adds another set of objects, functions and symbols for R to look at every time you ask it to do something.  So your code will run faster if you load fewer things onto that path.
+
+To see the symbols in any element of the search path, you can use the list objects or `ls` function.  The `ls` function can either take an index value like this:
+
+```{r}
+ls(2)
+```
+
+Or you can just look at the exact element by passing in a character string explicitly like this:
+```{r}
+ls("package:stats4")
+```
+
+
+
+### Atomic vectors and other fun data structures
+Because R is a data centric statistical language it has a lot of fun ways to represent data.
+
+#### Vectors and introducing the `class` and `length` functions
+
+So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  You can see what class an object is by passing it to the class() function like this:
+
+```{r}
+class(LETTERS)
+```
+
+```{r}
+class(pi)
+```
+
+The most common types of vectors are: character, numeric, logical, and integer.  Another important function is length().  You can always use length to see how many elements are in a vector.  For example:
+
+```{r}
+length(LETTERS)
+```
+
+There are 26 letters in the alphabet
+
+
+#### Lists
+
+Sometimes you want to put more than just one flavor of data into a vector-like object.  For those times you need a much more flexible kind of container.  That is what lists are for.  Lets look an an example of a list:
+
+```{r}
+lst <- list(a=1, b='foo')
+lst
+```
+
+And this allows us to put pretty much anything into our list.  So in this very simple example, we have placed a character vector and a numeric vector.  But we could also have placed a large range of different object types.  And as with vectors, you have a length function you can call:
+
+```{r}
+length(lst)
+```
+
+***
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+Make the list `lst` from the example above and then make a second list `lst2` that contains both `lst` and the LETTERS vector.  How long is this list?
+
+***
+
+
+#### data.frames, matrices, dim
+
+Sometimes you need to represent 'square' data.  We have all seen excel sheets and tables before.  For this kind of data, R has matrices and data.frames.  A matrix is usually used when you have simple 'square' data like a grid of numbers.  Lets have a quick look at an example of a matrix as constructed from a numeric vector:
+
+```{r}
+numVec <- c(1,2,3,11,12,13)
+numVec
+mat <- matrix(numVec, nrow = 2, ncol = 3, byrow = TRUE)
+mat
+```
+
+Once you have a matrix you can see how big it is with the dimensions function: `dim`.
+
+```{r}
+dim(mat)
+```
+
+You can also get the length of a matrix, but note that the result of length makes a lot less sense for matrices since it just represents the length if you collapsed the whole thing into a single vector:
+
+```{r}
+length(mat)
+```
+
+You will likely see matrices a lot in R.  But even more common you will see __data.frames__.  data.frames are usually used for when you have 'square' data and when the different columns are different from each other.  They are popular, because this happens all the time.  Lets look at an example so that you can know what I mean by the columns being different from each other:
+
+```{r}
+df <- data.frame(number = 1:4, letter = c('A','B','C','D'))
+df
+```
+
+There are some obvious differences between a data.frame and a matrix.  But there are some more subtle ones as well.  For example, look at what happens if I look at the `dim` and the `length`:
+
+```{r}
+dim(df)
+length(df)
+```
+
+The results for dim look like 'square' data, but the length is now the number of columns.  In this sense (and in others) a data.frame object is actually more like the 'square' version of a `list` while a matrix is more like the 'square version of a `vector`.
+
+
+#### S4 objects
+
+Sometimes your data is not simple and does not fit into a simple container. For these instances R has what is called the "S4 class system" that allows for the creation of custom data containers.  In this course there will not be time to learn the mechanisms for defining these, but many many such containers exist and it is often convenient to use them.  Here is an example of one of these in action that I will load up using the `data` function
+
+
+```{r, eval=TRUE, echo=FALSE, message=FALSE}
+## Secret chunk to silently load this package  :)
+library(Biobase)
+```
+
+```{r}
+library(Biobase)
+data(sample.ExpressionSet)
+sample.ExpressionSet
+```
+
+This is a complex object that was originally created to hold microarray data but has since been adapted for many other uses.  It has several main components that are probably best described by looking at the man page.
+
+```{r, eval=FALSE}
+?'ExpressionSet'
+```
+
+
+
+
+
+
+### Getting data into R 
+
+#### read.table
+One of the most common tools for reading data into R is the read.table function.  And actually, it's a family of commands.  If you look at the man page you will see a whole set of related commands.
+```{r, eval=FALSE}
+?read.table
+```
+
+The `read.table` command and it's friends are a good introduction to how you can load a popular kind of data format into R.  Specifically tabular data.
+
+```{r}
+filename = 'refFlat.txt.gz'
+foo = read.table(file=filename, nrows = 3)
+foo
+```
+
+
+
+#### readLines
+Sometimes you need to get data in and your file may not be as nicely formatted.  `readLines` will let you get the data in and reads files in one line at a time.  `readLines` is also worth showing because unlike a lot of other data import function in R, it does not take a file path directly, but requires that you pass it a connection object.  Here is an example of how that looks:
+
+```{r}
+con <- file(filename)
+bar = readLines(con)
+```
+
+Having said all that: mostly you won't need to use readLines.  But it's there if you need it, and it's _very_ fast.
+
+
+#### Other options: Databases, URIs, REST, HDF5 and many more
+
+R also has a ton of alternate tools for reading in all manner of other file formats as R objects.  This topic could almost become it's own course.  Some popular options include, databases URIs, REST apis, HDF5 files (just to name a few).  Many of these capabilities are not baked in to base R but are instead available via open source packages.  Here is a very simplified example of how you can use the DBI interface which is useful for extracting data from a database file.  
+
+
+```{r}
+library(org.Hs.eg.db)
+con <- org.Hs.eg_dbconn()
+dbGetQuery(con, "SELECT * FROM gene_info limit 3")
+```
+
+We won't go into how those commands work in the context of this course, but I wanted you to see an example of how other packages can allow you to interface with wildly different data sources after typing just a couple lines of R code...
+
+***
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Use read.table to read in the file `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the column headers are understood?
+
+***
+
+
+### Data object management
+
+Once you have an object in R, there are a TON of fun ways that you can manipulate it.
+
+#### Data coercion
+The 1st type of manipulation are coercion methods (sometimes called casting).  These methods allow you to take data from one format and convert it into another format.  For example, a lot of data can be coerced to a list using the `as.list` function.  Think of our data.frame object from before and imaging if you could make each column into an element in a list like object instead.  You can do that just like this.
+
+```{r}
+as.list(df)
+```
+
+Or: you could take that same data.frame and make it into a matrix like this:
+
+```{r}
+as.matrix(df)
+```
+
+Or you can take it all the way down to a simple character vector by first casting it to a matrix and then casting that matrix to a vector:
+
+```{r}
+as.vector(as.matrix(df))
+```
+
+
+#### single bracket subsetting operator `[` 
+
+One of the most powerful things in R are the subsetting operators.  And the most common subsetting operator is the single bracket operator.  For most R objects, if you apply the single bracket operator, you will get a piece of whatever was in the original object.  Lets look at some simple examples to illustrate:
+
+You can subset by supplying index values:
+
+```{r}
+LETTERS[1]
+LETTERS[1:3]
+LETTERS[c(1,3)]
+LETTERS[c(4,2)]
+```
+Notice that in the last case, I can even use the subset to also "re-order" the values.
+
+Or you can subset by logical position
+```{r}
+shortLetters <- LETTERS[1:4]
+shortLetters[c(FALSE, TRUE, TRUE, FALSE)]
+```
+But logical vectors do not allow me to "re-order" the vector, only to subset it.
+
+
+And: you can also subset by name (_if_ there are names):
+
+```{r}
+names(shortLetters) <- c('foo','bar','baz','bob')
+names(shortLetters)
+shortLetters
+shortLetters['foo']
+shortLetters[c('bob','bar')]
+```
+Be sure to notice how when I want to indicate several names or indices that are not in any order, I have to supply a character vector using `c` that has those values in it.  Notice that just like using an index to subset, you can use names to "re-order" the vector as you are extracting values.
+
+
+#### match(), %in%, unique()
+
+Another very common thing to want to do with data objects is to match elements.  There are a couple of methods for doing this.  One is the `match` function.  The `match` function will give you a vector with indices that match a 'table' of 'x' values.  So for example:
+
+```{r}
+match(shortLetters, c('C','A'))
+```
+
+Notice though that the index refers to the position in the 'table' argument and not the position in 'x'.
+
+This brings us to the `%in%` operator.  The `%in%` operator lets you get a simple logical vector indicating whether or not the values in 'x' match the values in 'table'.
+
+```{r}
+shortLetters %in% c('C','A')
+```
+
+Between these two methods, the `%in%` is usually easier for subsetting since it does not require you to filter out NA values in the event that something doesn't match.  But match is potentially more useful if you need to return things in an order that matches your table.  But pay attention because `match` will only return the 1st element that matches, so if there are multiple matches in 'x', it will only tell you about the first one...  This is another reason why the `%in%` operator is usually better if your aim is just to subset the data.  IOW:
+
+```{r}
+c(shortLetters,shortLetters) %in% c('C','A')
+```
+
+Please also take note that you can reverse the meaning of a vector of TRUE/FALSE values by using the negation operator.  For example, compare
+
+```{r}
+shortLetters %in% c('C','A')
+```
+
+To:
+
+```{r}
+!shortLetters %in% c('C','A')
+```
+
+Another useful function is the `unique` function.  You can use `unique` whenever you have a vector or list like object that needs to be filtered down so that it only contains one instance of each element.  So just compare:
+
+```{r}
+c(shortLetters,shortLetters)
+
+unique(c(shortLetters,shortLetters))
+```
+
+
+
+***
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+* Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  
+
+* Now subset the `month.abb` vector so that you only see those months.  
+
+* Now use `%in%` instead of `grepl` and look for every month __except__ Jun. <HINT: The negation operator is `!`>
+
+***
+
+
+#### double bracket subsetting operator `[[` 
+
+In addition to the single bracket subsetting operator, some objects also support a double bracket subsetting operator.  This kind of operator is normally only used with list like objects such as `data.frame`s and `list`s.  The difference between the single and double bracket operator is in the type of data that is returned.  While the single bracket operator will try to return the same type of object as it was used on, the double bracket will return the type of thing that is 'in' the container.  Lets look again at our list example:
+
+Single bracket
+
+```{r}
+lst[1]
+class(lst[1])
+```
+
+Double bracket
+
+```{r}
+lst[[1]]
+class(lst[[1]])
+```
+
+If you look closely, you will notice that these two operators are not returning the same thing.  A useful analogy is to think of your list of data.frame like it was a cargo train.  In this analogy, the single bracket will always return to you a smaller train, but the double bracket will return to you the contents of a particular train car.
+
+Now lets look at our data.frame example:
+
+Single bracket
+
+```{r}
+df[1]
+class(df[1])
+```
+
+Double bracket
+
+```{r}
+df[[1]]
+class(df[[1]])
+```
+
+Notice how in both cases, the subset operator gets you the contents of the same 'train car'.  But: only the second one actually strips off the train car and gives you just what is inside it. 
+
+
+
+#### Using the single bracket operator to subset square data
+
+Something that we didn't mention above is that for 'square' data, the single bracket operator can take another argument.  What this means is that you can extract both columns and rows at the same time.  What is confusing though, is that when you use the second argument, the first argument will now apply to rows while the second argument applies to columns.  Lets look at some examples:
+
+The whole object (matrix)
+```{r}
+mat
+```
+
+The 1st row, 1st column (matrix)
+```{r}
+mat[1,1]
+```
+
+1st two rows, 2nd column (matrix)
+```{r}
+mat[1:2,2]
+```
+
+2nd row, columns 1:3 (matrix)
+```{r}
+mat[2, 1:3]
+```
+
+Now lets look these same operations but with data.frame objects:
+
+
+Whole object (data.frame)
+```{r}
+df
+```
+
+1st row, 1st column  (data.frame)
+```{r}
+df[1,1]
+```
+
+1st three rows, 1st column  (data.frame)
+```{r}
+df[1:3,1]
+```
+
+Third row, columns 1:2  (data.frame)
+```{r}
+df[3,1:2]
+```
+
+#### When R gets too smart for it's own good (automatic casting):
+So as you can see, you can use the subset operators in R to slice data in all sorts of useful different ways.  But there is another thing that was happening for a lot of these subsets that you might not have noticed.  Lets take a quick look at that:
+
+```{r}
+class(df)
+class(df[3,1:2])
+class(df[1,1])
+```
+Notice how in that last case the class changed from a data.frame to a simple integer vector?  That's because R is assuming that if you are working interactively you might find that cast convenient.  However, in many cases it will NOT be convenient to have your data objects automatically changing types on you.  So please be aware that this can happen.  But how can you avoid it?  Well the single bracket subset operator when applied to a data.frame has a third argument that you can use called `drop`.  If you set `drop` to be FALSE, then R will stop trying to cast your data for you:
+
+```{r}
+class(df[1,1, drop=FALSE])
+```
+
+***
+####  <span style="color:blue">__Exercise R5:__</span> 
+
+#####   <span style="color:blue">__Exercise R5 part 1:__</span> 
+Remember that list (`lst2`) we made in exercise R2?  Well go back to that list now and extract out the original list (`lst`) by using the appropriate subsetting operator.  Assign that recovered value into a variable called `recoveredLst`.  How do you know which kind of operator to choose?  How can you verify whether your `recoverdLst` is now the correct thing?
+
+#####   <span style="color:blue">__Exercise R5 part 2:__</span> 
+Now lets look at the `myTable` data.frame object we created when we used the `read.table` function.  Using what we just learned about subset operators, extract out a vector of gene symbols.  Now make those symbols unique with the `unique` function and assign the resulting value to a variable called `symbols`.  If you look at the value for `symbols`, you will notice that it's not a character vector but is instead something called a factor.  Convert it to a character vector using as.character().  Now that you have done this, do it another way (you should know at least two different ways to subset at a data.frame in order to extract a specific column).
+
+Now, using what you understand about subsetting operators, see if you can figure out a convenient way to store the value of `symbols` inside of a third element for `lst2`...
+
+***
+
+
+#### What are these 'factors' about?
+
+Because R is a statistical language, it is often useful to have categorical data like 'gender'.  For data like this, R has a special kind of vector called a `factor`.  Don't worry too much about factors today, but be aware that they are out there, and you might notice that in many cases your character data will by default be assumed to be this kind of data.  Because of this, a lot of import functions like `read.table` will have a special argument called `stringsAsFactors` that can let you decide how your data will be treated after importing.  
+
+
