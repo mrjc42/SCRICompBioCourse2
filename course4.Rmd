@@ -6,3 +6,642 @@ output: html_document
 ---
 
 
+### Getting help 
+If you forget everything else we teach you today, I want to make sure that you know how and where to look for help. The next set of topics will cover that because R has a large number of ways that new users can get assistance for learning about it.
+
+#### Man pages
+The manual page is usually the first place you will look if you are wondering what an R command will do.  R man pages will explain both what something is, and how to use it  You can usually pull up a manual page for a command by typing `?` followed by the command.  Like this:
+
+```{r, eval=FALSE}
+?data.frame
+```
+
+However a good habit is to wrap the thing you want help on in quotes like this:
+
+```{r, eval=FALSE}
+?'data.frame'
+```
+
+Why?  Because those quotes will allow you to search for help on strings that have special characters like dashes in them.  Why would you want to do that when this is not allowed for function names?  Consider the following:
+
+```{r, eval=FALSE}
+ ?'GenomicRanges-class'
+```
+
+The above will take you to the help page for the GenomicFeatures S4 class.  It's a very useful man page, but you can't get there if you leave out the quotes.
+
+Alternatively, you could choose to just use the `help` command.  But that is three extra letters of typing (and you would still have to quote the argument)...
+
+##### example()
+One of the more useful (and often overlooked) functions for exploring a new function is the `example` function.  The `example` function takes advantage of the fact that most man pages have an example section.  So if instead of calling `help`, you call `example`, the examples from the corresponding manual page will be run for you in your R session.  Here is an example of calling the `example` function:
+
+```{r}
+example('as.numeric')
+```
+
+
+
+#### Vignettes
+One step up from manual pages are vignettes.  There are two kinds of vignettes for any R package.  One is the automatically generated kind.  This kind consists of all the manual pages collated together under a table of contents.  This kind of vignette is not especially useful.  The second kind of vignette though is very useful.  This second kind of vignette gives an overview of how the various kinds of functions and objects were intended to be used.  Many of the best R packages will contain this second, more useful kind of vignette.  When they are available, these are a great way to see what the package authors intention was.
+
+#### Workflows
+Sometimes communities will organize around a series of packages that work well together (usually not an accident).  When this happens you can sometimes find another kind of document to explain how these different packages are best used together.  This is called a workflow, and it's a great place to start if you are looking to learn about a new set of tools.
+
+#### Forums
+All software has bugs.  But open sourced software often will allow you to write to a community of like minded users (which often includes the package authors) to get help.  There are many valuable forums where you can get questions answered about software.  Always search first though.  Most of the time you will find that someone else has already asked your question and gotten an answer.
+
+#### Cheat sheets
+One of the most challenging things for new users of R is not getting help on commands that they know about.  It's usually knowing what the command is called in the first place (so that you can start to look for some help about it).  A number of R 'cheat sheets' are available online that can help with this problem.  Here is one of the more popular ones:
+
+```
+https://cran.r-project.org/doc/contrib/Short-refcard.pdf
+```
+ 
+This cheat sheet is valuable enough for new students that I plan to give you a copy of this cheat sheet, but there are many, many others on the web that cover a range of topics...
+
+
+***
+####  <span style="color:blue">__Exercise R6:__</span> 
+
+#####   <span style="color:blue">__Exercise R6 part 1:__</span> 
+
+Go look up the help pages for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working for you, you might need to launch a vignette using `openVignette`.  Please note that `openVignette` requires that you have loaded the `Biobase` package to use.  Or you can look at the man pages using `help`. Find an example package and explore each of these.
+
+#####   <span style="color:blue">__Exercise R6 part 2:__</span> 
+
+Lets look more closely at the help page for data.frames.  Notice the first argument?  This is a special argument that allows for multiple comma separated values to be passed in.  Because of the nature of this argument, all subsequent arguments will require being named.  Now scroll down and look at the other arguments.  Which arguments have default values?  How can you tell?
+
+***
+
+
+### Exploring packages
+One of the greatest strengths of R is the abundance of existing software that already exists.  Here are several places where you can expect to find a lot of software for use with R:
+
+#### CRAN 
+CRAN alone has thousands of freely available software packages for you to browse.  CRAN is one of the oldest of the R repositories and it's also one of the largest and most popular.  It's pretty easy to put a package on CRAN though, so a lot of what is there may not be terribly well documented.  Also a bummer is that CRAN does not make it easy for package authors to update their packages which means that packages on CRAN may have significant delays before being updated for bugs etc.  But: CRAN is a great resource and home to many wonderful packages that are useful for many different things.
+
+#### Bioconductor
+Bioconductor is smaller than CRAN with only about 1000 software packages.  However all of them have been reviewed, are well documented, and are built and checked nightly to ensure that they are still in good working order.  Because the mission of Bioconductor is to help with computational Biology, their package repository is limited to packages that relate to that topic.  So if you need software that is designed for general statistical use you will usually learn that is has been stashed somewhere else (often on CRAN).
+
+#### github
+These days github has become a hotbed for open source software.  Partly as a result of this, a lot of package authors are now storing their packages just on github.  This is fine except that github will not run regular checks to make sure that such packages work as advertised or do any policing to make sure that packages are well documented.
+
+
+### Bioconductor
+The Bioconductor project is popular in no small part because it has provided a safe haven to help good software authors better serve the broader computational biology community.  Packages at Bioconductor are built and checked nightly to make sure that as R and their dependencies change that they still work as advertised.  This turns out to be hugely important since the entire field of computational Biology changes constantly.  Another useful advantage for Bioconductor is that everything is documented.  Not just at the man page level (as is common for many CRAN packages), but also at the vignette level.
+
+#### work flows
+
+In addition to demanding that all packages at Bioconductor are documented with manual pages and instructional vignettes, there are also high level overviews that show how groups of popular packages can be used in a common 'work flow' to solve specific problems.  You can see the work flows on the Bioconductor website here:
+
+```
+http://bioconductor.org/help/workflows/
+```
+
+
+***
+***
+***
+
+
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+First use the paste function to append a letter to a number. The output should look like this:
+
+```{r, echo=FALSE}
+paste("A", "1", sep="")
+```
+
+Be sure to use the `help` function in order to learn how to use the `paste` function.  Be aware that in R if you call an argument that expects a character vector, you will need to use quotes to indicate that it's a vector.  You might also wonder what an argument called "..." means.  That is a special argument that just means you can pass a lot of values in (instead of just one).  In the case of paste it means that unless you call a named argument (the other arguments are all named), paste will assume that your arguments are all character vectors that you want pasted together.  So to paste two characters (a letter and a number) together, you should include at least two character vectors (of length one each).
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+Now create a vector of names so that each name contains the with the 1st day from each month.  So the final vector should look like this:
+
+```{r, echo=FALSE}
+paste(month.name, "1",sep='_')
+```
+
+To do this, you will want a string that has all the months.  R has such a string already it's called: `month.name`.  Using that string and the `paste` function, create the vector described above.  
+
+#####   <span style="color:blue">__Exercise R1 part 3:__</span> 
+Now pass in two character vectors of unequal length.  Notice how paste handles the fact that you have passed in two different vectors by reusing the elements of the shorter vector...  This behavior is called "recycling".
+
+
+
+
+#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 1):__</span> 
+To just append one character to one number, you can do it like this:
+
+```{r}
+paste("A", "1", sep="")
+```
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 2):__</span> 
+For the months example you can also use the the paste function like this with two longer vectors.
+
+```{r, eval=FALSE}
+paste(1:12, month.name, sep='_')
+```
+
+######  <span style="color:blue">__Answer for Exercise R1 (part 3):__</span> 
+To two unequal character vectors, you can just enter two vectors with different amounts of values for each like below.  Notice how the shorter vector is 'recycled' by the paste function. 
+
+```{r}
+paste(c("A","B","C"), "1", sep="_")
+```
+
+
+
+
+
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+Make the list `lst` from the example above and then make a second list `ls2` that contains both `lst` and the LETTERS vector.
+
+#####  <span style="color:blue">__Answer for Exercise R2:__</span> 
+
+```{r}
+lst2 <- list(lst, LETTERS)
+lst2
+
+length(lst2)
+```
+
+
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Use read.table to read in the file that you unpacked earlier called `genesFile.txt`.  Be sure to capture the results of this into a local variable called `myTable`.  What kind of object is `myTable`?  How do you know?  How can you read in the table so that the header is ignored?
+
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+```{r}
+myTable <- read.table(file='genesFile.txt', header=TRUE)
+
+class(myTable)
+```
+
+
+
+####  <span style="color:blue">__Exercise R4:__</span> 
+
+Use the `month.abb` vector with the `grepl` function to determine which elements start with the letter 'J'.  Now subset the `month.abb` vector so that you only see those months.  Now do the same thing, but this time use `%in%` instead of `grepl` and look for every month __except__ Jun.
+
+
+#####  <span style="color:blue">__Answer for Exercise R4:__</span> 
+
+```{r}
+grepl('J',month.abb)
+
+month.abb[grepl('J',month.abb)]
+
+month.abb[!month.abb %in% 'Jun']
+```
+
+
+####  <span style="color:blue">__Exercise R5:__</span> 
+
+#####   <span style="color:blue">__Exercise R5 part 1:__</span> 
+Remember that list (`lst2`) we made in exercise R2?  Well go back to that list now and extract out the original list (`lst`) by using the appropriate subsetting operator.  Assign that recovered value into a variable called `recoveredLst`.  How do you know which kind of operator to choose?  How can you verify whether your `recoverdLst` is now the correct thing?
+
+#####   <span style="color:blue">__Exercise R5 part 2:__</span> 
+Now lets look at the `myTable` data.frame object we created when we used the `read.table` function.  Using what we just learned about subset operators, extract out a vector of gene symbols.  Now make those symbols unique with the `unique` function and assign the resulting value to a variable called `symbols`.  If you look at the value for `symbols`, you will notice that it's not a character vector but is instead something called a factor.  Convert it to a character vector using as.character().
+
+Now, using what you understand about subsetting operators, see if you can figure out a convenient way to store the value of `symbols` inside of a third element for `lst2`...
+
+
+
+#####  <span style="color:blue">__Answers for Exercise R5:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R5 (part 1):__</span> 
+
+```{r}
+recoveredLst <- lst2[[1]]
+
+class(recoveredLst)
+```
+######  <span style="color:blue">__Answer for Exercise R5 (part 2):__</span> 
+At this point you now know at least two different ways to do this:
+```{r}
+symbols <- unique(myTable[[2]])
+symbols <- as.character(symbols)
+```
+And this:
+```{r}
+symbols <- unique(myTable[,2])
+symbols <- as.character(symbols)
+```
+And just for fun here is a third way:
+```{r}
+symbols <- unique(myTable$symbol)
+symbols <- as.character(symbols)
+```
+To append another element into your list, there are many ways to do it.  But one very 'R-ish' way is this:
+```{r}
+lst2[[3]] <- symbols
+lst2
+```
+
+
+
+
+####  <span style="color:blue">__Exercise R6:__</span> 
+
+#####   <span style="color:blue">__Exercise R6 part 1:__</span> 
+
+Go look up the help pages for the `help.start` function. Now actually use that function to explore some package vignettes and man pages in one simple interface. If this wasn't working for you, you might need to launch a vignette using `openVignette`.  Please note that `openVignette` requires that you have loaded the `Biobase` package to use.  Or you can look at the man pages using `help`. Find an example package and explore each of these.
+
+#####   <span style="color:blue">__Exercise R6 part 2:__</span> 
+
+Lets look more closely at the help page for data.frames.  Notice the first argument?  This is a special argument that allows for multiple comma separated values to be passed in.  Because of the nature of this argument, all subsequent arguments will require being named.  Now scroll down and look at the other arguments.  Which arguments have default values?  How can you tell?
+
+
+#####  <span style="color:blue">__Answer for Exercise R6:__</span> 
+
+######  <span style="color:blue">__Answer for Exercise R6 (part 1):__</span> 
+There is no single correct answer for this question.
+
+######  <span style="color:blue">__Answer for Exercise R6 (part 2):__</span> 
+This is a tricky question, but you can probably see what the answer is by looking closely at the manual page. You can tell which values have default values by looking at the usage statement.  If the usage statement has a value assigned within it, then that is the default for that argument and will be used if an alternative value is not supplied.
+
+
+
+
+
+
+***
+***
+***
+
+
+
+
+Welcome to our third course which aims to take you from a basic ability to interact with the language to one where you are able to write your own code.  From the outset we will try to warn you about bad habits so that you will avoid making some of the mistakes that most other people make when they start programming in R.
+
+Here is a list of topics that should be covered by the end of this course:
+
+# Basic system tools
+One of the useful parts of R is how it can interact directly with the OS that you have installed it on.  R can see what is in your local file system, it knows what kind of an OS you are running, and how to point the file separators.  And it can even launch command line tools right from R.  However, using these abilities can come at the cost of platform independence (the ability of your R scripts to be portable to other platforms).  So you should use these powers judiciously.
+
+### `getwd`, `setwd`
+
+The most basic R file system utility is probably `getwd` or "get working directory" function.  It means the same thing as the UNIX `pwd` command, except that instead of telling you where you are, it tells you where R is working from at the time.  If you don't like where R has defaulted to, you can use the `setwd` command to set the directory to something else.
+
+
+### `dir`, `file.remove`, `file.rename`
+
+R has a family of functions for basic file management.  `dir` will let you list the contents of a directory, `file.remove` will let you remove a file from the file system and `file.rename` will let you rename OR move a file to another location (whether you name it something new or not).
+
+
+### The powerful (system dependent) `system` command:
+
+One of the most complicated and powerful of R's basic utilities is the `system` command.  This will run any command line commands based on the interpretation of a string that you pass in.  This is obviously extremely powerful, but remember that if you use this function in a program your code will no longer work on any platform other than ones that support the exact system command that you are passing in.  So for example, the following command will only work on UNIX based systems:
+
+```{r}
+system('pwd')
+```
+
+### Platform independence: `.Platform$file.sep`, `file.path` and `system.file`
+
+So how can you deal with the problem of platform independence?  There are many solutions to different problems that are created by the need to have portable R code.  One of the most common problems is: How do I read in a file when the file separators are different on different OS's?  
+
+To learn what the current OS is using as a file separator, you can look at the path.sep portion of the .Plaform object like this:
+```{r}
+.Platform$file.sep
+```
+
+Alternatively, maybe you have set things up so that you always have file 'bar.txt' that is contained inside of a 'foo' directory.  If that is the case you can always generate the correctly formatted file path by using the `file.path` function:
+
+```{r}
+file.path('foo','bar.txt')
+```
+
+Finally, if you have a file that is stored in an installed package, the `system.file` command is an ideal way to refer to resources like this (in a way that respects whatever OS you are using).
+
+
+
+
+# How to create basic functions
+
+Now we are ready to introduce the tools for how to write basic functions.  The good news is that writing functions is easy.  The bad news is that writing great functions takes practice.  Here we will introduce you to the basics and then we will give you some tips so that you can write useful functions.
+
+### The basics
+
+The first thing to understand about writing functions is that in R, there is a special function called `function` that is used to create a function.  Lets look at a simple example that defines a function called `myFun`. 
+
+```{r}
+myFun <- function(){}
+```
+
+And that's it.  You can now call the function `myFun` just like this:
+
+```{r}
+myFun()
+```
+
+But you may have noticed that myFun() is not very interesting since it doesn't actually do anything...  To fix that, we can put some instructions inside of the curly braces that follow the call to `function` like this:
+
+```{r}
+myFun <- function(){1+2}
+myFun()
+```
+
+So that is at least more interesting.  But what if we wanted to pass in a value to our function?  Well we could define a function argument just by putting it into the function call to `function`, and then referring to that argument inside of the curly braces.  That would look like this:
+
+```{r}
+myFun <- function(x,y){x+y}
+myFun(x=2, y=3)
+```
+
+And if we wanted to get fancy, we could even define some default arguments for our function like so:
+
+```{r}
+myFun <- function(x=1,y=2){x+y}
+myFun(2)
+```
+
+
+***
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+#####   <span style="color:blue">__Exercise R1 part 1:__</span> 
+
+While staying in your R session, find out what your working directory is and list out the files that are available there.  How could you have done this another way?  What are the advantages of each approach?
+
+#####   <span style="color:blue">__Exercise R1 part 2:__</span> 
+
+Write a function that appends a fictional extension '.extension' to any string.
+
+***
+
+
+
+# Flow control
+
+Basic function creation is pretty straightforward, but what if we want to apply some logic inside of our function?  
+
+### `=` vs `==`
+
+You have already  seen the `=` operator before and know that in most (but not all) cases it acts as an assignment operator.  Now lets meed the `==`.  The `==` operator tests equality.  It returns a boolean value (TRUE or FALSE), depending on what the expression is.  So for example lets look at a couple of uses of this new operator and see what comes back:
+
+```{r}
+2==2
+## VS
+1==2
+```
+
+That seems pretty clear right?
+
+
+But addition to `==`, there are also a lot of other operators that test equality in various ways.  Please also consider:
+
+ operator          what it tests
+----------    -----------------------
+   ==           equality
+   !=           not equal
+   >            greater than
+   <            less than
+   >=           greater or equal
+   <=           less than or equal
+ 
+ 
+ 
+### `if`
+
+But what if you need to do something different based on the results of something like an equality test (something that returns TRUE or FALSE)? In that case, we might want to use an `if` statement.  In R, an if statement is actually just another function call similar to the  `function` function.  So in R, an `if` statement usually looks like this:
+
+```{r}
+y <- 1
+if(y==1){y<-pi}
+y
+```
+
+Notice how the value for y was tested and then how it was set to a new value inside of the curly braces?  You can use `if` statements wherever it's convenient for you.  But most people find them most useful when you need a function to make a decision.
+
+
+### `else`
+
+Often times when you are done with an `if` statement you might need to do something 'else' in the event that the initial criteria was not met.  When that is true, you can use an `else` statement.  The `else` should always follow right after the results from the `if` statement like so:
+
+```{r}
+y <- 3
+if(y==1){
+  y<-pi
+}else{
+  y<-pi*2
+}
+y
+```
+
+
+
+### `switch`
+
+Sometimes you might need to evaluate a whole slew of different expressions.  The `switch` function can let you handle these cases and they are _much_ more compact than a tall stack of `if` expressions would be.  But take heed: for needing this function can often be a 'red flag' concerning the design of your code.  If you have a large number of different specific expressions to handle: that often means that you are committing to maintaining a list of flags and the specific results from those flags.  `switch` statements are easy to write, but they can become a fair amount of work to maintain in the long run.  The help page for the switch function gives a pretty clear example:
+
+```{r}
+centre <- function(x, type) {
+  switch(type,
+         mean = mean(x),
+         median = median(x),
+         trimmed = mean(x, trim = .1))
+}
+x <- rcauchy(10)
+centre(x, "mean")
+centre(x, "median")
+```
+
+
+
+
+# Loops in R
+
+One of the most useful applications of any programming languages is getting computers to do repetitive tasks for us and R is no exception.  For most languages this would mean that you would want to use a for loop.  R has for loops, and we will get to those in a minute.  But for a data centric language like R, repetition usually means iterating over elements of one of the many data objects that are provided.  For these kinds of tasks, there is a whole family of functions that are useful.  These functions are the `apply` family of functions.  Lets talk about a few of the more commonly used ones here:  
+
+### `lapply` 
+
+The `lapply` function is used to loop across a `list` or a list like object such as a `vector`.  The return value of lapply is always going to be a list.  Lets consider the following list object:
+
+```{r}
+x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
+x
+```
+
+Using `lapply`, we could compute the mean of each list element like this:
+```{r}
+lapply(x, mean)
+```
+
+### The `apply` function
+
+The `apply` function is used for looping across matrices.  You use it a little bit like `lapply`, but in addition to the object and function to apply, you will need to indicate which axis you want to iterate across (columns or rows).  For an example of `apply`, consider the following matrix
+
+```{r}
+x <- cbind(x1 = c(3,4,1,5), x2 = c(9,7,6,2))
+x
+```
+
+And this is how you can sort the columns of x:
+```{r}
+apply(x, 2, sort)
+```
+
+
+### `mapply`
+
+Sometimes you have a function that expects a few arguments and you need to supply them as a pair of vectors of equal length.  `mapply` lets you accommodate as many different values as your function needs. The first argument for mapply is the function followed by a `...` argument for vectors with a special named argument called `MoreArgs` in the event that you need to pass other non-vectorized arguments to your function.  The `MoreArgs` argument takes a named list of other arguments.  So for example if you needed to paste together a string and a number and have them be separated by an underscore, you could do it with `mapply` like this:
+
+```{r}
+mapply(paste, 1:3, LETTERS[1:3], MoreArgs = list(sep="_"))
+```
+
+
+### `bplapply`
+
+Sometimes you need to launch an apply function across multiple cores or across a cluster.  There are several tools to use for doing this.  But one of the most versatile is `bplapply`.  This function is detailed in the BiocParallel package and will allow you to leverage a wide range of different parallelization options available from R.  Parallel processing is a pretty advanced topic for a beginner course, so for now we just wanted to make you aware of this function and it's associated package documentation.
+
+
+### `for` loops (for when apply is not possible)
+
+Sometimes it just isn't convenient to use an `apply` function.  When that happens you might need to write an old fashioned `for` loop.  `for` loops in R look odd if you are from other languages.  In R, they take a format that makes them look like our previously described `function` definitions or our use of `if`.  Here is an example:
+
+```{r}
+for(i in 1:4){message('count ',i)}
+```
+
+One quick word of caution if you are going to be writing `for` loops.  In R it is very easy to write a `for` loop where with each pass you append another element to a vector or list etc.  But in general, this approach is a bad idea.  A much better idea is to prefabricate a data object of the size you will need and then to "fill in" each element as you loop along. This strategy is sometimes called 'pre-allocate and fill'.  And it's far more efficient for R because of the way that R handles copying and memory allocation.
+
+
+***
+####  <span style="color:blue">__Exercise R2:__</span>
+
+#####   <span style="color:blue">__Exercise R2 part 1:__</span> 
+
+You have the following vector of base calls:
+
+```{r}
+bases <- c('A','C','A','C','G','T')
+```
+
+You want to convert this info a vector where the purines (A and G) are labeled as TRUE and the pyrimidines (C and T) are FALSE.  Write a simple function to do this for just one element (one base).
+
+#####   <span style="color:blue">__Exercise R2 part 2:__</span> 
+
+Now write call that function using lapply to get a vector of answers.  Don't forget to use the `unlist` function to clean up the result.
+
+***
+
+
+
+
+# Writing good code
+R makes it easy to write functions.  But sometimes it seems that it makes it too easy.  You will find yourself thinking this someday when you have to decipher some horribly written R function that someone passes along to you.  Far worse though, is the realization that you yourself wrote an awful function years ago and now have to translate it today.  This section will attempt to help you avoid some of the misery associated with writing poor R code by giving you a few useful tips. 
+
+### Check your arguments when writing functions
+One of the most important things to do when writing functions is to check the arguments.  You can never trust your end users to pass in the kinds of things you were thinking when you first wrote the function.  In fact, this problem is so important that a lot of the more used R functions end up with a large proportion of code at the time written just to make sure that the arguments passed in are the correct types, lengths and contain the correct kind of information.  It is much more valuable to an end user to be told early on that one of their arguments is the wrong kind of data than to silently fail and pass along bad information back to them...
+
+### Write short functions
+Always try to write functions that only do one thing.  And if you must write a function that does multiple things, it should be written so that it calls several shorter (and simpler functions).  The best functions are the ones that do one thing well.  Why?  Because a simple function is more likely to be reusable.  And it is also a lot more likely to make sense when you have to decipher what it's original purpose was three months from now.
+
+### Don't repeat yourself (DRY principle)
+Copying code is always a bad idea.  Inevitably, if you have two places in your code where the same thing is repeated, what will happen is that you will have to make a change and you will forget to keep them both in sync.  While that might be an interesting natural history experiment, it makes for a lot of engineering headaches down the road.  If you ever find yourself with the same code in more than one place do yourself a favor and write a short function (then call it in those two places).
+
+### Always check if someone else has solved the problem
+Even better than writing code is to discover that someone else has already solved the problem.  Always look before you write.
+
+
+
+
+
+# Basic debugging tools
+
+### `system.time`
+
+One of the common problems when writing code is working out how long something takes.  The `system.time` command will tell you this information for any function or R expression.  This is a good tool to should reach for when you need to know which part of your script is taking too long to run.  So for example, this is how you can learn how long it takes to run the `date` function.
+
+```{r}
+system.time(date())
+```
+
+### `browser`
+
+I don't really recommend using `browswer` for actual debugging.  But it's been around long enough that if you look into debugging someone will mention it.  Now I have too!  To make use of it, you just need to insert a function call to browser() into your source code.  If that sounds inconvenient, it's because it is.  :P
+
+### `debug` and `undebug`
+
+Instead I recommend starting your debug adventures with the `debug` function.  This will allow you to 'look inside' a function while it runs, pausing to look at the values of local variables as it proceeds.  This function will make a call to the browser() whenever you actually step into the marked function 'as if' you had modified your code by using the `browser` function.  And when you are done, you can call `undebug` so that future calls to that function will not get launch into the debugger.
+
+To use the `debug` function just pass the name of a function you want to debug in as an argument like this:
+
+```{r}
+debug(mean)
+```
+
+Then call the function:
+
+```{r, eval=FALSE}
+mean(1:4)
+```
+
+Then hit the <ENTER> key to step through the function, and use ls() to 'look around'.  Once you have learned what you need, hit 'Q' to quit. And then use the `undebug` function so that you can call the function again without debugging.
+
+```{r}
+undebug(mean)
+```
+
+### `trace`
+
+The one big bummer about `debug` is that it doesn't work on methods.  This would not be a problem except that a lot of functions are actually S4 methods (so `debug` won't let you look inside of these).  The `trace` method is better in the sense that it works on everything, but it's worse in the sense that you have to use several arguments to get it to help you.  So it's not as convenient as `debug`.
+
+### Using RStudio to debug
+
+This is pretty nice and give you access to some of the nicer debugging tools that have traditionally been missing from R.  But it is also documented elsewhere.  Using RStudio you can set breakpoints so that you can stop your code with minimal fuss.  But this has all been documented before by the RStudio team:
+
+```
+https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio
+```
+
+
+***
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Consider the following function which is intended to grab the middle string from a character vector.  In the event that the vector has an even number of elements, we will settle for the lower of the two middle values.
+
+```{r}
+middleString <- function(x){
+  vec <- sort(x)
+  len <- length(x)
+  middle <- len / 2
+  x[middle]
+}
+```
+
+And if you test this function out, you will see that it doesn't always produce a value all that near to the middle.   Here is an example that works as expected:
+
+```{r}
+test1 <- c('bob', 'cindy', 'fred', 'nancy', 'bart', 'nancy')
+middleString(test1)
+```
+
+
+And here is an example that really doesn't:
+
+```{r}
+test2 <- c('bob', 'cindy', 'fred')
+middleString(test2)
+```
+
+Use the debug function to step through and find the bug.  Once you have found the problem, try to write a new version of this function that always returns either the middle value or the lowest middle value.
+
+
+
+
+***
+***
+***
+
+
+
+
