@@ -96,8 +96,8 @@ The Research Informatics Team is engaged in *transforming* the way SCRI interact
 
 Computer Name | Alias | Memory | Processor | Cores|Primary Function
 --------------|-------|--------|-----------|------|----------------
-EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Worker nodes
-EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Worker nodes
+EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Hosting home directory, Worker nodes
+EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Hosting RStudioServer, Worker nodes
 
  
 
@@ -111,9 +111,19 @@ Linux is a free open sourced operating system based on Unix.  It's technically n
 
 People like unix because it is powerful and flexible tool for efficiently getting certain kinds of work done.  This is especially true for work that has never been done before or that requires the creation of customized work flows.  If this sounds familiar that's because this is the same kind of work that people often need to do to manage data in science.  And this is why so many scientists have found linux to be a useful platform for developing new work flows.  Everyone agrees that graphical interfaces can be nice.  But the odds that you will find one that already does exactly what your experiment needs get vanishingly small starting with the moment you do anything interesting.
 
-### How is it organized?  
+A question that came up and that perhaps you have asked, "Is this really worth it? Why should I invest my time in learning Linux?" The answer to this topic could be a course all by itself. Let us just try to point out what we think are a few of the advantages
 
-There are many flavors of unix, but most of them have the same basic directory structure.  You don't need to know about a lot of it in order to use it.  But you should know a couple of things.  The 1st is that the root directory is the base for the whole system.  Unless you are the system admin or are installing software or something, you probably don't belong down there.  More commonly you want to be in your home directory.  Your home is at ~/  We will talk more about this is a minute.
+* Many of the 'industry standard' tools used to analyze today's data are only available in Linux. GATK, tophat, bwa, cufflinks, samtools, many of these are open source tools that are meant to be distributed for free. These tools aren't readily available outside of the command-line environment
+
+* Fine control. Whenever you make a graphical user interface, it becomes very hard to expose all the options that the program is capable of in an easy way. Therefore, you usually make assumptions and lock in some defaults. At the command-line, you can more easily allow the user to specify parameters and gain fine control of the program.
+
+* Modularity. With a command-line interface, you can string small programs together like Legos and build your own custom workflows and programs that work exactly the way you want them to.
+
+* Reproducibility. When you use command-line and/or write scripts, you create a record of exactly what you did to your data. Anytime you re-run the commands you wrote, you will get the same result.
+
+* Speed. In the short-term, it may seem like a huge investment of time and energy to learn how to work in this environment and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with Linux, you can take better advantage of parallel processing to vastly speed up the processing time.
+
+* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Hopefully you have seen how that those simple tasks are quite trivial with Linux systems. Dealing with large files and scaling up your analyses are easy for Linux.
 
 
 # An Introduction to the command line: 
@@ -125,7 +135,7 @@ The command line is the main way that professional people interact with Unix.  Y
 
 ### Lets start by logging you in:
 
-To connect to a linux machine, one of the most common tools is `ssh` or 'secure shell'. You can use `ssh` to connect to a linux machine if you have permission to do do like this:
+To connect to a linux machine, one of the most common tools is `ssh` or 'secure shell'. You can use `ssh` to connect to a linux machine if you have permission to do so like this:
 
 ```{bash, eval=FALSE}
 ssh user@hostname
@@ -147,7 +157,124 @@ One common early mistake is to assume that anytime you can see the cursor, you m
 Sometimes you may see other types of characters that look 'command prompt-ish': 
 
 * `+` This character indicates that whatever command you entered is incomplete and the system is waiting for more information. You can either supply the missing information, or you can return to the command prompt by hitting `CTRL-c`.
-* `>` or `>>>`. These characters often indicate that you have entered into a different scripting environment, such as python or R. If you find yourself with this prompt and you didn't mean to, you can return to the command prompt by hitting `CTRL-c`.
+* `>` or `>>>`. These characters often indicate that you have entered into a different scripting environment, such as python or R. If you find yourself with this prompt and you didn't mean to, you can return to the command prompt by hitting `CTRL-c`, `exit()`, or `quit()`.
+
+### Directories, executables and files
+
+Directories are for storing stuff, executables do things to stuff and files are stuff.  In Linux a full directory path will start with root and end with another `/` and use more `/`'s in between as separators for each subdirectory.  On most command lines directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
+
+### Root
+
+One of the keys to working within Linux is understanding how the heirarchy of folders and directories is set up, and how to move around within that file structure. Let us take a moment to understand the Linux filesystem.
+
+If you are used to interfacing with your computer via a graphical user interface such as Finder (Mac) or Windows Explorer (PC), the concept of a __root directory__ may be somewhat vague. The root directory is simply the most inclusive folder on the system, or in other words, the folder that contains all other folders and files. When working with the command line, no matter what system you use, you can designate an absolute path by describing its location relative to root. For Window's users, each disk drive has it's own root, for example `C:`, `D:`, etc. Unix based systems, including Mac OS X and Linux, have a single root designated simply by `/`.
+
+### Home
+
+__`/home`__ deserves a little special attention. __home__ is not to be confused with __root__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In Linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~`.
+
+Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is also a convenient place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. After all, when you first log in to the system, this is where you land. Even in our exercises, we had you start dumping the example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, while it is a good place to stash some small files that you want to persist on the system, you really don't want to store your actual data in `/home`. Below, we will discuss some better alternatives.
+
+### Where am I? Using __`pwd`__
+
+Your command prompt, by default, shows you the name of the directory where you are currently located. That's nice, but you can still feel lost unless you know where you are relative to root. This is how you know where you are:
+ 
+```{bash, eval=FALSE}
+pwd
+```
+```{bash, echo=FALSE}
+cd ~
+pwd
+```
+`pwd` means print working directory.  It will tell you where in the file system you are by giving you the full path starting with root. In this example, this shows me that I am currently in my home directory.
+
+*Note: We said that the command prompt tells you where you are. Remember that `~` is linux short-hand for your home directory.*  
+
+### What is in here? Using __`ls`__
+
+The next question you might ask is what files are in my current directory? The command `ls` is used to list the contents of a directory.  
+
+```{bash, eval=FALSE}
+ls
+```
+```{bash, echo=FALSE}
+cd ~
+ls
+```
+
+This is listing the contents of your current directory, which if you are following along is likely your own home directory. If this is the first time you have logged in to the system, this command will probably not show you anything. That doesn't mean that it is empty however. There are probably a number of hidden files. A more detailed listing of a directories contents can be found by adding a __parameter__ or __flag__ to the `ls` command:
+
+```{bash, eval=FALSE}
+ls -a
+```
+```{bash, echo=FALSE}
+cd ~
+ls -a
+```
+
+From this view you can see a number of files that begin with a period: `.`. These are configuration files. As you get to be more comfortable with linux, you may choose to edit these files in order to customize your experience. For now, we will ignore them.
+
+By default, `ls` lists the contents of your present working directory, or where you currently are. You could however list the contents of another directory:
+
+```{bash}
+ls /data
+```
+
+### How do I go somewhere else? Using __`cd`__
+
+`cd` means change directory.  You call that command followed by a single argument to indicate which directory you want to change to. So for example, if you wanted to go to the directory called `/data`, you would enter:
+
+```{bash}
+cd /data
+pwd
+```
+
+Notice that when you do this, your command prompt changes to reflect the new location you are in.
+
+### Some special symbols
+This is a good time to mention a few special symbols that act as convenient linux shortcuts:
+
+* `~`: We have already talked about how this is short-hand for __home__
+
+* `.`: A single dot is short hand for __here__ meaning your present working directory
+
+* `..`: Two dots is short-hand for __the parent directory__ or the directory above your current location
+
+* `/`: The forward slash designates __root__
+
+Examples:
+```{bash, eval=FALSE}
+cd ~
+ls .
+ls ..
+cd ..
+ls /
+```
+
+***
+####  <span style="color:blue">__Exercise L1:__</span>
+* Using the `cd` command, navigate to the root directory. <Hint: the root directory is designated by `/`.
+* Using the `ls` command, take a look at the contents of root. Just for fun, try adding the `-a` and `-l` flags, separately and together. What files do you see? Can you tell if these are actual files or directories?
+
+***
+
+### Common system directories
+
+In the last example, you noticed that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. Most of these are system directories that are common to nearly every Linux OS. __They have specific functions, and unless you really know what they are for and are authorized to change them, it is best to leave these alone.__ To satisfy your curiosity, here is a brief description of some of the common ones:
+
+* __`/bin`__: This directory contains many *binary* files for the common commands such as `ls`, `mv`, `cp`, etc.
+
+* __`/dev`__: This directory contains system files related to any attached *devices*, such as hard drives, DVD drives, modems, speakers, etc.
+
+* __`/etc`__: This stands for *et cetera*. But that doesn't mean that the contents are miscellaneous, although it's likely it once meant that. Now, this drive contains all system related configuration files. It is considered the nerve center of the system.
+
+* __`/home`__: We will talk about *home* later.
+
+* __`/lib`__: This directory contains the system *library*. Libraries are modules of code that provide key functionality. Think of them as mini code repositories.
+
+* __`/usr`__: This directory often contains the largest share of data. `usr` stands for *User System Resources* (not 'User'). This directory contains many more binaries, libraries and configuration files for all the additional, non-system applications that have been installed on the computer.
+
+* __`/tmp`__: This directory contains mostly files that are only required *temporarily*. Just because they are temporary though doesn't mean they aren't important. Many of these files are important for currently running programs and deleting them may result in a system crash.
 
 
 
@@ -195,72 +322,9 @@ Like spaces, reserved characters should be avoided in file names.  Linux has two
 
 
 
-### Using __`pwd`__, __`/`__ and __`~/`__
-
-If you are used to interfacing with your computer via a graphical user interface such as Finder (Mac) or Windows Explorer (PC), the concept of a __root directory__ may be somewhat vague. The root directory is simply the most inclusive folder on the system, or in other words, the folder that contains all other folders and files. When working with the command line, no matter what system you use, you can designate an absolute path by describing its location relative to root. For Window's users, each disk drive has it's own root, for example `C:`, `D:`, etc. Unix based systems, including Mac OS X and Linux, have a single root designated simply by `/`.
-
-__root__ is not to be confused with __home__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~/`
-
-When working with the command line, you will notice that your view of the filesystem is always based relative to the directory that you are currently in. So it is very important to be able to figure out where you are relative to root, how to look around and see what files and directories are nearby, and how to move yourself to different locations.
-
-This is how you know where you are:
- 
-```{bash, eval=FALSE}
-pwd
-```
- 
-`pwd` means print working directory.  It will tell you where in the file system you are by giving you the full path starting with root.
-
-As you explore around, you will notice that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. The short answer is that unless you know exactly what a directory is for, __anything outside of your home directory should probably be left alone.__ We will talk more about these directories and how you should (or should not) use them in Course 4. 
 
 
-### Directories, executables and files
 
-Directories are for storing stuff, executables do things to stuff and files are stuff.  In Linux a full directory path will start with root and end with another `/` and use more `/`'s in between as separators for each subdirectory.  On most command lines directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
-
-
-### Using __`cd`__, __`.`__ and __`..`__
-
-`cd` means change directory.  You call that command followed by a single argument to indicate which directory you want to change to.  
-
-`.` means here.  You use it to indicate that the path to something is where you are right now.  
-
-And `..` means one directory up from here.
-
-So (for example), you could change to the root directory like this:
-```{bash, eval=FALSE}
-cd /
-```
-
-And then you could change back to your home directory like this:
-```{bash, eval=FALSE}
-cd ~/
-```
-
-
-### Using __`ls`__
-
-`ls` is used to list a directory.  Which directory does it list?  That would be the second argument.  For example, the following command would list the contents of the root directory
-
-```{bash, eval=FALSE}
-ls /
-```
-
-And this would list the current directory.
-```{bash, eval=FALSE}
-ls .
-```
-
-But in practice when people want to list the current directory, they leave out the implicit `.` like so:
-```{bash, eval=FALSE}
-ls
-```
-
-And when I use this command, it tends to look like this:
-```{bash, eval=FALSE}
-ls -alh
-```
-Which translates to: list the directory, but list all the files (even hidden ones), and use the long format, and make the sizes human readable.  How did I ever learn to do that?
 
 
 ### Using __`man`__ and __`--help`__
