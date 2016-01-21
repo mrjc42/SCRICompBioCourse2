@@ -81,7 +81,7 @@ Also important: R is written entirely as an open source piece of software. This 
 
 R, like many other languages, has the concept of "objects". Objects are like variables in algebra, i.e. they are merely symbolic variables that can be used to represent values or other bits of information. That information can be simple, such as a numerical value, a string of text, or a logical (computer talk for `TRUE` or `FALSE`). Objects can also represent much more complicated data structures such as lists, tables, and high dimensional matrices. We will discuss these in more detail later in the course. For now, lets stick with some fairly simple objects.
 
-#### Sample objects
+### Sample objects
 
 Some R objects are always available for demonstration.  An example of this is a simple variable called `pi`
 
@@ -89,15 +89,9 @@ Some R objects are always available for demonstration.  An example of this is a 
 pi
 ```
 
-This is handy. You can use the `pi` variable in any operation where you want to use the value of pi.
-
-```{r}
-pi * 2
-```
-
 What if you wanted to create your own variables?
 
-#### Assignment operators 
+### Assignment operators 
 
 Before I explain about assignment.  Lets start with: what is an operator?  In R an operator is a way of succinctly indicating a specific kind of event.  For those who already know what a function is, an operator is just a special kind of function.  For those who don't know what a function is: just hang on a few more minutes and we will explaining those too.  :)  As an example of an operator the `+` operator works like this:
 
@@ -121,7 +115,7 @@ foo
 
 Now you might be wondering: why would I have more than one way to assign values?  What is the difference between `=` and `<-`? Hold that thought. Because the next section should shed some light on this...
 
-#### Vectors
+### Vectors
 Let's look at another built in object. 
 ```{r}
 LETTERS
@@ -134,24 +128,6 @@ Compare the output from `LETTERS` and `pi`. One thing you will notice is that `p
 #### This is because in R: Vectors are atomic
 
 Therefore `pi` is also a vector. Vectors can theoretically hold any number of elements, including only one or even zero. So `pi` is a vector of length one, similar to a list with only one element. In R, vectors are 'atomic'.  What does that mean?  It means that in R there is no such thing as an object container that is only able to hold a single value.  The smallest or simplest data container in R is still just a short vector.  
-
-#### Creating vectors
-
-There are two ways to create vectors. If you are creating a numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
-
-```{r}
-numbers <- 1:10
-numbers
-```
-
-To create vectors quickly, you can also use the `seq` or `rep` functions.
-
-The second way to create vectors is by using the __concatenate__ function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
-
-```{r}
-string <- c('The', 'lazy', 'brown', 'fox')
-string
-```
 
 
 ### Calling functions
@@ -259,11 +235,30 @@ ls("package:stats4")
 
 
 ### Atomic vectors and other fun data structures
-Because R is a data centric statistical language it has a lot of fun ways to represent data.
+Because R is a data centric statistical language it has a lot of fun ways for representing data.  And as we mentioned above, the vector is the most fundamental object that R has.  
 
-#### Vectors and introducing the `class` and `length` functions
+#### Creating vectors
 
-So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  You can see what class an object is by passing it to the class() function like this:
+There are two common ways to create vectors. If you are creating a numeric vector, one simple way is to use the `:` operator. You specify the first digit and the last digit, and R will fill in the rest in increments of one.
+
+```{r}
+numbers <- 1:10
+numbers
+```
+
+Another common way to create vectors is by using the __concatenate__ function. It technically just combines vectors rather than creating them. But given that single elements are just vectors of length 1, it amounts to the same thing. Use this to create character vectors and vectors of other types:
+
+```{r}
+string <- c('The', 'lazy', 'brown', 'fox')
+string
+```
+
+You can also use the `seq` or `rep` functions to quickly create other vectors.
+
+
+#### Introducing the `class` and `length` functions
+
+So we already talked about how vectors are the most basic data structure in R.  What we didn't spend as much time on is that they come in different flavors or classes.  The fact that vectors come in different classes is important because vectors can only represent objects of a single type at any one time.  You can see what class an object is by passing it to the class() function like this:
 
 ```{r}
 class(LETTERS)
@@ -273,18 +268,18 @@ class(LETTERS)
 class(pi)
 ```
 
-The most common types of vectors are: character, numeric, logical, and integer.  Another important function is length().  You can always use length to see how many elements are in a vector.  For example:
+The most common types of vectors are: character, numeric, logical, and integer.  Another important function is length().  You can always use `length` to see how many elements are in a vector.  For example:
 
 ```{r}
 length(LETTERS)
 ```
 
-There are 26 letters in the alphabet
+There are 26 letters in the alphabet.
 
 
 #### Lists
 
-Sometimes you want to put more than just one flavor of data into a vector-like object.  For those times you need a much more flexible kind of container.  That is what lists are for.  Lets look an an example of a list:
+Sometimes you want to put more than just one flavor of data into a vector-like object.  For those times you need a much more flexible kind of container.  And this is what lists are for.  Lets look an an example of a list:
 
 ```{r}
 lst <- list(a=1, b='foo')
