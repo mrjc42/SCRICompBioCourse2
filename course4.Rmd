@@ -460,17 +460,11 @@ Use the debug function to step through and find the bug.  Once you have found th
 
 
 
-
 ***
 ***
 ***
 
-
-***
-***
-***
-
-
+## Answers For Exercises:
 
 
 ####  <span style="color:blue">__Exercise R1:__</span> 

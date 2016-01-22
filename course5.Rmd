@@ -2,7 +2,7 @@
 title: "Using R for Computational Biology"
 author: "Marc, Bronson, Debbie and Sean"
 date: "3/9/2016"
-output: pdf_document
+output: html_document
 ---
 
 
@@ -84,6 +84,7 @@ As you do that, pay close attention to the tree hierarchy and to the search boxe
 ***
 ***
 
+## Answers For Exercises:
 
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
