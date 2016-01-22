@@ -24,7 +24,7 @@ Of course even just basic `plot` is a pretty capable method which handles a lot 
 
 A common thing that happens is that you will get a plot looking the way you like in R and then you may discover that you want to save that output to a file.  The thing to understand about how R handles plots is that when you make a plot you are sending the image to the X11 renderer (printing it to the panel on your screen).  So to save it, you really want to print it instead to a file on your filesystem.  To do that you want to call the appropriate function like `jpeg`, `png` or `pdf` which will then open a connection to a file (with a path that you specify) so that R can print the image out to the filesystem INSTEAD of to the plotting window.  Then if you plot your function again it will instead be sent to your file. And finally, by then calling the `dev.off` function you return R to the default state so that future plots will once again be sent to the plotting window on your screen.  So the code to "save a plot"" ends up looking like this example here:
 
-```{r,plot, eval=FALSE}
+```{r, saveplot, eval=FALSE}
 jpeg(file = "myPlot.jpg")
 plot(cars)
 dev.off()
@@ -51,6 +51,7 @@ There is not time in this course to introduce you to all of the packages in Bioc
 `ExpressionSet` objects were initially developed to hold data from microarray experiments.  Essentially, they held a square of measured expression values where each column corresponded to another experiment and they also had space for tracking both annotation and phenotype data that related to this.  Here is an example that has data for 26 samples of microarray from the hgu95av2 platform from Affymetrix:
 
 ```{r, ExpressionSet}
+library(Biobase)
 data(sample.ExpressionSet)
 sample.ExpressionSet
 ```
@@ -95,7 +96,7 @@ txby[3:4]
 
 Another common object that you will encounter are `DataFrame` objects.  The `DataFrame` was created because many ranges in computational biology need to be labeled by rich annotations that have a many to one relationship with a given range.  For example consider what happens if we also request UNIPROT IDs to go with our transcript ranges in the previous example:
 
-```{r, DataFrame}
+```{r, GRangesDataFrame}
 library(Homo.sapiens)
 txby <- transcriptsBy(Homo.sapiens, by='gene', columns=c('SYMBOL','GENEID','UNIPROT'))
 txby[[1]]
