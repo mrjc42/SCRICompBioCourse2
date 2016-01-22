@@ -5,6 +5,29 @@ date: "3/9/2016"
 output: html_document
 ---
 
+# Basic plotting.
+
+One of the most important things that you can do to help you understand data is to visualize it.  And R is especially famous for providing many flexible systems for visualizing complex data.  Here in this course we will focus on the most basic of these systems in order to give people exposure to the fundamental graphics systems.  But students who are interested are strongly encouraged to also look at the `lattice` and `ggplot2` packages which each extend the core graphics capabilities in remarkable ways.
+
+Probably the most basic function for plotting in R is just `plot`.  You can call `plot` just by passing it some data like this:
+
+```{r,plot}
+plot(cars)
+```
+
+
+
+## saving plots
+
+
+
+# Bioconductor and BiocViews
+
+Now that you know the basics of R, you are ready to explore some of the different software packages that people have built using that foundation.  There are many thousands of open source packages freely available on the internet at places like CRAN.  But in addition to these resources Bioconductor has over a thousand packages that all relate to computational biology.  These packages have all been vetted, and are built and checked nightly to make sure they still function as expected.  Also: these packages all have vignettes to describe how to use them and have been labeled with special controlled vocabulary in order to make them easy to discover.  The special vocabulary is called 'biocviews' and you can see how the packages are organized according to the 'biocviews' terms on the [website](http://bioconductor.org/packages/release/BiocViews.html#___Software).  
+
+Once you have a package that interests you, you should go to it's landing page and look at the instructional vignettes.  And if you then discover that you have questions about how best to use the package you can search or post questions on the sites [help forum](https://support.bioconductor.org/).
+
+Finally many of the most popular packages are also described in the context of popular [workflows](http://bioconductor.org/help/workflows/), which show a high level view for how popular packages are often used together.
 
 # Literate programming.
 
