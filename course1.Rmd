@@ -89,6 +89,11 @@ a.	(Notice how there is no text document on the desktop?)
 
 Saving to the Citrix Desktop (the one with fewer icons), and closing out will cause you to lose what was saved there. This is because the Citrix window desktop is not actually an existing folder. Saving to the "O:\ Drive" or a department share is the single safest way to protect your data.
 
+***
+
+####  <span style="color:blue">__10 min break__</span>
+
+***
 
 # Computational Resources at SCRI
 
@@ -131,7 +136,7 @@ A question that came up and that perhaps you have asked, "Is this really worth i
 
 * Speed. In the short-term, it may seem like a huge investment of time and energy to learn how to work in this environment and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with Linux, you can take better advantage of parallel processing to vastly speed up the processing time.
 
-* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Hopefully you have seen how that those simple tasks are quite trivial with Linux systems. Dealing with large files and scaling up your analyses are easy for Linux.
+* Scale. Most of the files that you may encounter, such as fasta, fastq, bam, etc, are enormous. Although they are often just simple text documents, most desktop computers simply can't handle them, so there is no way to open them or even 'take a peak' inside them. Dealing with large files and scaling up your analyses are trivial for Linux and you don't need any fancy software to do it.
 
 
 # An Introduction to the command line: 
@@ -169,7 +174,13 @@ Sometimes you may see other types of characters that look 'command prompt-ish':
 
 ### Directories, executables and files
 
-Directories are for storing stuff, executables do things to stuff and files are stuff.  In Linux a full directory path will start with root and end with another `/` and use more `/`'s in between as separators for each subdirectory.  On most command lines directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
+Directories are for storing stuff, executables do things to stuff and files are stuff.  The equivalents for a Windows or Mac might be 
+
+* Directories = folders
+* Executabes = applications/programs
+* Files = files (text files, documents, etc)
+
+On most command lines, directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
 
 ### Root
 
@@ -181,7 +192,7 @@ If you are used to interfacing with your computer via a graphical user interface
 
 __`/home`__ deserves a little special attention. __home__ is not to be confused with __root__. A home directory is merely a default location to store personal account settings and user-specific files. Note however, that home is not root. In Linux, your home directory is always located at `/home/username`. Because this is a common stop for so many functions, a convenient short hand is used to designate home: `~`.
 
-Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is also a convenient place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. After all, when you first log in to the system, this is where you land. Even in our exercises, we had you start dumping the example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, while it is a good place to stash some small files that you want to persist on the system, you really don't want to store your actual data in `/home`. Below, we will discuss some better alternatives.
+Because `/home` belongs to you, it is one of the few places where you can explore and play around without crashing the system (usually). Because it has a convenient short cut when using `cd`, it is also a convenient place to create links to other locations in your system. It is a very tempting place to set up shop and store all of your data. After all, when you first log in to the system, this is where you land. Even in our exercises, we will have you start copying some example files here. Be aware though, that in our system, `/home` is not very big. __You only have 10 GB of space alloted to your `/home` directory.__ For that reason, while it is a good place to stash some small files that you want to persist on the system, you really don't want to store your actual data in `/home`. In the next class, we will discuss some better alternatives.
 
 ### Where am I? Using __`pwd`__
 
@@ -194,9 +205,11 @@ pwd
 cd ~
 pwd
 ```
-`pwd` means print working directory.  It will tell you where in the file system you are by giving you the full path starting with root. In this example, this shows me that I am currently in my home directory.
+`pwd` means print working directory.  It will tell you where in the file system you are by giving you the *path* starting with root. Think of the path as a road map of directories and subdirectories that tell you how to get from root to your folder or file or executable.
 
-*Note: We said that the command prompt tells you where you are. Remember that `~` is linux short-hand for your home directory.*  
+In Linux a full directory path will start with root: `/`, use more `/`'s in between as separators for each subdirectory and will often end with another `/`. 
+
+In this example, this shows me that I am currently in my home directory. *Note: We said that the command prompt tells you where you are. Remember that `~` is linux short-hand for your home directory.*  
 
 ### What is in here? Using __`ls`__
 
@@ -232,6 +245,7 @@ pwd
 Notice that when you do this, your command prompt changes to reflect the new location you are in.
 
 ### Some special symbols
+
 This is a good time to mention a few special symbols that act as convenient linux shortcuts:
 
 * `~`: We have already talked about how this is short-hand for __home__
@@ -241,6 +255,32 @@ This is a good time to mention a few special symbols that act as convenient linu
 * `..`: Two dots is short-hand for __the parent directory__ or the directory above your current location.
 
 * `/`: The forward slash designates __root__
+
+### Absolute paths vs relative paths
+
+The concept of "Where am I now?"" is key to successfully operating in linux. Very often you will need to specify the path to an input file, or the path to an output directory or destination. Let us say that you are in your home directory, and you enter the following command to list the contents of a directory called `data`:
+```{bash, eval=FALSE}
+cd ~
+ls data
+```
+The path you gave to `data` is not very specific. Linux will interpret that command to be "From within the current working directory, find a directory called data, and list it's contents". What about this example:
+```{bash, eval=FALSE}
+ls ./data
+```
+Remember that `.` is short for "my current location". Linux interprets this command exactly the same as the first, but now you have been slightly more explicit. 
+```{bash, eval=FALSE}
+ls ../data
+```
+Remember that `..` is short for "the parent directory of my current location", or "one level up". Linux will interpret this to mean "Go up one directory level from my current location, find a directory called data, and list it's contents."
+
+Each of the previous three examples illustrate the concept of *relative paths*. In each case, how linux interprets this command depends on where your current working directory is. If you `cd` to somewhere else, the result of that command will be different. What if you wanted to guarantee that no matter where your current working directory was, that the path would always be interpreted the same? Consider this example:
+```{bash, eval=FALSE}
+ls /data
+```
+Recall that `/` is short hand for "root". Linux will interpret this command to mean "Starting with root, find a directory named data and list it's contents". Because root is the most encompassing directory, then describing a path starting with root represents an *absolute path* or a *full path*. No matter where your current working directory is, absolute paths always refer to the same location. 
+
+It is worth noting that `~` is short for `/home/userid`, which is an absolute path reference. Therefore, any path reference that begins with `/` or `~` are absolute path references and will always yield the same result. All others will be interpreted relative to your current working directory.
+
 
 Examples:
 ```{bash, eval=FALSE}
@@ -319,12 +359,55 @@ ls --help
 
 As you can see, this returns essentially the same information.
 
+### Getting more details about a directory
 
+One of the options you may have noticed for `ls` is the `-l` flag, which is the flag for "long listing". This lists the contents of a directory with slightly more information. 
+```{bash, eval=FALSE}
+ls -l /tools/sampledata/examples
+```
+```{bash, echo=FALSE}
+ls -l /tools/sampledata/examples | head -n 12
+```
 
+This long list format gives some additional useful information about the contents of the directory:
 
+ 1. A string of 10 characters that describe the __permissions__ for the item. 
+ 2. An integer specifying the number of items contained within the directory. This value is always '1' for a file.
+ 3. The userid for the owner of the item. The owner is usually the person who created it. 
+ 4. The groupid for the group that the item belongs to. See 'Permissions' below for more details. 
+ 5. The size of the file in bytes.
+ 6. The month, day and time that the item was created or last modified.
+ 7. The name of the item.
+ 
+You may notice that the item `ctd` is colored differently. This is because it is a directory, as inticated by the leading character `d` of the permissions string.
 
+You may also notice that the item `badtextfile.txt` is also colored differently. This is a hint that this item may be an exectuable, as indicated by the presence of the `x` characters in the permission string.
 
+### What are permissions?
 
+Lets look at a toy example of a long listed file:
+
+```{bash, eval=FALSE}
+-rw-r--r-- 1 username rleQAS_SCRI-Sudo 8.2K Oct  7 17:21 file.txt
+```
+
+Permissions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
+
+![permissions](permissions.png)
+
+1. The very first character doesn't actually have to do with permissions.  It just indicates the kind of thing that something is. For example if it starts with `d`, then it's a directory etc.  In general, you won't need to spend a lot of time thinking about this first character.
+2. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (u)ser
+3. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (g)roup
+4. The last three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (o)thers
+
+Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others in the same group, as well as by others not in the same group.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges __you__ have.
+
+#### __Exercise L1:__ 
+
+1. Navigate to your home directory. 
+2. Navigate to the parent directory for all of the home directories by going up a level.
+3. List the contents of this directory. You should see subdirectories for each user on the system. Are you allowed to see the contents of others directories?  How do you know?
+4. Use the man page for `ls` to find a flag that will allow you to see the file size in a more human readable form (kb, MB, GB, etc).
 
 
 
@@ -352,18 +435,19 @@ mkdir sandbox
 
 4. Navigate into the sandbox directory that you just created.
 
-5. Consult the man page for `mkdir`. Make a new directory inside 'sandbox' called 'myDir' and include a flag in the command that tells `mkdir` to print a message when the directory is created. Use the short form of the flag.
+5. Consult the man page for `mkdir`. Make a new directory inside 'sandbox' called 'myData' and include a flag in the command that tells `mkdir` to print a message when the directory is created. Use the short form of the flag.
 
-6. Repeat \#5, making a directory inside 'sandbox' called 'yourDir' using the long form of the flag to print a message when the directory is created. List the contents of sandbox to convince yourself that you have successfully created 'myDir' and 'yourDir'. 
+6. Repeat \#5, making a directory inside 'sandbox' called 'yourData' using the long form of the flag to print a message when the directory is created. List the contents of sandbox to convince yourself that you have successfully created 'myData' and 'yourData'. 
 
 7. Navigate back to your home directory. From your home directory, create a new directory inside of sandbox as follows:
 ```{bash, eval=FALSE}
-mkdir sandbox/ourDir
+mkdir sandbox/ourData
 ```
+This illustrates that you can create nested directories.
 
-8. Navigate inside the newly created 'ourDir'. Can you do it with a single `cd` command?
+8. Navigate inside the newly created 'ourData'. Can you do it with a single `cd` command?
 
-9. From within 'ourDir', try to create a nested set of directories: `sharedData/flowData`. What was the result of this operation?
+9. From within 'ourData', try to create a nested set of directories: `shared/flowData`. What was the result of this operation?
 
 10. Consult the man page for `mkdir` and repeat \#8 using a flag that will tell mkdir to create any parent directories it needs. Also include the flag to tell it to print a message for each created directory.
 
@@ -372,95 +456,128 @@ Often you will need to copy files from one location to another. For that there i
 
 1. Navigate to the following location: `/tools/sampledata/examples` and list the contents of this directory. This directory contains small example files of many kinds of file formats that you might expect to work with at some point.
 
-2. 
+2. Consult the Synopsis section of the man page for the `cp` command to see how to construct a copy command. You may find that there are several correct ways to construct the command. Remember that arguments enclosed in `[]` are optional. Copy the file `FEC00001_1.seq` into the myData directory that you created earlier. For SOURCE use the absolute path to the data file you want to transfer: `/tools/sampledata/examples/FEC00001_1.seq`. For DEST or DIRECTORY, use the absolute path to the destination location: `~/sandbox/myData`. Use the `ls` command to verify that you have transfered the file correctly.
+
+3. You can use `cp` from anywhere so long as you specify absolute paths for your SOURCE and DEST. However, you can save yourself some typing if you first navigate yourself into either the SOURCE or DEST directories. This allows you to use relative paths, which will probably be shorter. Try the following. Remember that `.` is short-hand for "My current location":
+```{bash, eval=FALSE}
+## Example of using cp from within the SOURCE directory
+cd /tools/sampledata/examples
+cp FEC00002_1.seq ~/sandbox/myData
+ls ~/sandbox/myData
+
+## Example of using cp from within the DEST directory
+cd ~/sandbox/myData
+cp /tools/sampledata/examples/FEC00003_1.seq .
+ls
+```
+
+4. Move back into your SOURCE directory. Transfer the following additional files into your myData directory using relative references: `Marrus_claudanielis.txt`, `structure_1ema.pdb`, `shaver_etal.csv`, and `nanodrop_abs.ndj`. Try to do it in a single command.
+
+5. Try transfering the file `Optode run011.xls`. What was the result? Try copying again, but this time use this modified file name: `Optode\ run011.xls`. What does this tell you about using spaces in file names?
+
+
+####  <span style="color:blue">__Homework L3: `less`__</span>
+With linux it is very easy to open up a text file and "take a peak" at what's inside, even if it is very big (such as a genome fasta file). The command to use is `less`. We will talk more about this in the next class, but in the mean time you can use it to take a peak at the files you have just copied. `less` is another of those programs that is designed to navigate by keyboard rather than mouse. The man file for `less` is very long, so we have summarized some of the most common keystrokes in this table to help you move around:
+
+Key stroke | Function |\| | Key stroke | Function |
+-----------|----------|-|------------|----------|
+q|Quit|\||Up or Down Arrow |Move up or down a line|
+`space`|Next page|\||`/`abc|Search for text "abc"|
+b|Back a page|\||n|Find next occurence of "abc"|
+\#\# g|Go to line \#\#|\||?|Find previous occurence of "abc"|
+G|Go to end|\||h|Show help for `less`|
+
+1. A pdb file is a file format for 3D structures of proteins and nucleic acids. It contains a header section that contains metadata about the structure (for instance details of how the structure was obtained, information about known secondary structures). It also contains coordinates in 3 dimensional space for each atom in the structure and the primary amino acid sequence. Open `structure_1ema.pdb` and look at it's contents using `less`:
+```{bash, eval=FALSE}
+cd ~/sandbox/myData/
+less structure_1ema.pdb
+```
+
+2. Use the table to explore the contents. Try scrolling forwards and backwords through the file. Use the proper keystrokes to skip pages forward and backward. Search for the occurence of the string "ASP" to find the coordinates of the aspartate residues in the structure.
+
+3. To exit `less`, enter `q`.
+
+4. Use `less` to explore the other file types you copied and note the differences in file content and structure. What happens when you try to open `Optode run011.xls`?
 
 
 
+***
+***
+### Homework Solutions
+
+####  <span style="color:blue">__Homework L1: `mkdir`__</span>
+```{bash, eval=FALSE}
+## 1.
+cd ~
+
+## 2. 
+mkdir sandbox
+
+## 3. 
+ls
+
+## 4. 
+cd sandbox
+
+## 5. 
+mkdir -v myData
+
+## 6. 
+mkdir --verbose yourData
+ls
+
+## 7. 
+cd ~
+mkdir sandbox/ourData
+
+## 8. 
+cd sandbox/ourData
+
+## 9. (Should result in an error because 'shared' does not exist yet.)
+mkdir shared/flowData 
+
+## 10.
+mkdir -pv shared/flowData
+```
 
 
+####  <span style="color:blue">__Homework L2: `cp`__</span>
 
+```{bash, eval=FALSE}
+## 1.
+cd /tools/sampledata/examples
+ls
 
+## 2.
+cp /tools/sampledata/examples/FEC00001_1.seq ~/sandbox/myData
+ls ~/sandbox/myData
 
+## 3.
+## Example of using cp from within the SOURCE directory
+cd /tools/sampledata/examples
+cp FEC00002_1.seq ~/sandbox/myData
+ls ~/sandbox/myData
+
+## Example of using cp from within the DEST directory
+cd ~/sandbox/myData
+cp /tools/sampledata/examples/FEC00003_1.seq .
+ls
+
+## 4.
+cd /tools/sampledata/examples
+cp Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj ~/sandbox/ourData/sharedData/ 
+
+## alternative answer
+cp -t ~/sandbox/ourData/sharedData/ Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj
+
+## 5. 
+cp Optode run011.xls ~/sandbox/ourData/sharedData/
+
+## This should return an error. Because the name has a space in it, the command is exptecting to find two files, one named 'Optode' and another named 'run011.xls'. Because neither of those files exists, the command fails.
+
+cp Optode\ run011.xls ~/sandbox/ourData/sharedData/
+
+## Using the "\" before a space tells the command that the space is part of the file name. This is annoying though, so as a general rule we can see that putting spaces in file names is a bad idea.
+```
 
 *** 
-
-### Making your own directories. Using __`mkdir`__
-A file system isn't any good unless you can make your own directories and organize things the way you like them. For that there is the mkdir command.
-```{bash, eval=FALSE}
-mkdir myDir
-```
-
-
-
-
-
-
-
-
-### Using __`mkdir`__
-
-Sometimes you will need to make a new directory.  For that there is the mkdir command.
-```{bash, eval=FALSE}
-mkdir myDir
-```
-
-### Using __`touch`__
-
-And sometimes you will just need to create an empty file.  Maybe later on you want to write something to it, but right now you just want to reserve that filename. For that you can use the `touch` command. Here we use touch to create a file inside of our new directory:
-
-```{bash, eval=FALSE}
-touch myDir/test.txt
-```
-
-### text editors
-
-Linux is loaded with powerful text editors. Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: `nano`.
-
-```{bash, eval=FALSE}
-nano myFile.txt
-```
-
-That command will launch the nano editor.  Once inside you will be able to type in text of interest.  When you want to leave you can look at the bottom of the screen and you will see commands abbreviated like this: ^X 
-
-`^X` basically means 'CTRL-X'.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
-
-
-
-
-
-
-
-***
-***
-***
-
-
-### __Answers for Exercises__
-
-Here you can find answers to the questions posed above.   
-
-
-##### __Answer for Question L1:__
-
-Display the contents of your home dir:
-
-```{bash, eval=FALSE}
-cd ~/
-ls
-```
-
-Find where other home dirs are located:
-```{bash, eval=FALSE}
-pwd
-cd ..
-ls
-```
-
-Are you allowed to see other working directories?
-
-```{bash, eval=FALSE}
-ls -l
-```
-No: the permissions prevent this
-
-

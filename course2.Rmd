@@ -126,6 +126,19 @@ rm -r myDir
 
 Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So please be very careful!
 
+### text editors
+
+Linux is loaded with powerful text editors. Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: `nano`.
+
+```{bash, eval=FALSE}
+nano myFile.txt
+```
+
+That command will launch the nano editor.  Once inside you will be able to type in text of interest.  When you want to leave you can look at the bottom of the screen and you will see commands abbreviated like this: ^X 
+
+`^X` basically means 'CTRL-X'.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
+
+
 
 ### Fixing bad line endings with __`dos2unix`__
 
