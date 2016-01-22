@@ -99,6 +99,14 @@ Computer Name | Alias | Memory | Processor | Cores|Primary Function
 EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Hosting home directory, Worker nodes
 EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Hosting RStudioServer, Worker nodes
 
+__Coming soon__
+
+Computer Name | Alias | Memory | Processor | Cores|Primary Function
+--------------|-------|--------|-----------|------|----------------
+--|Ratchet|256 GB| Dual Intel Xeon 2.5 GHz| 48 logical| Dedicated RstudioServer
+--|Optimus|256 GB| Dual Intel Xeon 2.5 GHz| 48 logical | Head node
+
+
  
 
 # Introduction to Linux: 
@@ -197,18 +205,10 @@ The next question you might ask is what files are in my current directory? The c
 ```{bash, eval=FALSE}
 ls
 ```
-```{bash, echo=FALSE}
-cd ~
-ls
-```
 
 This is listing the contents of your current directory, which if you are following along is likely your own home directory. If this is the first time you have logged in to the system, this command will probably not show you anything. That doesn't mean that it is empty however. There are probably a number of hidden files. A more detailed listing of a directories contents can be found by adding a __parameter__ or __flag__ to the `ls` command:
 
 ```{bash, eval=FALSE}
-ls -a
-```
-```{bash, echo=FALSE}
-cd ~
 ls -a
 ```
 
@@ -216,7 +216,7 @@ From this view you can see a number of files that begin with a period: `.`. Thes
 
 By default, `ls` lists the contents of your present working directory, or where you currently are. You could however list the contents of another directory:
 
-```{bash}
+```{bash, eval=FALSE}
 ls /data
 ```
 
@@ -238,7 +238,7 @@ This is a good time to mention a few special symbols that act as convenient linu
 
 * `.`: A single dot is short hand for __here__ meaning your present working directory
 
-* `..`: Two dots is short-hand for __the parent directory__ or the directory above your current location
+* `..`: Two dots is short-hand for __the parent directory__ or the directory above your current location.
 
 * `/`: The forward slash designates __root__
 
@@ -247,95 +247,69 @@ Examples:
 cd ~
 ls .
 ls ..
-cd ..
+cd ../..
 ls /
 ```
 
 ***
 ####  <span style="color:blue">__Exercise L1:__</span>
-* Using the `cd` command, navigate to the root directory. <Hint: the root directory is designated by `/`.
-* Using the `ls` command, take a look at the contents of root. Just for fun, try adding the `-a` and `-l` flags, separately and together. What files do you see? Can you tell if these are actual files or directories?
+1. Using the `cd` command, navigate to your home directory. *Hint: your home directory is designated by `~`.*
+2. Use the `pwd` to show the path do your home directory.
+3. Use the `ls` command to see what files are in your home directory.
+4. Use the `ls -a` command to see any hidden files in your home directory.
+5. Use the `cd` command to move up a level to the parent directory of your home. *Hint: what is the short-hand for the parent directory of your location?*
+6. Show the path to your current location.
+7. Show the files that are in this current directory. Are there any hidden files?
+8. Navigate up one more level from your current location. Show the path to this location. What is the name of this location? What files and directories are found here?
+9. Navigate to the `/tools` directory. Look around at the contents of this directory. Try descending into a few of them and see what they contain. 
+10. Return to your home directory. Can you do it with a very simple command?
+
 
 ***
 
-### Common system directories
+### How do I know how to use a command? Using __`man`__ and __`--help`__
 
-In the last example, you noticed that there are many directories contained in `root`, and you may wonder what these are for and if they are important to you. Most of these are system directories that are common to nearly every Linux OS. __They have specific functions, and unless you really know what they are for and are authorized to change them, it is best to leave these alone.__ To satisfy your curiosity, here is a brief description of some of the common ones:
-
-* __`/bin`__: This directory contains many *binary* files for the common commands such as `ls`, `mv`, `cp`, etc.
-
-* __`/dev`__: This directory contains system files related to any attached *devices*, such as hard drives, DVD drives, modems, speakers, etc.
-
-* __`/etc`__: This stands for *et cetera*. But that doesn't mean that the contents are miscellaneous, although it's likely it once meant that. Now, this drive contains all system related configuration files. It is considered the nerve center of the system.
-
-* __`/home`__: We will talk about *home* later.
-
-* __`/lib`__: This directory contains the system *library*. Libraries are modules of code that provide key functionality. Think of them as mini code repositories.
-
-* __`/usr`__: This directory often contains the largest share of data. `usr` stands for *User System Resources* (not 'User'). This directory contains many more binaries, libraries and configuration files for all the additional, non-system applications that have been installed on the computer.
-
-* __`/tmp`__: This directory contains mostly files that are only required *temporarily*. Just because they are temporary though doesn't mean they aren't important. Many of these files are important for currently running programs and deleting them may result in a system crash.
-
-
-
-### What is tab-completion?
-
-Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). Go ahead and try it! Type `pw` and then hit the tab key for suggestions about what we might do next...
-
-### Up and down arrows, 'CTRL-a' and 'CTRL-e'
-
-In unix, you can always get back to previous commands by hitting the up arrow.  If you step back too far, you can page the other way by hitting the down arrow.  Find yourself at the end of a very long command and want to get back to the beginning?  Hit 'CTRL-a'.  Want to get back to the end: 'CTRL-e'.
-
-### Case sensitivity.
-
-In Linux, the case of a letter matters. 'A' is not the same thing as 'a' etc.  So watch out for changes in case.  You will notice that some people prefer to name things using alternating lowercase and uppercase letters like this: 
-
-```{bash, eval=FALSE}
-myFile.txt
-``` 
-That style is called camel case.  
-
-Other people prefer to use underscores like this:
-
-```{bash, eval=FALSE}
-my_file.txt
-```
-
-And still other people prefer all lowercase like this:
-
-```{bash, eval=FALSE}
-myfile.txt
-```
-
-Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters:
-
-```{bash, eval=FALSE}
-my\ file.txt
-```
-
-And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
-
-
-### Reserved Characters (also called "Special")
-
-Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, `\0` and `/` which is the path separator.  Other reserved characters are allowed but special meaning to the system like the `-` which proceeds flags on the command line or `*` which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
-
-
-
-
-
-
-
-
-### Using __`man`__ and __`--help`__
-
-Well I used the man command to learn more about `ls`.  You can use the man command to pull up a manual about any linux command like this:
+In Linux, half the battle is knowing what commands are available to use. That comes through experience and judicious use of Google. The other half is knowing how to use them. For that, one of your first resources is the `man` command, short for *manual*. You can use the `man` command to pull up a manual about any linux command like this:
 
 ```{bash, eval=FALSE}
 man ls
 ```
 
-When you are done looking at it, hit the `q` key to exit.
+At first glance this may not seem too helpful. Admittedly, some man pages are definately more useful than others. Let's break down this page into it's components so you can understand how to use these pages.
+
+First, how to navigate. `man` is opened in a special linux text reader called `less` (which we will visit in more detail later). Command-line interfaces were invented before the mouse and scroll bars, so you have to re-learn how to navigate with no mouse. Use the up and down arrows to scroll up and down line by line. When you want to exit, hit `q`. 
+
+Now that you know how to move around inside the man page, lets look at some of the sections you are likely to encounter:
+
+* __NAME__ This section gives the name of the command and simple statement of what it is supposed to do.
+
+* __SYNOPSIS__ This section describes how the command is to be used and the *arguments* it expects. In computer science, an *argument* is the extra information and parameters that the user specifies to a command to modify it's behavior. 
+    + [OPTION] This indicates that the first argument you can pass is an optional parameter or flag. The parameters and flags that you can use are listed below under the Description section.
+    + `...` This indicates that you can pass more than one of something. In this case, since if follows [OPTIONS], you can pass more than one option.
+    + [FILE] This indicates that you could specify a particular file or path to list the contents of
+    + `...` Again, this means that you could specify more than one file or path.
+    + Note that anything enclosed in braces: `[]` are actually designated as optional arguments. In this case, neither OPTIONS nor FILE need be specified for the command to work.
+    
+* __DESCRIPTION__ This section gives more details about what the function done and describes in more detail what options are available for you to use. 
+
+Options can be roughly divided into two categories: *flags* and *parameters*
+
+* __flags__ are typically options that you can set to turn certain behaviors on or off. Because they are typically yes/no, they don't require any further arguments. In Linux, flags are set using the minus sign `-` and are typically followed by a letter. You can set multiple flags at once by specifying multiple letters after the `-`. There's often a long form version of flags that is set using the double minus sign `--` followed by a word. The double minus usually distinguishes between a long form flag vs a set of multiple flags.
+```{bash, eval=FALSE}
+ls
+ls -a
+ls -l
+ls -al
+ls --all
+```
+
+* __parameters__ are special flags that require some additional arguments. For instance, you could specify the name of an input file or search string. Parameters look like flags, but are usually followed by `=` (or sometimes a space), and parameter value. As above, sometimes the parameter is designated with a word rather than a single letter. In this case, you would usually use a double minus `--`. (Just be aware that the double minus thing isn't a hard fast rule!)
+```{bash, eval=FALSE}
+ls --ignore=tools /
+```
+
+
+
 
 Because linux is open sourced, software gets contributed from many different programmers. Sometimes, the programmers elect to not include a `man` page. An alternative route is to try the `--help` flag:
 
@@ -345,36 +319,82 @@ ls --help
 
 As you can see, this returns essentially the same information.
 
-### flags
-
-And while we are looking at an example of some, lets talk about `flags`.  In Linux, there are special arguments called flags.  They come after the command and always follow a dash (like `-alh` above).  What they do is modify the meaning of a function.  The man page for a command should always tell you about the different flags that a command supports.
 
 
 
-### What are permissions?
 
-Another thing you might have noticed about my longer form use of `ls` is that it puts a string of characters in from of each file and directory.  Lets look at a toy example:
 
+
+
+
+
+# End of Class
+
+***
+***
+
+# Homework
+
+For homework, you will continue practice navigating your way around a linux file system using the `cd`, `ls`, and `pwd` commands. You will also learn three new commands: `mkdir`, `cp`, and `less` and practice using the associated man files.  
+
+
+####  <span style="color:blue">__Homework L1: `mkdir`__</span>
+Sometimes you will need to make a new directory.  For that there is the `mkdir` command.
+
+1. Navigate to your home directory.
+
+2. Make a new directory called "sandbox" in your home directory:
 ```{bash, eval=FALSE}
--rw-r--r-- 1 username rleQAS_SCRI-Sudo 8.2K Oct  7 17:21 file.txt
+mkdir sandbox
 ```
 
-Permissions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
+3. We have just illustrated a very important feature of linux: by default linux only talks back to you if you do something wrong. If you give it a correct command that doesn't require the system to give you back any information (such as make a new directory), linux silently obeys. To verify that you succeeded in making a directory, list the contents of your home directory.
 
-![permissions](permissions.png)
+4. Navigate into the sandbox directory that you just created.
 
-1. The very first character doesn't actually have to do with permissions.  It just indicates the kind of thing that something is. For example if it starts with `d`, then it's a directory etc.  In general, you won't need to spend a lot of time thinking about this first character.
-2. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (u)ser
-3. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (g)roup
-4. The last three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (o)thers
+5. Consult the man page for `mkdir`. Make a new directory inside 'sandbox' called 'myDir' and include a flag in the command that tells `mkdir` to print a message when the directory is created. Use the short form of the flag.
 
-Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges __you__ have.
+6. Repeat \#5, making a directory inside 'sandbox' called 'yourDir' using the long form of the flag to print a message when the directory is created. List the contents of sandbox to convince yourself that you have successfully created 'myDir' and 'yourDir'. 
+
+7. Navigate back to your home directory. From your home directory, create a new directory inside of sandbox as follows:
+```{bash, eval=FALSE}
+mkdir sandbox/ourDir
+```
+
+8. Navigate inside the newly created 'ourDir'. Can you do it with a single `cd` command?
+
+9. From within 'ourDir', try to create a nested set of directories: `sharedData/flowData`. What was the result of this operation?
+
+10. Consult the man page for `mkdir` and repeat \#8 using a flag that will tell mkdir to create any parent directories it needs. Also include the flag to tell it to print a message for each created directory.
+
+####  <span style="color:blue">__Homework L2: `cp`__</span>
+Often you will need to copy files from one location to another. For that there is the `cp` command.
+
+1. Navigate to the following location: `/tools/sampledata/examples` and list the contents of this directory. This directory contains small example files of many kinds of file formats that you might expect to work with at some point.
+
+2. 
 
 
 
-#### __Exercise L1:__ 
 
-Display the working directory of your home directory.  Now look around to see if you can find the working directories for the other users.  Are you allowed to see the contents of those directories?  How do you know?
+
+
+
+
+
+*** 
+
+### Making your own directories. Using __`mkdir`__
+A file system isn't any good unless you can make your own directories and organize things the way you like them. For that there is the mkdir command.
+```{bash, eval=FALSE}
+mkdir myDir
+```
+
+
+
+
+
+
 
 
 ### Using __`mkdir`__

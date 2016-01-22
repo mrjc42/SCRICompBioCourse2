@@ -4,6 +4,81 @@ author: "Sean, Bronson, Debbie, and Marc"
 date: "2/17/2016"
 output: html_document
 ---
+### What is tab-completion?
+
+Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). Go ahead and try it! Type `pw` and then hit the tab key for suggestions about what we might do next...
+
+### Up and down arrows, 'CTRL-a' and 'CTRL-e'
+
+In unix, you can always get back to previous commands by hitting the up arrow.  If you step back too far, you can page the other way by hitting the down arrow.  Find yourself at the end of a very long command and want to get back to the beginning?  Hit 'CTRL-a'.  Want to get back to the end: 'CTRL-e'.
+
+### Case sensitivity.
+
+In Linux, the case of a letter matters. 'A' is not the same thing as 'a' etc.  So watch out for changes in case.  You will notice that some people prefer to name things using alternating lowercase and uppercase letters like this: 
+
+```{bash, eval=FALSE}
+myFile.txt
+``` 
+That style is called camel case.  
+
+Other people prefer to use underscores like this:
+
+```{bash, eval=FALSE}
+my_file.txt
+```
+
+And still other people prefer all lowercase like this:
+
+```{bash, eval=FALSE}
+myfile.txt
+```
+
+Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters:
+
+```{bash, eval=FALSE}
+my\ file.txt
+```
+
+And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
+
+
+### Reserved Characters (also called "Special")
+
+Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, `\0` and `/` which is the path separator.  Other reserved characters are allowed but special meaning to the system like the `-` which proceeds flags on the command line or `*` which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
+
+
+
+
+
+
+
+
+
+
+### What are permissions?
+
+Another thing you might have noticed about my longer form use of `ls` is that it puts a string of characters in from of each file and directory.  Lets look at a toy example:
+
+```{bash, eval=FALSE}
+-rw-r--r-- 1 username rleQAS_SCRI-Sudo 8.2K Oct  7 17:21 file.txt
+```
+
+Permissions are used by Linux to control who can do things. They can be applied to (u)sers, (g)roups, (o)thers, or (a)ll.  (u)sers means the user who owns (created) the file while (g)roups mean the group that the file belongs to, and (o)thers means people who are not in these first two categories.  In Linux everything belongs to someone, so ownership and permission to act accordingly is a big deal.  Also true in Linux, is that groups of users are tracked and assigned to each file.  But each of these categories (user, group or other) can have separate permissions set to control whether people are allowed to (r)ead, (w)rite or e(x)ecute them.  Returning back to the mysterious string of ten characters mentioned above, it is actually broken into 4 sections: 
+
+![permissions](permissions.png)
+
+1. The very first character doesn't actually have to do with permissions.  It just indicates the kind of thing that something is. For example if it starts with `d`, then it's a directory etc.  In general, you won't need to spend a lot of time thinking about this first character.
+2. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (u)ser
+3. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (g)roup
+4. The last three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (o)thers
+
+Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges __you__ have.
+
+
+
+#### __Exercise L1:__ 
+
+Display the working directory of your home directory.  Now look around to see if you can find the working directories for the other users.  Are you allowed to see the contents of those directories?  How do you know?
 
 
 ### __`less`__ is __`more`__
@@ -17,6 +92,14 @@ less myFile.txt
 And when you were done looking around, you could exit by again pressing `q`.  Why the similarity to `man`?  Because the man command is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.  
 
 Another super useful thing to know about less is that you can search for a specific string while you have it open.  All you need to do is to type the `/` key while less is open and then you can type a string to search for and then hit enter.
+
+Key stroke | Function |\| | Key stroke | Function |
+-----------|----------|-|------------|----------|
+q|Quit|\||Up or Down Arrow |Move up or down a line|
+`space`|Next page|\||`/`abc|Search for text "abc"|
+b|Back a page|\||n|Find next occurence of "abc"|
+\#\# g|Go to line \#\#|\||?|Find previous occurence of "abc"|
+G|Go to end|\||h|Show help for `less`|
 
 ### Using __`cp`__, __`mv`__ and __`rm`__
 
