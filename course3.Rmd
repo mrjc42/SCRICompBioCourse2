@@ -655,6 +655,7 @@ Because R is a statistical language, it is often useful to have categorical data
 ***
 ***
 
+## Answers For Exercises:
 
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
