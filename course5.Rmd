@@ -2,7 +2,7 @@
 title: "Using R for Computational Biology"
 author: "Marc, Bronson, Debbie and Sean"
 date: "3/9/2016"
-output: html_document
+output: pdf_document
 ---
 
 # Basic plotting.
@@ -15,9 +15,37 @@ Probably the most basic function for plotting in R is just `plot`.  You can call
 plot(cars)
 ```
 
-Of course even just basic `plot` is a pretty capable method which handles a lot of different kinds of data.
+Of course even just basic `plot` is a pretty capable method which handles a lot of different kinds of data.  In fact, you can get many different kind of plots output from `plot` just by changing both the object you pass in to it as well as the other arguments that you use.  So for example, the above can changed to a very different view (even with the same data), by just using the 'type' argument like so:
+
+```{r,ploth}
+plot(cars, type='h')
+```
+
 
 ## some popular basic plot types (tables)
+
+And of course R has many, many other handy plotting functions baked in. Below are some tables to summarize a few of the more popular options.
+
+### Some popular basic plots for 1D data:
+
+Function  |  Data    |  Plot
+----------|----------|-----------------------
+plot      | Numeric  | Scatterplot
+barplot   | Numeric  | Barplot
+boxplot   | Numeric  | Box and whiskers plot
+hist      | Numeric  | Histogram
+
+
+### Some popular basic plots for 2D data:
+
+Function        |  Data            |  Plot
+----------------|------------------|-----------------------
+plot            | Numeric, Numeric | Scatterplot
+plot            | Factor, Numeric  | Boxplots
+smoothscatter   | Numeric, Numeric | Smooth scatterplot
+boxplot         | list of Numeric  | Boxplots
+barplots        | Matrix           | Barplots (side by side)
+
 
 
 ## saving plots out to file
@@ -49,6 +77,10 @@ There is not time in this course to introduce you to all of the packages in Bioc
 ## `ExpressionSet`
 
 `ExpressionSet` objects were initially developed to hold data from microarray experiments.  Essentially, they held a square of measured expression values where each column corresponded to another experiment and they also had space for tracking both annotation and phenotype data that related to this.  Here is an example that has data for 26 samples of microarray from the hgu95av2 platform from Affymetrix:
+
+```{r, ExpressionSetSetup, echo=FALSE}
+suppressMessages(library(Biobase))
+```
 
 ```{r, ExpressionSet}
 library(Biobase)

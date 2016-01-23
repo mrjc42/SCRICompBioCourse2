@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Bronson, Debbie and Sean"
 date: "2/24/2016"
-output: html_document
+output: pdf_document
 ---
 
 

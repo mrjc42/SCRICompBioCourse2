@@ -2,7 +2,7 @@
 title: "Programming with R"
 author: "Marc, Bronson, Debbie and Sean"
 date: "3/2/2016"
-output: html_document
+output: pdf_document
 ---
 
 
