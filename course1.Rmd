@@ -402,8 +402,8 @@ Permissions are used by Linux to control who can do things. They can be applied 
 
 Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others in the same group, as well as by others not in the same group.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges __you__ have.
 
-#### __Exercise L1:__ 
-
+***
+####  <span style="color:blue">__Exercise L1:__</span>
 1. Navigate to your home directory. 
 2. Navigate to the parent directory for all of the home directories by going up a level.
 3. List the contents of this directory. You should see subdirectories for each user on the system. Are you allowed to see the contents of others directories?  How do you know?
