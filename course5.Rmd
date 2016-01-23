@@ -15,19 +15,103 @@ Probably the most basic function for plotting in R is just `plot`.  You can call
 plot(cars)
 ```
 
+Of course even just basic `plot` is a pretty capable method which handles a lot of different kinds of data.
+
+## some popular basic plot types (tables)
 
 
-## saving plots
+## saving plots out to file
 
+A common thing that happens is that you will get a plot looking the way you like in R and then you may discover that you want to save that output to a file.  The thing to understand about how R handles plots is that when you make a plot you are sending the image to the X11 renderer (printing it to the panel on your screen).  So to save it, you really want to print it instead to a file on your filesystem.  To do that you want to call the appropriate function like `jpeg`, `png` or `pdf` which will then open a connection to a file (with a path that you specify) so that R can print the image out to the filesystem INSTEAD of to the plotting window.  Then if you plot your function again it will instead be sent to your file. And finally, by then calling the `dev.off` function you return R to the default state so that future plots will once again be sent to the plotting window on your screen.  So the code to "save a plot"" ends up looking like this example here:
+
+```{r, saveplot, eval=FALSE}
+jpeg(file = "myPlot.jpg")
+plot(cars)
+dev.off()
+```
+
+If that all of that seems a little weird to you, you can also just click on the export button from your Plots panel in RStudio.  But of course that option will only work from within RStudio, and so if you need to save a plot as an output from a script you will be out of luck...
 
 
 # Bioconductor and BiocViews
 
-Now that you know the basics of R, you are ready to explore some of the different software packages that people have built using that foundation.  There are many thousands of open source packages freely available on the internet at places like CRAN.  But in addition to these resources Bioconductor has over a thousand packages that all relate to computational biology.  These packages have all been vetted, and are built and checked nightly to make sure they still function as expected.  Also: these packages all have vignettes to describe how to use them and have been labeled with special controlled vocabulary in order to make them easy to discover.  The special vocabulary is called 'biocviews' and you can see how the packages are organized according to the 'biocviews' terms on the [website](http://bioconductor.org/packages/release/BiocViews.html#___Software).  
+Now that you know the basics of R, you are ready to explore some of the different software packages that people have built using that foundation.  There are many thousands of open source packages freely available on the internet at places like CRAN.  But in addition to these resources Bioconductor has over a thousand packages that all relate to computational biology.  These packages have all been vetted, and are built and checked nightly to make sure they still function as expected.  Also: these packages all have vignettes to describe how to use them and have been labeled with special controlled vocabulary in order to make them easy to discover.  The special vocabulary is called 'biocviews' and you can see how the packages are organized according to the 'biocviews' terms on the [website](http://bioconductor.org/packages/release/BiocViews.html#___Software).  Searching through the site, you can find many popular packages that help with flow cytometry analysis, microarrays, RNA-seq, chip-seq, high throughput mass spectrometry to name just a few topics.
 
-Once you have a package that interests you, you should go to it's landing page and look at the instructional vignettes.  And if you then discover that you have questions about how best to use the package you can search or post questions on the sites [help forum](https://support.bioconductor.org/).
+Once you have a package that interests you, you should go to it's landing page and look at the instructional vignettes.  And if you then discover that you have questions about how best to use the package you can search or post questions on the sites [help forum](https://support.bioconductor.org/).  
 
-Finally many of the most popular packages are also described in the context of popular [workflows](http://bioconductor.org/help/workflows/), which show a high level view for how popular packages are often used together.
+Finally many of the most popular packages are also described in the context of popular [workflows](http://bioconductor.org/help/workflows/), which show a high level view for how popular packages are often used together.  
+
+
+# Common Bioconductor objects
+
+There is not time in this course to introduce you to all of the packages in Bioconductor.  What we have tried to do instead, is teach you enough basic R so that this world of software will be an open door for you to walk into when you need to.  But while we won't have time to teach you about all 1000+ packages in the project, we can show you a few things that many of the most popular pacakges has in common.  And one of the things that holds Bioconductor together as a project are a shared set of objects that allow data to be easily moved between packages that often do very different kinds of analysis.  A couple of the most common object types are `ExpressionSet` objects and `GRanges` objects.  There are of course many many other objects that are derived from these objects and which are different in subtle ways, but if you have seen these objects, then those other objects should seem more familiar.
+
+## `ExpressionSet`
+
+`ExpressionSet` objects were initially developed to hold data from microarray experiments.  Essentially, they held a square of measured expression values where each column corresponded to another experiment and they also had space for tracking both annotation and phenotype data that related to this.  Here is an example that has data for 26 samples of microarray from the hgu95av2 platform from Affymetrix:
+
+```{r, ExpressionSet}
+library(Biobase)
+data(sample.ExpressionSet)
+sample.ExpressionSet
+```
+
+### Why this is popular:
+
+This is very convenient because having this object not only puts all the data in one place, but it allows for convenient subsetting of the data (keeping all of the relevant details in sync with each other as you do so).  It also creates a kind of shared currency for all packages that want to use this kind of data.  Now anyone who wants to do something creative with data of this kind has a convenient way to share their data.  This ultimately allows packages written by people in different corners of the globe be able to communicate.
+
+As a result of it's popularity, this container has been adapted many times to a whole range of different data types.  One of the more recent popular examples is the `RangedSummmarizedExperiment` objects defined in the `SummarizedExperiment` package.  These objects are similar in design to the class `ExpressionSet` objects, but they have been built instead with high throughput sequencing data in mind.  `RangedSummmarizedExperiment` objects are still an area of active development, but you can see a vignette detailing their current status [here](http://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html).
+
+Here is an example of a `RangedSummmarizedExperiment` object:
+
+```{r, RangedSummmarizedExperiment}
+data(airway, package="airway")
+airway
+```
+
+
+## `GRanges` and `GRangesList`
+
+Another popular type of object that you will see used in Bioconductor are range based objects.  These are predominantly used for high throughput sequencing data.  They are used here as a convenient way to represent data that is mapped onto a genome.  As a result, there are certain minimal things that all `GRanges` objects have to have baked in in order to effectively be 'placed' on a genome.  To get an idea about what needs to be in a a `GRanges` object, lets build one:
+
+```{r, Granges}
+gr <- GRanges(Rle(c("chr2", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),
+               IRanges(1:10, width=10:1))
+gr
+```
+
+As you can see `GRanges` objects have (at a minimum) all the information needed to represent specific ranges on the genome.  This is very convenient because most of the operations that people want to perform for genomic features involve rapidly comparing whether or not certain features overlap or not, and currently most genomic data is mapped relative to a common set of references.
+
+In addition to `GRanges`, Sometimes it is helpful to create lists of `GRanges` objects in order to represent nested structures (like exons contained inside of transcripts).  For these circumstances there is the `GRangesList` object.  Usually you will see these objects when looking at certain kinds of annotations.  Here  is an example of how that can come up:
+
+```{r, GRangesList}
+library(Homo.sapiens)
+txby <- transcriptsBy(Homo.sapiens, by='gene', columns=c('SYMBOL','GENEID'))
+class(txby)
+txby[3:4]
+```
+
+
+## `DataFrame` Objects
+
+Another common object that you will encounter are `DataFrame` objects.  The `DataFrame` was created because many ranges in computational biology need to be labeled by rich annotations that have a many to one relationship with a given range.  For example consider what happens if we also request UNIPROT IDs to go with our transcript ranges in the previous example:
+
+```{r, GRangesDataFrame}
+library(Homo.sapiens)
+txby <- transcriptsBy(Homo.sapiens, by='gene', columns=c('SYMBOL','GENEID','UNIPROT'))
+txby[[1]]
+```
+
+Notice how there are multiple UNIPROT IDs associated with each gene?  If you then extract the metadata like this:
+
+```{r, DataFrame}
+meta <- mcols(txby[[1]])
+meta
+```
+
+Then you can see that the GRanges object returned by the `transcriptsBy` method contains a `DataFrame` object.  This `DataFrame` object is returned when you call the `mcols` method and the `DataFrame` object allows the GRanges object that it is embedded into to store multiple values for the UNIPROT IDs associated with each gene.
+
+
 
 # Literate programming.
 
