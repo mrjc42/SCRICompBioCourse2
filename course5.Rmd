@@ -5,11 +5,19 @@ date: "3/9/2016"
 output: pdf_document
 ---
 
+This week we will start by introducing you to basic plotting functionalities and then move on to some of the ways that the R programming language intersects with computational Biology.
+
 # Basic plotting.
 
 One of the most important things that you can do to help you understand data is to visualize it.  And R is especially famous for providing many flexible systems for visualizing complex data.  Here in this course we will focus on the most basic of these systems in order to give people exposure to the fundamental graphics systems.  But students who are interested are strongly encouraged to also look at the `lattice` and `ggplot2` packages which each extend the core graphics capabilities in remarkable ways.
 
-Probably the most basic function for plotting in R is just `plot`.  You can call `plot` just by passing it some data like this:
+Probably the most basic function for plotting in R is just `plot`.  You can call `plot` just by passing it some data.  For example, here is some data:
+
+```{r,carData}
+head(cars)
+```
+
+And here is one way you can quickly plot it:
 
 ```{r,plot}
 plot(cars)
@@ -144,6 +152,17 @@ meta
 Then you can see that the GRanges object returned by the `transcriptsBy` method contains a `DataFrame` object.  This `DataFrame` object is returned when you call the `mcols` method and the `DataFrame` object allows the GRanges object that it is embedded into to store multiple values for the UNIPROT IDs associated with each gene.
 
 
+## How can I learn more about what I might do with all these fancy S4 Objects?
+
+Often you will encounter a new object and wonder: "what is that for"?  It's a perfectly reasonable question to find yourself asking.  And there is a good way  to get answers.  The thing to do in this circumstance is to call `methods` and then look at the list of methods associated with that object.  So for example, you can use `methods` to get a list of all the methods associated with `ExpressionSet` objects like this:
+
+```{r, methods}
+methods(class='ExpressionSet')
+```
+
+Now that you know the names of the associated methods, you can look up manual pages and explore more about what is possible for this object.  This is especially helpful when using Bioconductor where there are a lot of these rich S4 objects (and associated methods).
+
+
 
 # Literate programming.
 
@@ -170,7 +189,7 @@ names(knitr::knit_engines$get())
 Lets do a quick exercise to learn what markdown looks like and how you can edit it
 
 ***
-####  <span style="color:blue">__Exercise R1:__</span> 
+####  <span style="color:blue">__Exercise RX:__</span> 
 
 Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
 
@@ -225,7 +244,50 @@ As you do that, pay close attention to the tree hierarchy and to the search boxe
 
 ## Answers For Exercises:
 
+
+
 ####  <span style="color:blue">__Exercise R1:__</span> 
+
+Basic questions about plotting (plot some data, change some labels)
+
+#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
+
+```{r,ans1}
+
+```
+
+
+
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+Basic questions about Bioconductor objects 
+
+#####  <span style="color:blue">__Answer for Exercise R2:__</span> 
+
+```{r,ans2}
+
+```
+
+
+####  <span style="color:blue">__Exercise R3:__</span> 
+
+Basic questions about
+
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
+
+```{r,ans3}
+
+```
+
+
+
+
+
+
+
+
+
+####  <span style="color:blue">__Exercise RX:__</span> 
 
 Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
 
@@ -233,7 +295,7 @@ Now look at the document that is opened up in RStudio.  Notice how certain secti
 
 Now add a new code chunk to the document to define and test the function you created in exercise 1.
 
-#####  <span style="color:blue">__Answer for Exercise R1:__</span> 
+#####  <span style="color:blue">__Answer for Exercise RX:__</span> 
 
 
 The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge of the following display).  The reason for the "|" is because it is hard to get RStudio to render what a code chunk should look like since it wants to interpret that code chunk...
