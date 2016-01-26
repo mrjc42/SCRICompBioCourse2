@@ -69,6 +69,16 @@ dev.off()
 If that all of that seems a little weird to you, you can also just click on the export button from your Plots panel in RStudio.  But of course that option will only work from within RStudio, and so if you need to save a plot as an output from a script you will be out of luck...
 
 
+***
+####  <span style="color:blue">__Exercise R1:__</span> 
+
+
+***
+
+
+
+
+
 # Bioconductor and BiocViews
 
 Now that you know the basics of R, you are ready to explore some of the different software packages that people have built using that foundation.  There are many thousands of open source packages freely available on the internet at places like CRAN.  But in addition to these resources Bioconductor has over a thousand packages that all relate to computational biology.  These packages have all been vetted, and are built and checked nightly to make sure they still function as expected.  Also: these packages all have vignettes to describe how to use them and have been labeled with special controlled vocabulary in order to make them easy to discover.  The special vocabulary is called 'biocviews' and you can see how the packages are organized according to the 'biocviews' terms on the [website](http://bioconductor.org/packages/release/BiocViews.html#___Software).  Searching through the site, you can find many popular packages that help with flow cytometry analysis, microarrays, RNA-seq, chip-seq, high throughput mass spectrometry to name just a few topics.
@@ -163,19 +173,26 @@ methods(class='ExpressionSet')
 Now that you know the names of the associated methods, you can look up manual pages and explore more about what is possible for this object.  This is especially helpful when using Bioconductor where there are a lot of these rich S4 objects (and associated methods).
 
 
+***
+####  <span style="color:blue">__Exercise R2:__</span> 
+
+
+***
+
+
 
 # Literate programming.
 
 Literate programming is the idea that a single document can contain both human ideas and executable machine code.  It was initially put forward by the legendary Donald Knuth.  And it is especially valuable in fields like science and mathematics where ideas need to be reproducible and testable when shared with colleagues.  Over the years there have been several attempts to make this workable and they have seen varying degrees of success, but one of the most usable and successful applications of this is the R markdown (.Rmd) document.
 
-### What is an .Rmd file?
+## What is an .Rmd file?
 
 An R markdown (.Rmd) document allows you to embed R code right into the middle of your prose.  You can make one right from your RStudio session by simply choosing it from the File menu.  The markdown is extremely simple and easy to learn.  But for a fully detailed description of all advanced features, be sure to have a look at this document here: 
 ```{bash, eval=FALSE}
 http://rmarkdown.rstudio.com/
 ```
 
-### Reproducible research
+## Reproducible research
 
 But why would you want to do this?  Probably the best reason is that you want to know both what code you wrote and why you wrote it later on.  By documenting your code with .Rmd files, you can come back later and see both what you were thinking as well as what code you ran.  It is also a nicely explicit way of sharing workflows with colleagues who otherwise might struggle to reproduce your work.
 
@@ -189,16 +206,15 @@ names(knitr::knit_engines$get())
 Lets do a quick exercise to learn what markdown looks like and how you can edit it
 
 ***
-####  <span style="color:blue">__Exercise RX:__</span> 
+####  <span style="color:blue">__Exercise R3:__</span> 
 
-Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
-
-Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
-
-Now add a new code chunk to the document to define and test the function you created in exercise 1.
 
 ***
 
+
+## Shiny
+
+Now that we have talked about both basic plotting and R markdown lets also briefly mention the `shiny` package.  The `shiny` package was created to bring the interactivity of javascript and connect it with R's famous plotting abilities.  The result is a system that lets you take your data and make your plots interactive.  If you are curious to explore shiny, go to the 'File' menu, choose 'New File', and then 'R markdown' and then choose 'Shiny' on the left hand side of the pop up window.
 
 
 
@@ -207,7 +223,7 @@ Now add a new code chunk to the document to define and test the function you cre
 
 So writing your code as .Rmd files will go a long ways towards helping you compose your ideas so that things can be tested easily.  But what if you have a lot of R code and you are making a lot of changes?  How will you keep track of what has changed?  And if you work on a piece of code with a co-worker?  How will you both be able to work on it without losing your minds?
 
-The answer is to use version control software.  Version control software is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, but if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
+The answer is to use version control software.  Version control software is something that all software developers use, and it's very much worth your time to learn to use it too.  It's not difficult to learn, and if you make good use of it, it can not only save your bacon, but it can make your life a lot easier as well.  There have been many popular flavors of version control software that have come out over the years.  A few you might have heard about are `rcs`, `cvs`, `svn` and more recently `git`. 
 
 Version control is probably too big a topic to do justice to in a beginner course (it could be a short class on it's own).  But it is mentioned here so that you know it is something that you should really learn about.
 
@@ -248,7 +264,7 @@ As you do that, pay close attention to the tree hierarchy and to the search boxe
 
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
-Basic questions about plotting (plot some data, change some labels)
+Basic questions about plotting (plot some data, change some labels, save it)
 
 #####  <span style="color:blue">__Answer for Exercise R1:__</span> 
 
@@ -260,7 +276,7 @@ Basic questions about plotting (plot some data, change some labels)
 
 ####  <span style="color:blue">__Exercise R2:__</span> 
 
-Basic questions about Bioconductor objects 
+Basic questions about Bioconductor objects (use methods on 'OrganismDb' (which was introduced but not explained). Have them look up the help for select() and then use Homo.sapiens to extract information about it)
 
 #####  <span style="color:blue">__Answer for Exercise R2:__</span> 
 
@@ -269,33 +285,16 @@ Basic questions about Bioconductor objects
 ```
 
 
+
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
-Basic questions about
-
-#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
-
-```{r,ans3}
-
-```
-
-
-
-
-
-
-
-
-
-####  <span style="color:blue">__Exercise RX:__</span> 
-
-Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  Also choose 'HTML' as the desired output (you can change this later).
+Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  
 
 Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
 
-Now add a new code chunk to the document to define and test the function you created in exercise 1.
+Now add a new code chunk to the document.
 
-#####  <span style="color:blue">__Answer for Exercise RX:__</span> 
+#####  <span style="color:blue">__Answer for Exercise R3:__</span> 
 
 
 The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge of the following display).  The reason for the "|" is because it is hard to get RStudio to render what a code chunk should look like since it wants to interpret that code chunk...
