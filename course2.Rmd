@@ -4,13 +4,31 @@ author: "Sean, Bronson, Debbie, and Marc"
 date: "2/17/2016"
 output: html_document
 ---
+
+# Howework Review
+
+***
+
+# Tips and Tricks for working in Linux
+
 ### What is tab-completion?
 
-Before you type anything, please locate the tab key in the upper left part of your keyboard. You are going to be hitting that key a lot. That is because in Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). Go ahead and try it! Type `pw` and then hit the tab key for suggestions about what we might do next...
+During your homework, you probably noticed a few things things:
+
+1. Linux involves a lot of typing
+2. It is annoying if you misspell a word
+3. You often have to know a bit about what is available so you can know what to start typing.
+
+A really handy feature to help with this is *tab completion*. In Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). This works to tab-complete commands as well as paths and filenames. Go ahead and try it! 
+
 
 ### Up and down arrows, 'CTRL-a' and 'CTRL-e'
 
 In unix, you can always get back to previous commands by hitting the up arrow.  If you step back too far, you can page the other way by hitting the down arrow.  Find yourself at the end of a very long command and want to get back to the beginning?  Hit 'CTRL-a'.  Want to get back to the end: 'CTRL-e'.
+
+### Copy and paste
+
+In unix, you usually can't use the usual keystrokes for copy and paste (CTRL-C, CTRL-V). In unix, if you hightlight something with your mouse, it is automatically copied onto your clipboard. If you have one, clicking with the middle mouse button will paste. You can also try right clicking and selecting paste from the drop-down menu.
 
 ### Case sensitivity.
 
@@ -47,33 +65,53 @@ And this is a huge inconvenience.  So if you give someone a file like this in li
 Like spaces, reserved characters should be avoided in file names.  Linux has two which are prohibited.  The null character, `\0` and `/` which is the path separator.  Other reserved characters are allowed but special meaning to the system like the `-` which proceeds flags on the command line or `*` which is a wild card.  Like a space, you have to escape them which adds complexity and can lead to errors if you forget. 
 
 
+# Making and editing files
+
+### How to copy, move, rename or delete a file: Using __`cp`__, __`mv`__ and __`rm`__
+
+As you discovered in your homework, `cp` copies a file to another place.  `mv` moves a file (and so does not leave the original behind).  Here is an example of each of these, and by now you should be familiar with the syntax:
+
+```{bash, eval=FALSE}
+cp file.txt filecopy.txt
+mv file.txt ..
+```
+
+The first of these commands copies `file.txt` to another file with a different name `filecopy.txt` (in this example, the new file it would be in the same directory).  The second command moves file.txt up a directory from where it is currently located.
+
+What if you want to rename a file? It turns out that linux does not have a concept of renaming, which may seem odd. But you can still do it. The trick is to use `mv`. But instead of moving it to a different location and keeping the same name, this time you move it to the same location but use a different name. For example:
+```{bash, eval=FALSE}
+mv file.txt newname.txt
+```
+
+But sometimes you may just want to get rid of something altogether.  `rm` will do that for you.  Here is an example that just removed file.txt:
+
+```{bash, eval=FALSE}
+rm file.txt
+```
+
+Another common case with rm is when you have a directory and you want to remove it AND everything in it. Remember that compliated file structure we created last time inside `~/sandbox/ourData`? If you wanted to remove `ourData ` and everything in it, you can do it recursively like this:
+
+```{bash, eval=FALSE}
+## First use ls with the -R flag to recursively show everything in the sandbox directory
+cd ~/sandbox
+ls -R
+
+## now recursively remove everything in the ourData subdirectory
+rm -r ourData
+ls -R
+```
+
+Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So please be very careful!
 
 
+### How do I look at the contents of a file: __`less`__ is __`more`__
 
-
-
-
-
-
-
-
-
-#### __Exercise L1:__ 
-
-Display the working directory of your home directory.  Now look around to see if you can find the working directories for the other users.  Are you allowed to see the contents of those directories?  How do you know?
-
-
-### __`less`__ is __`more`__
-
-Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  So now that you know that, you should expect that the following command will let you look at the file `myFile.txt`:
+Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  Unlike text editors in windows and macs, `less` does not wait for the entire file to load into memory before showing you it's contents. Rather, it starts *paging* the file contents onto the screen so you can begin looking at it immediately. While you are doing that, it is quietly contintuing to load the rest of the file into memory in case you want to see more of it. By now you should already be somewhat familiar with how `less` works, but we will repeat the basic syntax and keystrokes that you use with `less`: 
 
 ```{bash, eval=FALSE}
 less myFile.txt
 ```
 
-And when you were done looking around, you could exit by again pressing `q`.  Why the similarity to `man`?  Because the man command is actually using `less` to display the contents of the manual pages.  It's not the only time you will see that happen either.  Tools in Linux gets reused a lot.  
-
-Another super useful thing to know about less is that you can search for a specific string while you have it open.  All you need to do is to type the `/` key while less is open and then you can type a string to search for and then hit enter.
 
 Key stroke | Function |\| | Key stroke | Function |
 -----------|----------|-|------------|----------|
@@ -83,32 +121,9 @@ b|Back a page|\||n|Find next occurence of "abc"|
 \#\# g|Go to line \#\#|\||?|Find previous occurence of "abc"|
 G|Go to end|\||h|Show help for `less`|
 
-### Using __`cp`__, __`mv`__ and __`rm`__
+Note that `less` is great for looking at your files, but you should remember that it is read-only, meaning you can't change anything. If you need to edit the contents of a file, you will need to use a text editor.
 
-`cp` copies a file to another place.  `mv` moves a file (and so does not leave the original behind).  Here is an example of each of these:
-
-```{bash, eval=FALSE}
-cp file.txt filecopy.txt
-mv file.txt ..
-```
-
-The first of these commands copies `file.txt` to another file with a different name `filecopy.txt` (in this example, the new file it would be in the same directory).  The second command moves file.txt up a directory from where it is currently located.
-
-But sometimes you may just want to get rid of something altogether.  `rm` will do that for you.  Here is an example that just removed file.txt:
-
-```{bash, eval=FALSE}
-rm file.txt
-```
-
-Another common case with rm is when you have a directory and you want to remove it AND everything in it  When that happens you can tell rm to remove things recursively like this:
-
-```{bash, eval=FALSE}
-rm -r myDir
-```
-
-Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So please be very careful!
-
-### text editors
+### How do I edit the contents of a file: text editors
 
 Linux is loaded with powerful text editors. Some of them (like vi or emacs) are so powerful that they could each have their own course.  Today lets look at a very simple and common one: `nano`.
 
@@ -120,9 +135,139 @@ That command will launch the nano editor.  Once inside you will be able to type 
 
 `^X` basically means 'CTRL-X'.  It's a hint about how to give that command.  Do it now to exit out of nano and feel free to save your work on the way.
 
+### What are wildcards?
+
+In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have two files that both end with `.txt` then I can move them both into myDir by doing this:
+
+```{bash, eval=FALSE}
+mv *.txt /myDir
+```
+
+Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with dangerous commands like `rm`, you might end up wishing that you could rewind time.
 
 
-### Fixing bad line endings with __`dos2unix`__
+
+***
+####  <span style="color:blue">__Exercise L1:__</span>
+
+1. Navigate to your home directory.
+2. Type `pw` and then hit the tab key twice for suggestions about what we might do next.
+3. Type `ls /` and then hit the tab key twice for suggestions about directories can go to.
+4. Type `ls /t ` and then hit the tab key once to complete the path. Continue downward into that directory by double- and single- tab clicks.
+5. Inside the following directory `/tools/sampledata/examples` there are a series of .seq files and .pdb files. Using tab completion and wildcards, copy all the .seq files and all the .pdb into `~/sandbox/myData`. (*Hint, you will want to use two cp commands to first get the .seq files, and then the .pdb files.)
+6. Rename the file `FEC00007_3.seq` to `FEC0007_4.seq`.
+
+***
+
+# More ways to interact with your files
+ 
+### Using __`head`__ and __`tail`__ to see both sides of things
+
+Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
+```{bash, eval=FALSE}
+cd ~/sandbox/myData
+head structure_1ema.pdb
+```
+
+### Finding in-file matches with __`grep`__
+
+The grep command is usually used to find strings in text files. For example you could search your .pdb files for the string `ATOM` to show you all of the lines that contain atomic coordinates like this:
+
+```{bash, eval=FALSE}
+grep 'ATOM' structure_1ema.pdb
+```
+```{bash, echo=FALSE}
+grep 'ATOM' structure_1ema.pdb |head
+```
+
+This is useful all by itself, and grep is extremely powerful since it is a fast and efficient way to search your files for lines that match.  
+
+
+### Merging and streaming file contents using __`cat`__ and __`zcat`__
+
+`cat` is useful for streaming the contents of a file. Another command you will sometimes see is `zcat`, which allows you to call cat on files that are zipped (end with a `.gz` extension). When called with a single file as an argument, `cat` will simply dump the file contents onto the screen.  
+```{bash}
+cd ~/sandbox/myData
+cat FEC00001_1.seq 
+```
+So by itself `cat` is not so useful.  But in combination with other commands such as `pipe`, it can be a very useful way to stream the contents of a file line-by-line to be processed by another command (more on this in a moment). 
+
+`cat` is short for "concatenate", which means to merge together. Sometimes you would like to merge the contents of two files together, for instance to make a multi-sequence FASTA file. For this use `cat` with two files as arguments, and the contents of the two files will be displayed in succession:
+```{bash}
+cd ~/sandbox/myData
+cat FEC00001_1.seq FEC00002_1.seq
+```
+
+Again, displaying it on the screen is not so useful. What you would really like to do is save the output to a new file. For this, you use `>`, the redirect operator.
+
+### Redirecting output to a file: Using __`>`__ and __`>>`__
+
+If at any time you want to save the output from a command or set of commands, you would use the re-direct operator", or "bent pipe" or `>`
+
+```{bash, eval=FALSE}
+cd ~/sandbox/myData
+cat FEC00001_1.seq FEC00002_1.seq > FEC_seq.fasta
+less FEC_seq.fasta
+```
+
+If the file does not exist, it will be created for you. If it does exist, it will be overwritten. Sometimes though, you might want to simply append to an existing file without overwriting it.  In that case you would use the "double bent pipe" or `>>`.  So now we can add additional sequences to our fasta file:
+
+```{bash, eval=FALSE}
+cat FEC00003_1.seq >> FEC_seq.fasta
+less FEC_seq.fasta
+```
+
+### Redireting output into another command: __`pipes`__ or __`|`__
+
+There are many
+
+Pipe and re-direct (or `|` and `>`) are examples of "operators" (like "+" and "-").  And you use it to indicate something specific that you want to happen between a couple of other things.  Let me give an example to clarify:
+
+```{bash, eval=FALSE}
+cat myFile.txt | less
+```
+
+Here cat is streaming the contents of myFile "in" to a pipe.  Where doed the data go next?  Well in the example above it goes "in" to the less command.  So when you see the `|` operator, what it means is that the output of the thing to it's left is being sent "in" to the thing to it's right.  Just like a pipe would.  
+
+Ok, I will admit that the example above could be a lot more interesting.  Right now you are probably wondering why not just use less on the file like a normal person?  But just wait till we show you some other tricks that you can use with pipe.  I promise we will make this worth your time...
+
+
+But look at what happens when we pair it with a pipe and less like above:
+
+```{bash, eval=FALSE}
+grep 'var' file.txt | less
+```
+
+Now if I have a Large number of search results, I can easily page through them (or use the additional search feature inside of less).  Or I can take the results of the 1st grep search and send that along to another grep search like this:
+
+
+```{bash, eval=FALSE}
+grep 'var' file.txt | grep 'car' | less
+```
+
+
+
+
+
+
+
+### Using __`wc`__
+
+The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
+
+```{bash, eval=FALSE}
+ls | wc
+```
+
+### Compression and decompression with __`tar`__
+
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
+
+```{bash, eval=FALSE}
+tar -zxvf myFile.tar.gz
+```
+
+ ### Fixing bad line endings with __`dos2unix`__
 
 `dos2unix` is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. `dos2unix` fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
 
@@ -139,15 +284,7 @@ cat -v myFile
 If when you do the above command, a file with windows style line endings will have ^M on the end of all the lines.  
 
 
-### Compression and decompression with __`tar`__
 
-`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
-
-```{bash, eval=FALSE}
-tar -zxvf myFile.tar.gz
-```
-
- 
 
 #### __Exercise L2:__ 
 
@@ -158,84 +295,6 @@ Change to this directory: `/tools/references/Homo_sapiens/Ensembl/GRCh37/Annotat
 Make a directory in your home directory called `sampledata`. Use the `cp` command to pull down the tarball file from here: `/tools/sampledata/sampledata.tar.gz` into `sampledata`.  Now unpack it within `sampledata`.  Be sure to get help if you have trouble with this since some of the future questions will require that you succeeded at this.
 
 In the sampledata directory navigate to the `examples` directory, and inspect the file `badtextfile.txt` for windows style line endings.  If you see them, fix the file and then look again to make sure that the problem has been cleared up.
-
-
-
- 
-
-### Using __`cat`__ and __`zcat`__
-
-Cat is useful for streaming the contents of a file.  As a quick example the following use of cat would dump the contents of `myFile.txt` to the screen.  So by itself `cat` is not so useful.  But in combination with other commands, it can be very useful (more on this in a moment).  Another command you will sometimes see is `zcat`, which allows you to call cat on files that are zipped (end with a `.gz` extension).
-
-```{bash, eval=FALSE}
-cat myFile.txt
-```
-
-But: the more common use for `cat` is to send a command to a pipe.  What is a pipe you say?
-
-
-### What are pipes?
-
-So glad you asked! A pipe is a way of moving data around in unix.  Technically, it is an "operator" (like "+" and "-").  And you use it to indicate something specific that you want to happen between a couple of other things.  Let me give an example to clarify:
-
-```{bash, eval=FALSE}
-cat myFile.txt | less
-```
-
-Here cat is streaming the contents of myFile "in" to a pipe.  Where doed the data go next?  Well in the example above it goes "in" to the less command.  So when you see the `|` operator, what it means is that the output of the thing to it's left is being sent "in" to the thing to it's right.  Just like a pipe would.  
-
-Ok, I will admit that the example above could be a lot more interesting.  Right now you are probably wondering why not just use less on the file like a normal person?  But just wait till we show you some other tricks that you can use with pipe.  I promise we will make this worth your time...
-
-
-### Finding in file matches with __`grep`__
-
-The grep command is usually used to find strings in text files. For example you could search a file called `file.txt` for the string `var` like this:
-
-```{bash, eval=FALSE}
-grep 'var' file.txt
-```
-
-This is useful all by itself, and grep is extremely powerful since it is a fast and efficient way to search your files for lines that match.  But look at what happens when we pair it with a pipe and less like above:
-
-```{bash, eval=FALSE}
-grep 'var' file.txt | less
-```
-
-Now if I have a Large number of search results, I can easily page through them (or use the additional search feature inside of less).  Or I can take the results of the 1st grep search and send that along to another grep search like this:
-
-
-```{bash, eval=FALSE}
-grep 'var' file.txt | grep 'car' | less
-```
-
-
-
-### Using __`>`__ and __`>>`__
-
-What happens if you link together a set of pipes that does something useful?  In that case you might want to save the output.  This is when you would use the "bent pipe" or `>`
-
-```{bash, eval=FALSE}
-grep 'var' file.txt | grep 'car' > saveFile.txt
-```
-
-And sometimes, you might want to simply append to an existing file without overwriting it.  In that case you would use the "double bent pipe" or `>>`.  So if we repeat the example above, then you will see that we have appended the same thing into `saveFile.txt`.
-
-```{bash, eval=FALSE}
-grep 'var' file.txt | grep 'car' >> saveFile.txt
-```
-
-### Using __`head`__ and __`tail`__ to see both sides of things
-
-Another thing that happens with large files is that you may only want to see (or process) the first few lines.  The `head` and `tail` commands will allow you to look at the first or last few lines of any given file.
-
-
-### Using __`wc`__
-
-The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
-
-```{bash, eval=FALSE}
-ls | wc
-```
 
 
 
@@ -250,15 +309,7 @@ Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads ar
 
 
 
-### What are wildcards?
 
-In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have to files that both end with `.txt` then I can move them both into myDir by doing this:
-
-```{bash, eval=FALSE}
-mv *.txt /myDir
-```
-
-Wildcards are useful for a whole host of other circumstances.  But be careful.  If you use them with dangerous commands like `rm`, you might end up wishing that you could rewind time.
 
 
 ### Dividing files with __`split`__
