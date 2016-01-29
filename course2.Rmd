@@ -217,47 +217,70 @@ cat FEC00003_1.seq >> FEC_seq.fasta
 less FEC_seq.fasta
 ```
 
-### Redireting output into another command: __`pipes`__ or __`|`__
+### Redirecting output into another command: __`pipes`__ or __`|`__
 
-There are many
+You have seen how you can use `>` or `>>` to redirect output to a file. Using the __pipe__ redirect or `|` it is also possible to redirect the output of a command directly into another. This is extremely useful because it allows you to use commands in combination to do more interesting types of things. Here are some examples:
 
-Pipe and re-direct (or `|` and `>`) are examples of "operators" (like "+" and "-").  And you use it to indicate something specific that you want to happen between a couple of other things.  Let me give an example to clarify:
-
+We have already seen that you can use `grep` to search for a string of text line by line. 
 ```{bash, eval=FALSE}
-cat myFile.txt | less
+cd ~/sandbox/myData
+grep 'ATOM' structure_1ema.pdb
+```
+The problem with this is that it dumps a large amount of data directly onto your screen. You could minimize that by piping the output to `less` where you can now browse through the output more easily. Notice that we didn't have to save it to a file first (which gets to be awkward). Similarly, we could also just look at the first few lines of the output by piping to `head`.
+```{bash, eval=FALSE}
+grep 'ATOM' structure_1ema.pdb | less
+grep 'ATOM' structure_1ema.pdb | head
 ```
 
-Here cat is streaming the contents of myFile "in" to a pipe.  Where doed the data go next?  Well in the example above it goes "in" to the less command.  So when you see the `|` operator, what it means is that the output of the thing to it's left is being sent "in" to the thing to it's right.  Just like a pipe would.  
-
-Ok, I will admit that the example above could be a lot more interesting.  Right now you are probably wondering why not just use less on the file like a normal person?  But just wait till we show you some other tricks that you can use with pipe.  I promise we will make this worth your time...
-
-
-But look at what happens when we pair it with a pipe and less like above:
-
+We can also do a more sophisticated grep search by piping the output of our grep search into another grep. For instance, what if we wanted to look at all the atomic coordinates for just proline residues? We can do successive grep searches on the terms 'ATOM' and 'PRO' and look at the results in `less`:
 ```{bash, eval=FALSE}
-grep 'var' file.txt | less
+grep 'ATOM' structure_1ema.pdb | grep 'PRO' | less
+```
+Notice that the file name for 'structure_1ema.pdb' is only ever specified in the first command string. We don't need to specify it in the second `grep` call, because it is receiving it's input from the pipe. Similarly, we don't need to specify a source for `less` as it receives it's input from the second pipe. 
+
+This will be a very important feature as you 'pipe' different commands together to create powerful custom commands.
+
+
+### Counting things using __`wc`__
+
+The `wc` command is the word count command.  Check out the man page for usage. This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, you can use the `-l` flag to specify line count. So if you wanted to know how many things were in the current directory you could do this:
+
+```{bash}
+ls ~/sandbox/myData | wc -l
 ```
 
-Now if I have a Large number of search results, I can easily page through them (or use the additional search feature inside of less).  Or I can take the results of the 1st grep search and send that along to another grep search like this:
-
-
-```{bash, eval=FALSE}
-grep 'var' file.txt | grep 'car' | less
+If you wanted to know how many sequences are in a fastq file, you can take advantage of the fact that sequence names are identified with the `>` character. So:
+```{bash}
+cd ~/sandbox/myData/
+grep '>' FEC_seq.fasta | wc -l
 ```
 
+### Using __`cut`__
 
+Cut is especially useful if you have to deal with delimited files.  It allows you to extract only the columns that are of interest.  For example, the file Marrus_claudanielis.txt contains information about deep sea dives with lattitude, longitude, and depth information.
 
-
-
-
-
-### Using __`wc`__
-
-The `wc` command is the word count command.  This command is sort of a curiosity on it's own, but in combination with other commands it can become very useful.  For example, if you wanted to know how many things were in the current directory you could do this:
-
-```{bash, eval=FALSE}
-ls | wc
+```{bash}
+cd ~/sandbox/myData/
+cat Marrus_claudanielis.txt
 ```
+
+If you just wanted to display a subset of the information, say the Dive, Date and Depth, you can use the `cut` command. Examine the man page for `cut` for details on usage. The `-f` flag specifies what columns, or fields to display
+
+```{bash, eval=FALSE} 
+cut -f1,2,5 Marrus_claudanielis.txt
+```
+```{bash, echo=FALSE} 
+cd ~/sandbox/myData/
+cut -f1,2,5 Marrus_claudanielis.txt
+```
+
+### Using __`sort`__
+
+If you want to put the output in a particular order, you can use the `sort` command. In our previous example, we can sort the data by dive depth:
+```{bash, eval=FALSE}
+cut -f1,2,5 Marrus_claudanielis.txt | sort 
+```
+
 
 ### Compression and decompression with __`tar`__
 
@@ -312,13 +335,6 @@ Now use `zcat`, `pipe` and `grep` along with `wc` to determine how many reads ar
 
 
 
-### Dividing files with __`split`__
-
-Sometimes you may have a really big file that you need to split into smaller pieces.  the `split` command will let you easily do that. By default split will produce files that are 1000 lines long, but this is adjustable of course.
-
-```{bash, eval=FALSE}
-split myFile.txt
-```
 
 ### Using __`sort`__
 
@@ -336,13 +352,6 @@ sort test.txt | uniq
 ```
 
 
-### Using __`cut`__
-
-Cut is especially useful if you have to deal with delimited files.  It allows you to extract only the columns that are of interest.  For example, the following gets the 2nd column from a tab delimited file
-
-```{bash, eval=FALSE} 
-cut -f2 testTabs.txt
-```
 
 
 ### Using __`find`__
