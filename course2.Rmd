@@ -103,13 +103,33 @@ ls -R
 
 Where myDir and everything in it will be deleted.  Obviously using the -r flag with rm can be dangerous. So please be very careful!
 
+### How to avoid creating many reduncant copies of important files: Using __`ln`__
+
+Sometimes you will want to just create a shortcut to a file rather than actually making a copy. Perhaps it is a reference FASTA file that is very big, so making mulitple copies of it isn't economical. In the following example, notice how big the `genome.fa` file is:
+```{bash}
+ls -lh /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/
+```
+
+Instead of physically copying the file, you can just create a *soft link*. Soft links are equivalent to shortcuts in a Windows file system. A soft link is just a place holder that points to a file that actually lives somewhere else. Use the following syntax to create a soft link called myGenome.fa for this file in `~/sandbox/myData`
+```{bash, eval=FALSE}
+cd ~/sandbox/myData
+ln -s /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa myGenome.fa
+ls -lh
+```
+
+Notice the notation that indicates that myGenome is a link rather than a file. Also note the size: 76 bytes! Much better than 3 GB.
+
+(Note, if there is a soft link, that must mean that there is also a hard link. There is, and it is slightly different, but that is beyond the scope of this class. Follow this syntax and stick with soft links. Trust us.) 
+
+
 
 ### How do I look at the contents of a file: __`less`__ is __`more`__
 
 Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  Unlike text editors in windows and macs, `less` does not wait for the entire file to load into memory before showing you it's contents. Rather, it starts *paging* the file contents onto the screen so you can begin looking at it immediately. While you are doing that, it is quietly contintuing to load the rest of the file into memory in case you want to see more of it. By now you should already be somewhat familiar with how `less` works, but we will repeat the basic syntax and keystrokes that you use with `less`: 
 
 ```{bash, eval=FALSE}
-less myFile.txt
+cd ~/sandbox/myData
+less myGenome.fa
 ```
 
 
@@ -255,16 +275,19 @@ cd ~/sandbox/myData/
 grep '>' FEC_seq.fasta | wc -l
 ```
 
-### Using __`cut`__
+### Parsing your files: Using __`cut`__,  __`sort`__, and __`uniq`__
 
-Cut is especially useful if you have to deal with delimited files.  It allows you to extract only the columns that are of interest.  For example, the file Marrus_claudanielis.txt contains information about deep sea dives with lattitude, longitude, and depth information.
+A surprisingly large portion of bioinformatics work is that of parsing your data files, or in other words, extracting and organizing the useful bits of information so that you can ask the questions you want. The linux command line has a multitude of tools that can parse data files. However...
 
+These tools are notoriously picky. The command syntax is very unforgiving, and the format of your data files can give you headaches if they aren't organized just so. So these commands are useful for small tasks where you want to find a simple answer, do a quick check, etc. But if you have more serious data munging tasks (and most of you do) there are much easier ways to do this. High level scripting languages such as R, python, or perl are almost always infinetly easier to use and more powerful. That is why workflows almost invariably flow from linux command line into one of these other scripting languages and why we will focus more on learning these tasks in R than from the shell.  
+
+Here are some simple examples of how you could parse a file. Consider this following tab delimited data file, Marrus_claudanielis.txt: This file contains information about a series of deep sea expeditions, including the name of the dive, the date, lattitude, longitude and depth.
 ```{bash}
 cd ~/sandbox/myData/
 cat Marrus_claudanielis.txt
 ```
 
-If you just wanted to display a subset of the information, say the Dive, Date and Depth, you can use the `cut` command. Examine the man page for `cut` for details on usage. The `-f` flag specifies what columns, or fields to display
+__`cut`__ If you just wanted to display a subset of the information, say the Dive, Date and Depth, you can use the `cut` command. Examine the man page for `cut` for details on usage. The `-f` flag specifies what columns, or fields to display
 
 ```{bash, eval=FALSE} 
 cut -f1,2,5 Marrus_claudanielis.txt
@@ -274,13 +297,26 @@ cd ~/sandbox/myData/
 cut -f1,2,5 Marrus_claudanielis.txt
 ```
 
-### Using __`sort`__
-
-If you want to put the output in a particular order, you can use the `sort` command. In our previous example, we can sort the data by dive depth:
+__`sort`__ If you want to put the output in a particular order, you can use the `sort` command. In our previous example, we can sort by the dive name:
 ```{bash, eval=FALSE}
 cut -f1,2,5 Marrus_claudanielis.txt | sort 
 ```
+```{bash, echo=FALSE} 
+cd ~/sandbox/myData/
+cut -f1,2,5 Marrus_claudanielis.txt | sort 
+```
 
+__`uniq`__ Want to filter out rows that are not unique?  Use the `uniq` command. This command only removes conseutive duplicate rows, so you will usually have to perform a sort first. Depending on what you are looking for, you may also have to isolate a particular column or even a substring inside that column using `cut`. You may also want to get rid of the column names using `tail` to avoid confusion. What are the unique dive names?
+
+```{bash, eval=FALSE}
+tail -n +2 Marrus_claudanielis.txt | cut -d " " -f1 | sort | uniq
+```
+```{bash, echo=FALSE} 
+cd ~/sandbox/myData/
+tail -n +2 Marrus_claudanielis.txt | cut -d " " -f1 | sort | uniq
+```
+
+Use the man pages for `tail`, `cut`, `sort`, and `uniq` to learn about each of the flags used in this example and understand the logic of how this command was constructed. As you can see though, this starts to get a little out of hand, and when we get into R, you will find that there are better tools for parsing down to this level.
 
 ### Compression and decompression with __`tar`__
 
