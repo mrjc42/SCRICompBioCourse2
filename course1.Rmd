@@ -2,7 +2,7 @@
 title: "Intro To Citrix And Linux"
 author: "Sean, Bronson, Debbie and Marc"
 date: "2/10/2016"
-output: html_document
+output: pdf_document
 ---
 
 
@@ -363,10 +363,10 @@ As you can see, this returns essentially the same information.
 
 One of the options you may have noticed for `ls` is the `-l` flag, which is the flag for "long listing". This lists the contents of a directory with slightly more information. 
 ```{bash, eval=FALSE}
-ls -l /tools/sampledata/examples
+ls -l /tools/sampledata/
 ```
 ```{bash, echo=FALSE}
-ls -l /tools/sampledata/examples | head -n 12
+ls -l /tools/sampledata/ | head -n 12
 ```
 
 This long list format gives some additional useful information about the contents of the directory:
@@ -454,20 +454,20 @@ This illustrates that you can create nested directories.
 ####  <span style="color:blue">__Homework L2: `cp`__</span>
 Often you will need to copy files from one location to another. For that there is the `cp` command.
 
-1. Navigate to the following location: `/tools/sampledata/examples` and list the contents of this directory. This directory contains small example files of many kinds of file formats that you might expect to work with at some point.
+1. Navigate to the following location: `/tools/sampledata/course1` and list the contents of this directory. This directory contains small example files of many kinds of file formats that you might expect to work with at some point.
 
-2. Consult the Synopsis section of the man page for the `cp` command to see how to construct a copy command. You may find that there are several correct ways to construct the command. Remember that arguments enclosed in `[]` are optional. Copy the file `FEC00001_1.seq` into the myData directory that you created earlier. For SOURCE use the absolute path to the data file you want to transfer: `/tools/sampledata/examples/FEC00001_1.seq`. For DEST or DIRECTORY, use the absolute path to the destination location: `~/sandbox/myData`. Use the `ls` command to verify that you have transfered the file correctly.
+2. Consult the Synopsis section of the man page for the `cp` command to see how to construct a copy command. You may find that there are several correct ways to construct the command. Remember that arguments enclosed in `[]` are optional. Copy the file `FEC00001_1.seq` into the myData directory that you created earlier. For SOURCE use the absolute path to the data file you want to transfer: `/tools/sampledata/course1/FEC00001_1.seq`. For DEST or DIRECTORY, use the absolute path to the destination location: `~/sandbox/myData`. Use the `ls` command to verify that you have transfered the file correctly.
 
 3. You can use `cp` from anywhere so long as you specify absolute paths for your SOURCE and DEST. However, you can save yourself some typing if you first navigate yourself into either the SOURCE or DEST directories. This allows you to use relative paths, which will probably be shorter. Try the following. Remember that `.` is short-hand for "My current location":
 ```{bash, eval=FALSE}
 ## Example of using cp from within the SOURCE directory
-cd /tools/sampledata/examples
+cd /tools/sampledata/course1
 cp FEC00002_1.seq ~/sandbox/myData
 ls ~/sandbox/myData
 
 ## Example of using cp from within the DEST directory
 cd ~/sandbox/myData
-cp /tools/sampledata/examples/FEC00003_1.seq .
+cp /tools/sampledata/course1/FEC00003_1.seq .
 ls
 ```
 
@@ -504,8 +504,8 @@ less structure_1ema.pdb
 ***
 ***
 ### Homework Solutions
-
 ####  <span style="color:blue">__Homework L1: `mkdir`__</span>
+
 ```{bash, eval=FALSE}
 ## 1.
 cd ~
@@ -543,41 +543,53 @@ mkdir -pv shared/flowData
 
 ####  <span style="color:blue">__Homework L2: `cp`__</span>
 
+1. 
 ```{bash, eval=FALSE}
-## 1.
-cd /tools/sampledata/examples
+cd /tools/sampledata/course1
 ls
+```
 
-## 2.
-cp /tools/sampledata/examples/FEC00001_1.seq ~/sandbox/myData
+2.
+```{bash, eval=FALSE}
+cp /tools/sampledata/course1/FEC00001_1.seq ~/sandbox/myData
 ls ~/sandbox/myData
+```
 
-## 3.
-## Example of using cp from within the SOURCE directory
-cd /tools/sampledata/examples
+3. Example of using cp from within the SOURCE directory
+```{bash, eval=FALSE}
+cd /tools/sampledata/course1
 cp FEC00002_1.seq ~/sandbox/myData
 ls ~/sandbox/myData
+```
 
-## Example of using cp from within the DEST directory
+3. Example of using cp from within the DEST directory
+```{bash, eval=FALSE}
 cd ~/sandbox/myData
-cp /tools/sampledata/examples/FEC00003_1.seq .
+cp /tools/sampledata/course1/FEC00003_1.seq .
 ls
+```
 
-## 4.
-cd /tools/sampledata/examples
-cp Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj ~/sandbox/ourData/sharedData/ 
+4. Example of Syntax 2 from man page. (Note the `\` in the second line...this just allows me to break up a command across multiple lines. It is only necessary because of the page width restrictions of this pdf document.)
+```{bash, eval=FALSE}
+cd /tools/sampledata/course1
+cp Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj \
+    ~/sandbox/ourData/sharedData/ 
+```
 
-## alternative answer
-cp -t ~/sandbox/ourData/sharedData/ Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj
+4. Alternative answer using Syntax 3 from man page.
+```{bash, eval=FALSE}
+cp -t ~/sandbox/ourData/sharedData/ \
+Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj
+```
 
-## 5. 
+5. This should return an error. Because the name has a space in it, the command is exptecting to find two files, one named 'Optode' and another named 'run011.xls'. Because neither of those files exists, the command fails.
+```{bash, eval=FALSE}
 cp Optode run011.xls ~/sandbox/ourData/sharedData/
+```
 
-## This should return an error. Because the name has a space in it, the command is exptecting to find two files, one named 'Optode' and another named 'run011.xls'. Because neither of those files exists, the command fails.
-
+5. Using the "\" before a space tells the command that the space is part of the file name. This is annoying though, so as a general rule we can see that putting spaces in file names is a bad idea.
+```{bash, eval=FALSE}
 cp Optode\ run011.xls ~/sandbox/ourData/sharedData/
-
-## Using the "\" before a space tells the command that the space is part of the file name. This is annoying though, so as a general rule we can see that putting spaces in file names is a bad idea.
 ```
 
 *** 
