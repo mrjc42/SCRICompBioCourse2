@@ -294,14 +294,21 @@ dev.off()
 
 ####  <span style="color:blue">__Exercise R2:__</span> 
 
-Basic questions about Bioconductor objects (use methods on 'OrganismDb' (which was introduced but not explained). Have them look up the help for select() and then use Homo.sapiens to extract information about it)
+At this point you have seen an object called `Homo.sapiens`.  What kind of object is it?  Use the `methods` function to learn about what kinds of methods you can you call on this object?  Look up the help page for the `select` method and see if you can extract the entrez gene ID for the `FOXP3` gene.
 
 #####  <span style="color:blue">__Answer for Exercise R2:__</span> 
 
 ```{r,ans2}
-
+Homo.sapiens
 ```
 
+```{r,ans2b}
+methods(class='OrganismDb')
+```
+
+```{r,ans2c}
+select(Homo.sapiens, 'FOXP3','ENTREZID','SYMBOL')
+```
 
 
 ####  <span style="color:blue">__Exercise R3:__</span> 
