@@ -2,7 +2,7 @@
 title: "Using R for Computational Biology"
 author: "Marc, Bronson, Debbie and Sean"
 date: "3/9/2016"
-output: pdf_document
+output: html_document
 ---
 
 This week we will start by introducing you to basic plotting functionalities and then move on to some of the ways that the R programming language intersects with computational Biology.
@@ -261,17 +261,35 @@ As you do that, pay close attention to the tree hierarchy and to the search boxe
 ## Answers For Exercises:
 
 
-
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
 Basic questions about plotting (plot some data, change some labels, save it)
 
+Look at the `mtcars` data.frame.  Now make a scatterplot to see if heavier cars tend to have more horsepower. 
+
+Now make a `barplot` to look at the average weight for each number of cylinders in the table.  To do this, use `split` and `mean` to make a vector that summarizes the average weight per number of cylinders and then make a `barplot`
+
+Now save your barplot to a pdf file.
+
+
 #####  <span style="color:blue">__Answer for Exercise R1:__</span> 
 
 ```{r,ans1}
+plot(mtcars[,c('wt','hp')])
 
 ```
 
+```{r,ans1b}
+wts <- split(mtcars[,c('wt')],f=mtcars[,c('cyl')])
+wts <- unlist(lapply(wts, mean))
+barplot(wts)
+```
+
+```{r,ans1c}
+jpeg(file = "myBarPlot.jpg")
+barplot(wts)
+dev.off()
+```
 
 
 ####  <span style="color:blue">__Exercise R2:__</span> 
