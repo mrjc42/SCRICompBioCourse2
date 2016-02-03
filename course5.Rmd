@@ -72,8 +72,13 @@ If that all of that seems a little weird to you, you can also just click on the 
 ***
 ####  <span style="color:blue">__Exercise R1:__</span> 
 
+Look at the `mtcars` data.frame.  Now make a scatterplot to see if heavier cars tend to have more horsepower. 
 
+Now make a `barplot` to look at the average weight for each number of cylinders in the table.  To do this, use `split` and `mean` to make a vector that summarizes the average weight per number of cylinders and then make a `barplot`
+
+Now save your barplot to a pdf file.
 ***
+
 
 
 
@@ -176,7 +181,7 @@ Now that you know the names of the associated methods, you can look up manual pa
 ***
 ####  <span style="color:blue">__Exercise R2:__</span> 
 
-
+At this point you have seen an object called `Homo.sapiens`.  What kind of object is it?  Use the `methods` function to learn about what kinds of methods you can you call on this object?  Look up the help page for the `select` method and see if you can extract the entrez gene ID for the `FOXP3` gene.
 ***
 
 
@@ -208,7 +213,11 @@ Lets do a quick exercise to learn what markdown looks like and how you can edit 
 ***
 ####  <span style="color:blue">__Exercise R3:__</span> 
 
+Lets start by using RStudio to create an .Rmd file.  You can do this by going to the `File` menu, and selecting `New File` followed by `R Markdown ...`.  Next you will notice that you can create many different 'flavors' of .Rmd file, for our example, just choose a basic 'Document', and fill in the title and authors.  
 
+Now look at the document that is opened up in RStudio.  Notice how certain sections of it are marked by triple back ticks (```).  These are code chunks which will be evaluated when the document is rendered.  You can put whatever R code you want to into these chunks and you can surround it be whatever prose you need to include in the document.
+
+Now add a new code chunk to the document.
 ***
 
 
@@ -262,8 +271,6 @@ As you do that, pay close attention to the tree hierarchy and to the search boxe
 
 
 ####  <span style="color:blue">__Exercise R1:__</span> 
-
-Basic questions about plotting (plot some data, change some labels, save it)
 
 Look at the `mtcars` data.frame.  Now make a scatterplot to see if heavier cars tend to have more horsepower. 
 
@@ -320,7 +327,6 @@ Now look at the document that is opened up in RStudio.  Notice how certain secti
 Now add a new code chunk to the document.
 
 #####  <span style="color:blue">__Answer for Exercise R3:__</span> 
-
 
 The code chunk that you insert into your document should look like this (minus the "|" symbol on the left hand edge of the following display).  The reason for the "|" is because it is hard to get RStudio to render what a code chunk should look like since it wants to interpret that code chunk...
 
