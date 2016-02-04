@@ -17,22 +17,22 @@ Citrix is a platform for having access to programs on many different machines. T
 
 ### Why Citrix?
 
-For most here at Research you likely avoid citrix like the plague and/or don't intentionally use it because of the old thought that citrix is bad. However when needed citrix provides a steady platform of available programs to help complete most work. This includes access to email, Microsoft Office, and share drives from home. Infact you can get access to log into your local machine via the citrix applications to utilize those programs specific to your computer!
+For most here at Research you likely avoid citrix like the plague and/or don't intentionally use it because of the old thought that citrix is bad. However when needed citrix provides a steady platform of available programs to help complete most work. This includes access to email, Microsoft Office, and share drives from home. In fact you can get access to log into your local machine via the citrix applications to utilize those programs specific to your computer!
 
 ### Using Citrix safely?
 
-Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to having an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
+Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to saving an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
 
 
-#### Citrix was determined to be a useful part of this Initiative in order to more accurately familiarize you with the tools at your disposal and how to safely use them.
+### Getting Started
 
 To start off please ensure you have completed the following:
 
-1.	You have logged on the PDN : Directionhistoric
+1.	You have logged on the PDN : *Hybridapproach*
 2.	Navigated to https://desktops.seattlechildrens.org 
 3.	Logged in with Gemalto using your pin or dongle
-4.	Copied the Mobaxterm mobile app to your "O:\ Drive"
+4.	Copied the Mobaxterm portable app to your "O:\ Drive"
 
 Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Computer, XenDesktop, and XenApp. These are important to mention so you understand the differences.
 
@@ -44,41 +44,64 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
 ### Diagram 1
-![Diagram 1](CitrixDiagram1.png)
+![Diagram 1](CitrixComputingDiagramAutobots.pdf)
 
 ### Diagram 2:
-![Diagram 2](CitrixDiagram2.png)
+![Diagram 2](CitrixDiagram3.png)
 
-### Diagram 3:
-![Diagram 3](CitrixDiagram3.png)
+### Key Take Aways
+__Virtual Desktop Session__
+
+* Files stored here persist, but are not backed up nor easily accessible
+* O:\ drive is accessible
+* Otherwise, no network access, therefore no internet and no access to Department shares
+* No applications
+
+__Citrix Environment__
+
+* Applications are launched from a server, but use "local" resources
+* Citrix applications save files by default to My Citrix Computer, but...
+* My Citrix Computer (including the Desktop) is an application. Therefore, anything stored there is lost when the application closes.
+* Citrix can access Department shares
+* Citrix can access O:\ drive
+* You cannot drag and drop files from local applications (i.e. windows opened from VDS or Children's Desktop) into Citrix applications.
+* Use Remote Desktop to access your Children's desktop computer
 
 
-Using the "O:\ Drive" or your group share as a single point of access is the safest way to save and access data because it is not only accessible everywhere you go but it is also backed up. This cannot be stressed enough!
+__Children's Desktop Computer__
 
+* Running localy installed applications will always be faster than Citrix applications
+* You can request admin rights for your computer to allow you some control on installation of some applications
+* Your hard drive is not backed up
+* O:\ drive is accessible
+* Departmental shares are accessible
 
-#### __Exercise C1:__ 
+#### Using the "O:\ Drive" or your group share as a single point of access is the safest way to save and access data because it is not only accessible everywhere you go but it is also backed up. This cannot be stressed enough!
+
+***
+####  <span style="color:blue">__Exercise C1:__</span>
 1.	Open "My Citrix Computer" From the desktop and pin it to the right of the screen. We will refer to this as "Citrix"
 2.	Create a file called textfile1.txt on your "O:\ Drive"
-3.	Open the "Computer" by Clicking Start > Computer and pin that Window to the left of your screen.
-4.	Navigate to the text document on your "O:\ Drive" in the left Window which we will call your local machine.
-5.	Try and drag it from your local machine to your Citrix.
-a.	(Notice how there is a Denial symbol?) This is because you cannot transfer between your Local machine and Citrix. See Diagram 3
+3.	Open the VDS "MyComputer" by Clicking Start > Computer and pin that Window to the left of your screen.
+4.	Navigate to the text document on your "O:\ Drive" in the left Window on your VDS.
+5.	Try and drag it from your VDS to your Citrix.
+a.	(Notice how there is a Denial symbol?) This is because you cannot transfer between your VDS and Citrix. See Diagram 2.
 b.	Leave both Windows open for Exercise 2.
 
-
+***
 #### __Exercise C2:__ 
-1.	Lower down the "local machine" window.
+1.	Minimize the VDS window.
 2.	Open "Microsoft Outlook 2010" from your desktop. Pin it to the left side of your screen.
 3.	Locate the "Dummy Email" sent to you this morning. If you did not receive it let me know.
-4.	Drag the "Dummy Email" from Outlook to your "O:\ Drive" on "Citrix"
+4.	Find the attachment in the "Dummy Email" from Outlook to your "O:\ Drive" on "Citrix"
 a.	(Notice how it allowed you to transfer the email there?)
 5.	Open a new email and drag the text document from your "O:\ Drive" on "Citrix" to the new email.
 a.	(Notice how it attached properly?)
-Citrix can talk to Citrix and local can talk to local. If you have ever struggled to attach that word document or important grant to your email and had trouble it is likely that you were trying to use a mixed environment scenario.
+Citrix can talk to Citrix and VDS can talk to VDS If you have ever struggled to attach that word document or important grant to your email and had trouble it is likely that you were trying to use a mixed environment scenario.
 
-
+***
 #### __Exercise C3:__ 
-1.	Open both local and Citrix windows the same way as in Exercise 1. Local on the left, Citrix on the right.
+1.	Open both VDS and Citrix windows the same way as in Exercise 1. VDS on the left, Citrix on the right.
 2.	Navigate to the "Desktop" on both. 
 a.	(Notice that the amount of icons is different on both?)
 3.	Navigate to the "O:\ Drive" on your Citrix Desktop and Copy the "New Text File1.txt" that you saved earlier.
