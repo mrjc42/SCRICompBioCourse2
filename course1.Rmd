@@ -17,11 +17,11 @@ Citrix is a platform for having access to programs on many different machines. T
 
 ### Why Citrix?
 
-For most here at Research you likely avoid citrix like the plague and/or don't intentionally use it because of the old thought that citrix is bad. However when needed citrix provides a steady platform of available programs to help complete most work. This includes access to email, Microsoft Office, and share drives from home. In fact you can get access to log into your local machine via the citrix applications to utilize those programs specific to your computer!
+For most here at SCRI you likely avoid citrix like the plague or avoid using it because of the common perception that citrix is "bad". However when needed citrix provides a steady platform of available programs to help complete most work. This includes access to email, Microsoft Office, and share drives from home. In fact you can get access to log into your local machine via the citrix applications to utilize those programs specific to your computer!
 
 ### Using Citrix safely?
 
-Most wouldn't guess that Citrix is actually being used by just shy of everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes the difference when it comes to citrix. Knowing how to use your citix can be the difference to saving an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
+Most wouldn't guess that Citrix is actually being used by almost everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes a lot of difference when it comes to citrix. Knowing how to use your citix can be the difference between saving an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
 
 
@@ -155,7 +155,7 @@ A question that came up and that perhaps you have asked, "Is this really worth i
 
 * Modularity. With a command-line interface, you can string small programs together like Legos and build your own custom workflows and programs that work exactly the way you want them to.
 
-* Reproducibility. When you use command-line and/or write scripts, you create a record of exactly what you did to your data. Anytime you re-run the commands you wrote, you will get the same result.
+* Reproducibility. When you use command-line and/or write scripts, you create a record of exactly what you did to your data. Anytime you re-run the commands you wrote, you will get the same result.  In contrast, if you use a GUI, you would have to meticulously record all the different things that you had tried just to have a chance of reproducing the same result again at some point in the future.  If you forget something about how you used a GUI it can become a problem later.  Suppose you forget that you used a special extra option from one to the custom drop down menus?  Now suddenly you may no longer be able to make the exact same figure that you published in that paper...
 
 * Speed. In the short-term, it may seem like a huge investment of time and energy to learn how to work in this environment and use these tools. The payoff comes though when you can write scripts to automate many tasks that once required hours of tedious repetition. Also, with Linux, you can take better advantage of parallel processing to vastly speed up the processing time.
 
@@ -281,7 +281,7 @@ This is a good time to mention a few special symbols that act as convenient linu
 
 ### Absolute paths vs relative paths
 
-The concept of "Where am I now?"" is key to successfully operating in linux. Very often you will need to specify the path to an input file, or the path to an output directory or destination. Let us say that you are in your home directory, and you enter the following command to list the contents of a directory called `data`:
+Understanding "Where am I now?"" is key to successfully operating in linux. Very often you will need to specify the path to an input file, or the path to an output directory or destination. Let us say that you are in your home directory, and you enter the following command to list the contents of a directory called `data`:
 ```{bash, eval=FALSE}
 cd ~
 ls data
