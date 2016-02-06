@@ -2,10 +2,10 @@
 title: "More fun with command line Linux"
 author: "Sean, Bronson, Debbie, and Marc"
 date: "2/17/2016"
-output: pdf_document
+output: html_document
 ---
 
-# Howework Review
+# Homework Review
 
 ***
 
@@ -57,7 +57,7 @@ Whatever style you prefer, these all have one thing in common: no spaces.  You s
 my\ file.txt
 ```
 
-And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be annoyed with you.
+And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be unhappy with you.
 
 ### What are wildcards?
 
@@ -285,7 +285,7 @@ A surprisingly large portion of bioinformatics work is that of parsing your data
 
 These tools are notoriously picky. The command syntax is very unforgiving, and the format of your data files can give you headaches if they aren't organized just so. So these commands are useful for small tasks where you want to find a simple answer, do a quick check, etc. But if you have more serious data munging tasks (and most of you do) there are much easier ways to do this. High level scripting languages such as R, python, or perl are almost always infinetly easier to use and more powerful. That is why workflows almost invariably flow from linux command line into one of these other scripting languages and why we will focus more on learning these tasks in R than from the shell.  
 
-Here are some simple examples of how you could parse a file. Consider this following tab delimited data file, Marrus_claudanielis.txt: This file contains information about a series of deep sea expeditions, including the name of the dive, the date, lattitude, longitude and depth.
+Here are some simple examples of how you could parse a file. Consider this following tab delimited data file, Marrus_claudanielis.txt: This file contains information about a series of deep sea expeditions, including the name of the dive, the date, lattitude, longitude and depth. 
 ```{bash}
 cd ~/sandbox/myData/
 cat Marrus_claudanielis.txt
@@ -301,18 +301,18 @@ If you want to put the output in a particular order, you can use the `sort` comm
 cut -f1,2,5 Marrus_claudanielis.txt | sort 
 ```
 
-Remove duplicate rows. Usually you will have to sort first. Depending on what you are looking for, you may also have to isolate a particular column or even a substring inside that column using `cut`. You may also want to get rid of the column names using `tail` to avoid confusion. What are the unique dive names?
+Remove duplicate rows. Usually you will have to sort first. Depending on what you are looking for, you may also have to isolate a particular column or even a substring inside that column using `cut`. You may also want to get rid of the column names using `tail` to avoid confusion. What are the unique dive names? 
 
 ```{bash, eval=FALSE}
 tail -n +2 Marrus_claudanielis.txt | cut -d " " -f1 | sort | uniq
 ```
 
-Use the man pages for `tail`, `cut`, `sort`, and `uniq` to learn about each of the flags used in this example and understand the logic of how this command was constructed. As you can see though, this starts to get a little out of hand, and when we get into R, you will find that there are better tools for parsing down to this level.
+Use the man pages for `tail`, `cut`, `sort`, and `uniq` to learn about each of the flags used in this example and understand the logic of how this command was constructed. As you can see though, this starts to get a little out of hand, and when we get into R, you will find that there are better tools for parsing down to this level. 
 
 
 ### Compression and decompression with __`tar`__
 
-`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar:
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar: 
 
 ```{bash, eval=FALSE}
 tar -zxvf myFile.tar.gz
@@ -328,7 +328,7 @@ tar -zxvf myFile.tar.gz
 dos2unix myFile.txt
 ```
 
-If you are wondering whether your file has the wrong kind of line endings, you can see them by either looking at the file using the emacs text editor OR by feeding them through cat and using the -v flag like this:
+If you are wondering whether your file has the wrong kind of line endings, you can see them by either looking at the file using the emacs text editor OR by feeding them through cat and using the -v flag like this: 
 
 ```{bash, eval=FALSE}
 cat -v myFile
@@ -506,7 +506,7 @@ In order to get access to your share drives, we have written a helper program th
 
 * Find out what departmental shares you have access to:
     + Open 'My Citrix Computer' from your desktop.
-    + In the address bar, type `\\childrens.research\` and hit enter
+    + In the address bar, type `\\childrens\research\` and hit enter
     + You will now see a list of departmental shares that you have access to.
     
 * In your Linux terminal, run the following commands
@@ -617,7 +617,7 @@ You may get an output file that contains many columns and rows. You can do some 
 5. Using `cut` to show the same columns, try to find to the top 20 most differentially expressed genes using `sort` and `head`. These are the genes who's status is "OK", and that have the smallest p-value.
 
 ***
-#__Answers for Exercises__ 
+#__Answers for Homework Exercises__ 
 ####  <span style="color:blue">__Homework 1: Upack a archive file (.tar.gz)__</span>
 When getting data from your data center or from a repository, it is often compressed into an archive file. It is important to know how to work with these.
 1. Copy the compressed archive file `/tools/sampledata/course2/homework.tar.gz` into `~/sandbox/myData`
