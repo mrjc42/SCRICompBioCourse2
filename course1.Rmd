@@ -527,52 +527,74 @@ less structure_1ema.pdb
 ***
 ***
 ### Homework Solutions
+
 ####  <span style="color:blue">__Homework L1: `mkdir`__</span>
+Sometimes you will need to make a new directory.  For that there is the `mkdir` command.
 
+1. Navigate to your home directory.
 ```{bash, eval=FALSE}
-## 1.
 cd ~
+```
 
-## 2. 
+2. Make a new directory called "sandbox" in your home directory:
+```{bash, eval=FALSE}
 mkdir sandbox
+```
 
-## 3. 
+3. We have just illustrated a very important feature of linux: by default linux only talks back to you if you do something wrong. If you give it a correct command that doesn't require the system to give you back any information (such as make a new directory), linux silently obeys. To verify that you succeeded in making a directory, list the contents of your home directory.
+```{bash, eval=FALSE}
 ls
+```
 
-## 4. 
+4. Navigate into the sandbox directory that you just created.
+```{bash, eval=FALSE}
 cd sandbox
+```
 
-## 5. 
+5. Consult the man page for `mkdir`. Make a new directory inside 'sandbox' called 'myData' and include a flag in the command that tells `mkdir` to print a message when the directory is created. Use the short form of the flag.
+```{bash, eval=FALSE}
 mkdir -v myData
+```
 
-## 6. 
+6. Repeat \#5, making a directory inside 'sandbox' called 'yourData' using the long form of the flag to print a message when the directory is created. List the contents of sandbox to convince yourself that you have successfully created 'myData' and 'yourData'.
+```{bash, eval=FALSE}
 mkdir --verbose yourData
 ls
+```
 
-## 7. 
+7. Navigate back to your home directory. From your home directory, create a new directory inside of sandbox as follows:
+```{bash, eval=FALSE}
 cd ~
 mkdir sandbox/ourData
+```
+This illustrates that you can create nested directories.
 
-## 8. 
+8. Navigate inside the newly created 'ourData'. Can you do it with a single `cd` command?
+```{bash, eval=FALSE}
 cd sandbox/ourData
+```
 
-## 9. (Should result in an error because 'shared' does not exist yet.)
-mkdir shared/flowData 
+9. From within 'ourData', try to create a nested set of directories: `shared/flowData`. What was the result of this operation? *Should result in an error because 'shared' does not exist yet.
+```{bash, eval=FALSE}
+mkdir shared/flowData
+```
 
-## 10.
+10. Consult the man page for `mkdir` and repeat \#8 using a flag that will tell mkdir to create any parent directories it needs. Also include the flag to tell it to print a message for each created directory.
+```{bash, eval=FALSE}
 mkdir -pv shared/flowData
 ```
 
 
+
 ####  <span style="color:blue">__Homework L2: `cp`__</span>
 
-1. 
+1. Navigate to `/tools/sampledata/course1` and list the contents there
 ```{bash, eval=FALSE}
 cd /tools/sampledata/course1
 ls
 ```
 
-2.
+2. Construct a cp command to move FEC00001_1.seq from `course1` to `myData`
 ```{bash, eval=FALSE}
 cp /tools/sampledata/course1/FEC00001_1.seq ~/sandbox/myData
 ls ~/sandbox/myData
