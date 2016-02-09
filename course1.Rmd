@@ -6,14 +6,14 @@ output: pdf_document
 ---
 
 
-Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
+Welcome to the introductory course for computer resources here at SCRI.  This course will cover a basic introduction to the SCRI Citrix environment and also will introduce you to basic tools in Linux.  If you have a bad case of CLAS (command line aversion syndrome), then this course should help you get on the road to recovery.
 
 
 # Introduction to Citrix:
 
 ### What is Citrix?
 
-Citrix is a platform for having access to programs on many different machines. This allows a user to log in to any machine on the network and continue working on their projects without having to have the program installed on every machine. This is very useful for nurses and students who move between locations a lot. But why is this imporant?
+Citrix is a platform for having access to programs on many different machines. This allows a user to log in to any machine on the network and continue working on their projects without having to have the program installed on every machine. This is very useful for nurses and students who move between locations a lot. But why is this important?
 
 ### Why Citrix?
 
@@ -21,7 +21,7 @@ For most here at SCRI you likely avoid citrix like the plague or avoid using it 
 
 ### Using Citrix safely?
 
-Most wouldn't guess that Citrix is actually being used by almost everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes a lot of difference when it comes to citrix. Knowing how to use your citix can be the difference between saving an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
+Most wouldn't guess that Citrix is actually being used by almost everyone. Almost all of the icons on your desktop, besides a select few, are populated when citrix loads. How you access citrix and how you save what you are working on makes a lot of difference when it comes to citrix. Knowing how to use your citrix can be the difference between saving an important document and having to rebuild from scratch. So we will go over some of the safest ways you can use citrix to your advantage!
 
 
 
@@ -39,7 +39,7 @@ Terms you might hear in this lesson are: VDI, VDS, Virtual Machine, Virtual Comp
 * VDI = Virtual Device Infrastructure really meaning a hardware device that runs a virtual machine.
 * VDS= Virtual Desktop Session is a session accessing software on a server.
 * ACL = Access Control List Enables/Denies Communication between Computers and Servers.
-* Xenapp = Server that is pushing apps to your account.
+* XenApp = Server that is pushing apps to your account.
 * XenDesktop = Session loaded on VDI's and when you log into https://desktops.seattlehchildrens.org/
 * Virtual Machine = Virtual Computer they are equal in meaning. It is a virtual computer running on a server off in a different location.
 
@@ -70,7 +70,7 @@ __Citrix Environment__
 
 __Children's Desktop Computer__
 
-* Running localy installed applications will always be faster than Citrix applications
+* Running locally installed applications will always be faster than Citrix applications
 * You can request admin rights for your computer to allow you some control on installation of some applications
 * Your hard drive is not backed up
 * O:\ drive is accessible
@@ -120,12 +120,12 @@ Saving to the Citrix Desktop (the one with fewer icons), and closing out will ca
 
 # Computational Resources at SCRI
 
-The Research Informatics Team is engaged in *transforming* the way SCRI interacts with and handles big data. Part of this initiative is providing access to more scientific computing resources. The first systems to come on a line are a pair of high performance linux workstations. Keeping with the theme of "transforming research", these machines have been unofficially dubbed the Autobots, and been given the aliases Sunstreaker and Sideswiper. 
+The Research Informatics Team is engaged in *transforming* the way SCRI interacts with and handles big data. Part of this initiative is providing access to more scientific computing resources. The first systems to come on a line are a pair of high performance Linux workstations. Keeping with the theme of "transforming research", these machines have been unofficially dubbed the Autobots, and been given the aliases Sunstreaker and Sideswiper. 
 
 Computer Name | Alias | Memory | Processor | Cores|Primary Function
 --------------|-------|--------|-----------|------|----------------
-EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Hosting home directory, Worker nodes
-EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Hosting RStudioServer, Worker nodes
+EWRLNXRD28|Sunstreaker|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical| Hosting home directory
+EWRLNXRD29|Sideswiper|128 GB| Dual Intel Xeon 2.3 GHz| 40 logical | Hosting RStudioServer
 
 __Coming soon__
 
@@ -141,11 +141,11 @@ Computer Name | Alias | Memory | Processor | Cores|Primary Function
 
 ### What is Linux?  
 
-Linux is a free open sourced operating system based on Unix.  It's technically not unix, but in practice it might as well be.  Unix is like a shark of the computer world in the sense that the basic design has been around forever and is still good for what it does.  It has not changed much because people are still finding it very useful and powerful to this day.
+Linux is a free open sourced operating system based on Unix.  It's technically not Unix, but in practice it might as well be.  Unix is like a shark of the computer world in the sense that the basic design has been around forever and is still good for what it does.  It has not changed much because people are still finding it very useful and powerful to this day.
 
 ### Why do people use it?
 
-People like unix because it is powerful and flexible tool for efficiently getting certain kinds of work done.  This is especially true for work that has never been done before or that requires the creation of customized work flows.  If this sounds familiar that's because this is the same kind of work that people often need to do to manage data in science.  And this is why so many scientists have found linux to be a useful platform for developing new work flows.  Everyone agrees that graphical interfaces can be nice.  But the odds that you will find one that already does exactly what your experiment needs get vanishingly small starting with the moment you do anything interesting.
+People like Unix because it is powerful and flexible tool for efficiently getting certain kinds of work done.  This is especially true for work that has never been done before or that requires the creation of customized work flows.  If this sounds familiar that's because this is the same kind of work that people often need to do to manage data in science.  And this is why so many scientists have found Linux to be a useful platform for developing new work flows.  Everyone agrees that graphical interfaces can be nice.  But the odds that you will find one that already does exactly what your experiment needs get vanishingly small starting with the moment you do anything interesting.
 
 A question that came up and that perhaps you have asked, "Is this really worth it? Why should I invest my time in learning Linux?" The answer to this topic could be a course all by itself. Let us just try to point out what we think are a few of the advantages
 
@@ -171,22 +171,22 @@ The command line is the main way that professional people interact with Unix.  Y
 
 ### Lets start by logging you in:
 
-To connect to a linux machine, one of the most common tools is `ssh` or 'secure shell'. You can use `ssh` to connect to a linux machine if you have permission to do so like this:
+To connect to a Linux machine, one of the most common tools is `ssh` or 'secure shell'. You can use `ssh` to connect to a Linux machine if you have permission to do so like this:
 
 ```{bash, eval=FALSE}
 ssh user@hostname
 ```
 
-Normally ssh is not the first command you would teach a new student of the linux command line, but in this case we want you to use this information to log into the sunstreaker machine so that we can get started.
+Normally ssh is not the first command you would teach a new student of the Linux command line, but in this case we want you to use this information to log into the sunstreaker machine so that we can get started.
 
 ### The prompt
 
-When you first log in to a linux terminal, you will see (with various levels of consternation) the __command prompt__. Like the dashboard of a car, the command prompt may look slightly different depending on the system, but in general the prompt will look something like this:
+When you first log in to a Linux terminal, you will see (with various levels of consternation) the __command prompt__. Like the dashboard of a car, the command prompt may look slightly different depending on the system, but in general the prompt will look something like this:
 
 ```{bash, eval=FALSE}
 userid@hostname:/workingdirectory $
 ```
-The __userid__ is the user name that is logged in to the system, in this case your SCH user id. The __hostname__ is the name of the computer you are logged into. Note that it is the real name of the computer, not the alias. Refer to the table in the Computational Resources section. The __working directory__,as the name implies, is the directory that you are currently worrking in (see the section on `pwd` below). The prompt ends with the `$` character and finally the cursor. 
+The __userid__ is the user name that is logged in to the system, in this case your SCH user id. The __hostname__ is the name of the computer you are logged into. Note that it is the real name of the computer, not the alias. Refer to the table in the Computational Resources section. The __working directory__,as the name implies, is the directory that you are currently working in (see the section on `pwd` below). The prompt ends with the `$` character and finally the cursor. 
 
 One common early mistake is to assume that anytime you can see the cursor, you must be able to give the computer a command. Indeed, the system will let you type anything you want at the cursor, even if it is busy. If you do that, your command will not execute until the system finishes whatever it's last command was. You can know that the system is busy whenever you see the cursor, but not the command prompt. In other words: *unless you see the full command prompt in front of the cursor*, the system is busy and is not ready to take a command. 
  
@@ -200,14 +200,14 @@ Sometimes you may see other types of characters that look 'command prompt-ish':
 Directories are for storing stuff, executables do things to stuff and files are stuff.  The equivalents for a Windows or Mac might be 
 
 * Directories = folders
-* Executabes = applications/programs
+* Executables = applications/programs
 * Files = files (text files, documents, etc)
 
-On most command lines, directories will be colored to indicate that they are different from the files.  And in linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
+On most command lines, directories will be colored to indicate that they are different from the files.  And in Linux most executables are stored somewhere else, so you won't normally see those unless you are invoking them as commands.
 
 ### Root
 
-One of the keys to working within Linux is understanding how the heirarchy of folders and directories is set up, and how to move around within that file structure. Let us take a moment to understand the Linux filesystem.
+One of the keys to working within Linux is understanding how the hierarchy of folders and directories is set up, and how to move around within that file structure. Let us take a moment to understand the Linux file system.
 
 If you are used to interfacing with your computer via a graphical user interface such as Finder (Mac) or Windows Explorer (PC), the concept of a __root directory__ may be somewhat vague. The root directory is simply the most inclusive folder on the system, or in other words, the folder that contains all other folders and files. When working with the command line, no matter what system you use, you can designate an absolute path by describing its location relative to root. For Window's users, each disk drive has it's own root, for example `C:`, `D:`, etc. Unix based systems, including Mac OS X and Linux, have a single root designated simply by `/`.
 
@@ -228,9 +228,9 @@ pwd
 cd ~
 pwd
 ```
-`pwd` means print working directory.  It will tell you where in the file system you are by giving you the *path* starting with root. Think of the path as a road map of directories and subdirectories that tell you how to get from root to your folder or file or executable.
+`pwd` means print working directory.  It will tell you where in the file system you are by giving you the *path* starting with root. Think of the path as a road map of directories and sub-directories that tell you how to get from root to your folder or file or executable.
 
-In Linux a full directory path will start with root: `/`, use more `/`'s in between as separators for each subdirectory and will often end with another `/`. 
+In Linux a full directory path will start with root: `/`, use more `/`'s in between as separators for each sub-directory and will often end with another `/`. 
 
 In this example, this shows me that I am currently in my home directory. *Note: We said that the command prompt tells you where you are. Remember that `~` is linux short-hand for your home directory.*  
 
@@ -248,7 +248,7 @@ This is listing the contents of your current directory, which if you are followi
 ls -a
 ```
 
-From this view you can see a number of files that begin with a period: `.`. These are configuration files. As you get to be more comfortable with linux, you may choose to edit these files in order to customize your experience. For now, we will ignore them.
+From this view you can see a number of files that begin with a period: `.`. These are configuration files. As you get to be more comfortable with Linux, you may choose to edit these files in order to customize your experience. For now, we will ignore them.
 
 By default, `ls` lists the contents of your present working directory, or where you currently are. You could however list the contents of another directory:
 
@@ -269,7 +269,7 @@ Notice that when you do this, your command prompt changes to reflect the new loc
 
 ### Some special symbols
 
-This is a good time to mention a few special symbols that act as convenient linux shortcuts:
+This is a good time to mention a few special symbols that act as convenient Linux shortcuts:
 
 * `~`: We have already talked about how this is short-hand for __home__
 
@@ -281,7 +281,7 @@ This is a good time to mention a few special symbols that act as convenient linu
 
 ### Absolute paths vs relative paths
 
-Understanding "Where am I now?"" is key to successfully operating in linux. Very often you will need to specify the path to an input file, or the path to an output directory or destination. Let us say that you are in your home directory, and you enter the following command to list the contents of a directory called `data`:
+Understanding "Where am I now?"" is key to successfully operating in Linux. Very often you will need to specify the path to an input file, or the path to an output directory or destination. Let us say that you are in your home directory, and you enter the following command to list the contents of a directory called `data`:
 ```{bash, eval=FALSE}
 cd ~
 ls data
@@ -296,7 +296,7 @@ ls ../data
 ```
 Remember that `..` is short for "the parent directory of my current location", or "one level up". Linux will interpret this to mean "Go up one directory level from my current location, find a directory called data, and list it's contents."
 
-Each of the previous three examples illustrate the concept of *relative paths*. In each case, how linux interprets this command depends on where your current working directory is. If you `cd` to somewhere else, the result of that command will be different. What if you wanted to guarantee that no matter where your current working directory was, that the path would always be interpreted the same? Consider this example:
+Each of the previous three examples illustrate the concept of *relative paths*. In each case, how Linux interprets this command depends on where your current working directory is. If you `cd` to somewhere else, the result of that command will be different. What if you wanted to guarantee that no matter where your current working directory was, that the path would always be interpreted the same? Consider this example:
 ```{bash, eval=FALSE}
 ls /data
 ```
@@ -332,15 +332,15 @@ ls /
 
 ### How do I know how to use a command? Using __`man`__ and __`--help`__
 
-In Linux, half the battle is knowing what commands are available to use. That comes through experience and judicious use of Google. The other half is knowing how to use them. For that, one of your first resources is the `man` command, short for *manual*. You can use the `man` command to pull up a manual about any linux command like this:
+In Linux, half the battle is knowing what commands are available to use. That comes through experience and judicious use of Google. The other half is knowing how to use them. For that, one of your first resources is the `man` command, short for *manual*. You can use the `man` command to pull up a manual about any Linux command like this:
 
 ```{bash, eval=FALSE}
 man ls
 ```
 
-At first glance this may not seem too helpful. Admittedly, some man pages are definately more useful than others. Let's break down this page into it's components so you can understand how to use these pages.
+At first glance this may not seem too helpful. Admittedly, some man pages are definitely more useful than others. Let's break down this page into it's components so you can understand how to use these pages.
 
-First, how to navigate. `man` is opened in a special linux text reader called `less` (which we will visit in more detail later). Command-line interfaces were invented before the mouse and scroll bars, so you have to re-learn how to navigate with no mouse. Use the up and down arrows to scroll up and down line by line. When you want to exit, hit `q`. 
+First, how to navigate. `man` is opened in a special Linux text reader called `less` (which we will visit in more detail later). Command-line interfaces were invented before the mouse and scroll bars, so you have to re-learn how to navigate with no mouse. Use the up and down arrows to scroll up and down line by line. When you want to exit, hit `q`. 
 
 Now that you know how to move around inside the man page, lets look at some of the sections you are likely to encounter:
 
@@ -374,7 +374,7 @@ ls --ignore=tools /
 
 
 
-Because linux is open sourced, software gets contributed from many different programmers. Sometimes, the programmers elect to not include a `man` page. An alternative route is to try the `--help` flag:
+Because Linux is open sourced, software gets contributed from many different programmers. Sometimes, the programmers elect to not include a `man` page. An alternative route is to try the `--help` flag:
 
 ```{bash, eval=FALSE}
 ls --help
@@ -402,9 +402,9 @@ This long list format gives some additional useful information about the content
  6. The month, day and time that the item was created or last modified.
  7. The name of the item.
  
-You may notice that the item `ctd` is colored differently. This is because it is a directory, as inticated by the leading character `d` of the permissions string.
+You may notice that the item `ctd` is colored differently. This is because it is a directory, as indicated by the leading character `d` of the permissions string.
 
-You may also notice that the item `badtextfile.txt` is also colored differently. This is a hint that this item may be an exectuable, as indicated by the presence of the `x` characters in the permission string.
+You may also notice that the item `badtextfile.txt` is also colored differently. This is a hint that this item may be an executable, as indicated by the presence of the `x` characters in the permission string.
 
 ### What are permissions?
 
@@ -423,13 +423,13 @@ Permissions are used by Linux to control who can do things. They can be applied 
 3. The next three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (g)roup
 4. The last three characters: indicate the (r)ead, (w)rite and e(x)ecute policy for the (o)thers
 
-Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others in the same group, as well as by others not in the same group.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access priveleges __you__ have.
+Based on this, we can see that for the file above the permissions are set to be readable and writable for the owner of this file, but only readable by others in the same group, as well as by others not in the same group.  If you ever need to change the permissions on a file, you would do that by using the `chmod` command.  Also, you may not be allowed to change permissions for some files and directories depending on who they belong to and what kind of access privileges __you__ have.
 
 ***
 ####  <span style="color:blue">__Exercise L1:__</span>
 1. Navigate to your home directory. 
 2. Navigate to the parent directory for all of the home directories by going up a level.
-3. List the contents of this directory. You should see subdirectories for each user on the system. Are you allowed to see the contents of others directories?  How do you know?
+3. List the contents of this directory. You should see sub-directories for each user on the system. Are you allowed to see the contents of others directories?  How do you know?
 4. Use the man page for `ls` to find a flag that will allow you to see the file size in a more human readable form (kb, MB, GB, etc).
 
 
@@ -441,7 +441,7 @@ Based on this, we can see that for the file above the permissions are set to be 
 
 # Homework
 
-For homework, you will continue practice navigating your way around a linux file system using the `cd`, `ls`, and `pwd` commands. You will also learn three new commands: `mkdir`, `cp`, and `less` and practice using the associated man files.  
+For homework, you will continue practice navigating your way around a Linux file system using the `cd`, `ls`, and `pwd` commands. You will also learn three new commands: `mkdir`, `cp`, and `less` and practice using the associated man files.  
 
 
 ####  <span style="color:blue">__Homework L1: `mkdir`__</span>
@@ -454,7 +454,7 @@ Sometimes you will need to make a new directory.  For that there is the `mkdir` 
 mkdir sandbox
 ```
 
-3. We have just illustrated a very important feature of linux: by default linux only talks back to you if you do something wrong. If you give it a correct command that doesn't require the system to give you back any information (such as make a new directory), linux silently obeys. To verify that you succeeded in making a directory, list the contents of your home directory.
+3. We have just illustrated a very important feature of Linux: by default Linux only talks back to you if you do something wrong. If you give it a correct command that doesn't require the system to give you back any information (such as make a new directory), Linux silently obeys. To verify that you succeeded in making a directory, list the contents of your home directory.
 
 4. Navigate into the sandbox directory that you just created.
 
@@ -479,7 +479,7 @@ Often you will need to copy files from one location to another. For that there i
 
 1. Navigate to the following location: `/tools/sampledata/course1` and list the contents of this directory. This directory contains small example files of many kinds of file formats that you might expect to work with at some point.
 
-2. Consult the Synopsis section of the man page for the `cp` command to see how to construct a copy command. You may find that there are several correct ways to construct the command. Remember that arguments enclosed in `[]` are optional. Copy the file `FEC00001_1.seq` into the myData directory that you created earlier. For SOURCE use the absolute path to the data file you want to transfer: `/tools/sampledata/course1/FEC00001_1.seq`. For DEST or DIRECTORY, use the absolute path to the destination location: `~/sandbox/myData`. Use the `ls` command to verify that you have transfered the file correctly.
+2. Consult the Synopsis section of the man page for the `cp` command to see how to construct a copy command. You may find that there are several correct ways to construct the command. Remember that arguments enclosed in `[]` are optional. Copy the file `FEC00001_1.seq` into the myData directory that you created earlier. For SOURCE use the absolute path to the data file you want to transfer: `/tools/sampledata/course1/FEC00001_1.seq`. For DEST or DIRECTORY, use the absolute path to the destination location: `~/sandbox/myData`. Use the `ls` command to verify that you have transferred the file correctly.
 
 3. You can use `cp` from anywhere so long as you specify absolute paths for your SOURCE and DEST. However, you can save yourself some typing if you first navigate yourself into either the SOURCE or DEST directories. This allows you to use relative paths, which will probably be shorter. Try the following. Remember that `.` is short-hand for "My current location":
 ```{bash, eval=FALSE}
@@ -496,18 +496,18 @@ ls
 
 4. Move back into your SOURCE directory. Transfer the following additional files into your myData directory using relative references: `Marrus_claudanielis.txt`, `structure_1ema.pdb`, `shaver_etal.csv`, and `nanodrop_abs.ndj`. Try to do it in a single command.
 
-5. Try transfering the file `Optode run011.xls`. What was the result? Try copying again, but this time use this modified file name: `Optode\ run011.xls`. What does this tell you about using spaces in file names?
+5. Try transferring the file `Optode run011.xls`. What was the result? Try copying again, but this time use this modified file name: `Optode\ run011.xls`. What does this tell you about using spaces in file names?
 
 
 ####  <span style="color:blue">__Homework L3: `less`__</span>
-With linux it is very easy to open up a text file and "take a peak" at what's inside, even if it is very big (such as a genome fasta file). The command to use is `less`. We will talk more about this in the next class, but in the mean time you can use it to take a peak at the files you have just copied. `less` is another of those programs that is designed to navigate by keyboard rather than mouse. The man file for `less` is very long, so we have summarized some of the most common keystrokes in this table to help you move around:
+With Linux it is very easy to open up a text file and "take a peak" at what's inside, even if it is very big (such as a genome fasta file). The command to use is `less`. We will talk more about this in the next class, but in the mean time you can use it to take a peak at the files you have just copied. `less` is another of those programs that is designed to navigate by keyboard rather than mouse. The man file for `less` is very long, so we have summarized some of the most common keystrokes in this table to help you move around:
 
 Key stroke | Function |\| | Key stroke | Function |
 -----------|----------|-|------------|----------|
 q|Quit|\||Up or Down Arrow |Move up or down a line|
 `space`|Next page|\||`/`abc|Search for text "abc"|
-b|Back a page|\||n|Find next occurence of "abc"|
-\#\# g|Go to line \#\#|\||?|Find previous occurence of "abc"|
+b|Back a page|\||n|Find next occurrence of "abc"|
+\#\# g|Go to line \#\#|\||?|Find previous occurrence of "abc"|
 G|Go to end|\||h|Show help for `less`|
 
 1. A pdb file is a file format for 3D structures of proteins and nucleic acids. It contains a header section that contains metadata about the structure (for instance details of how the structure was obtained, information about known secondary structures). It also contains coordinates in 3 dimensional space for each atom in the structure and the primary amino acid sequence. Open `structure_1ema.pdb` and look at it's contents using `less`:
@@ -516,7 +516,7 @@ cd ~/sandbox/myData/
 less structure_1ema.pdb
 ```
 
-2. Use the table to explore the contents. Try scrolling forwards and backwords through the file. Use the proper keystrokes to skip pages forward and backward. Search for the occurence of the string "ASP" to find the coordinates of the aspartate residues in the structure.
+2. Use the table to explore the contents. Try scrolling forwards and backwards through the file. Use the proper keystrokes to skip pages forward and backward. Search for the occurrence of the string "ASP" to find the coordinates of the aspartate residues in the structure.
 
 3. To exit `less`, enter `q`.
 
@@ -541,7 +541,7 @@ cd ~
 mkdir sandbox
 ```
 
-3. We have just illustrated a very important feature of linux: by default linux only talks back to you if you do something wrong. If you give it a correct command that doesn't require the system to give you back any information (such as make a new directory), linux silently obeys. To verify that you succeeded in making a directory, list the contents of your home directory.
+3. We have just illustrated a very important feature of Linux: by default Linux only talks back to you if you do something wrong. If you give it a correct command that doesn't require the system to give you back any information (such as make a new directory), Linux silently obeys. To verify that you succeeded in making a directory, list the contents of your home directory.
 ```{bash, eval=FALSE}
 ls
 ```
@@ -627,7 +627,7 @@ cp -t ~/sandbox/ourData/sharedData/ \
 Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj
 ```
 
-5. This should return an error. Because the name has a space in it, the command is exptecting to find two files, one named 'Optode' and another named 'run011.xls'. Because neither of those files exists, the command fails.
+5. This should return an error. Because the name has a space in it, the command is expecting to find two files, one named 'Optode' and another named 'run011.xls'. Because neither of those files exists, the command fails.
 ```{bash, eval=FALSE}
 cp Optode run011.xls ~/sandbox/ourData/sharedData/
 ```
