@@ -2,7 +2,7 @@
 title: "Introduction to R and interactive programming"
 author: "Marc, Bronson, Debbie and Sean"
 date: "2/24/2016"
-output: html_document
+output: pdf_document
 ---
 
 
@@ -531,19 +531,9 @@ unique(c(shortLetters,shortLetters))
 ***
 
 
-# Homework:
-
 #### double bracket subsetting operator `[[` 
 
-Earlier in this lesson we discussed how lists can contain elements that have different contents.  It's helpful to think about lists using the analogy of a train where different cars can contain different things:
-
-![Diagram 1](TheListTrain.png)
-
-
-A consequence of having list objects with different kinds of contents is that sometimes you will want to subset and get a smaller list (train), but other times you will want to get the contents out of one of the 'train cars'.
-
-
-So in addition to the single bracket subsetting operator, some objects also support a double bracket subsetting operator.  This kind of operator is normally only used with list like objects such as `data.frame`s and `list`s.  The difference between the single and double bracket operator is in the type of data that is returned.  While the single bracket operator will try to return the same type of object as it was used on, the double bracket will return the type of thing that is 'in' the container.  Lets look again at our list example:
+In addition to the single bracket subsetting operator, some objects also support a double bracket subsetting operator.  This kind of operator is normally only used with list like objects such as `data.frame`s and `list`s.  The difference between the single and double bracket operator is in the type of data that is returned.  While the single bracket operator will try to return the same type of object as it was used on, the double bracket will return the type of thing that is 'in' the container.  Lets look again at our list example:
 
 Single bracket
 
