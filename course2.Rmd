@@ -19,16 +19,16 @@ During your homework, you probably noticed a few things things:
 2. It is annoying if you misspell a word
 3. You often have to know a bit about what is available so you can know what to start typing.
 
-A really handy feature to help with this is *tab completion*. In Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). This works to tab-complete commands as well as paths and filenames. Go ahead and try it! 
+A really handy feature to help with this is *tab completion*. In Linux if you start to type something, even it you only know the first letter, you can hit the tab key for suggestions about what should come next. One hit on the tab key will complete if you have typed enough characters to narrow things down to only one solution, but two quick tabs will actually list out all remaining possibilities for you (and prompt you first if it's a large amount). This works to tab-complete commands as well as paths and file names. Go ahead and try it! 
 
 
 ### Up and down arrows, 'CTRL-a' and 'CTRL-e'
 
-In unix, you can always get back to previous commands by hitting the up arrow.  If you step back too far, you can page the other way by hitting the down arrow.  Find yourself at the end of a very long command and want to get back to the beginning?  Hit 'CTRL-a'.  Want to get back to the end: 'CTRL-e'.
+In Unix, you can always get back to previous commands by hitting the up arrow.  If you step back too far, you can page the other way by hitting the down arrow.  Find yourself at the end of a very long command and want to get back to the beginning?  Hit 'CTRL-a'.  Want to get back to the end: 'CTRL-e'.
 
 ### Copy and paste
 
-In unix, you usually can't use the usual keystrokes for copy and paste (CTRL-C, CTRL-V). In unix, if you hightlight something with your mouse, it is automatically copied onto your clipboard. If you have one, clicking with the middle mouse button will paste. You can also try right clicking and selecting paste from the drop-down menu.
+In Unix, you usually can't use the usual keystrokes for copy and paste (CTRL-C, CTRL-V). In Unix, if you highlight something with your mouse, it is automatically copied onto your clipboard. If you have one, clicking with the middle mouse button will paste. You can also try right clicking and selecting paste from the drop-down menu.
 
 ### Case sensitivity.
 
@@ -51,17 +51,17 @@ And still other people prefer all lowercase like this:
 myfile.txt
 ```
 
-Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in filenames when using linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters:
+Whatever style you prefer, these all have one thing in common: no spaces.  You shouldn't use white space in file names when using Linux.  You technically can do it, but everyone agrees that it's not worth it since you have to escape all your white space characters:
 
 ```{bash, eval=FALSE}
 my\ file.txt
 ```
 
-And this is a huge inconvenience.  So if you give someone a file like this in linux you should expect that they will probably be unhappy with you.
+And this is a huge inconvenience.  So if you give someone a file like this in Linux you should expect that they will probably be unhappy with you.
 
 ### What are wildcards?
 
-In linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have two files that both end with `.txt` then I can copy them both into myDir by doing this:
+In Linux you can use `*` as a wildcard to indicate more broadly which things you mean.  So for example, if I have two files that both end with `.txt` then I can copy them both into myDir by doing this:
 
 ```{bash, eval=FALSE}
 cp *.txt /myDir
@@ -87,7 +87,7 @@ mv file.txt ..
 
 The first of these commands copies `file.txt` to another file with a different name `filecopy.txt` (in this example, the new file it would be in the same directory).  The second command moves file.txt up a directory from where it is currently located.
 
-What if you want to rename a file? It turns out that linux does not have a concept of renaming, which may seem odd. But you can still do it. The trick is to use `mv`. But instead of moving it to a different location and keeping the same name, this time you move it to the same location but use a different name. For example:
+What if you want to rename a file? It turns out that Linux does not have a concept of renaming, which may seem odd. But you can still do it. The trick is to use `mv`. But instead of moving it to a different location and keeping the same name, this time you move it to the same location but use a different name. For example:
 ```{bash, eval=FALSE}
 mv file.txt newname.txt
 ```
@@ -98,7 +98,7 @@ But sometimes you may just want to get rid of something altogether.  `rm` will d
 rm file.txt
 ```
 
-Another common case with rm is when you have a directory and you want to remove it AND everything in it. Remember that compliated file structure we created last time inside `~/sandbox/ourData`? If you wanted to remove `ourData ` and everything in it, you can do it recursively like this:
+Another common case with rm is when you have a directory and you want to remove it AND everything in it. Remember that complicated file structure we created last time inside `~/sandbox/ourData`? If you wanted to remove `ourData ` and everything in it, you can do it recursively like this:
 
 ```{bash, eval=FALSE}
 ## First use ls with the -R flag to recursively show everything in the sandbox directory
@@ -114,7 +114,7 @@ Obviously using the -r flag with rm can be dangerous. So please be very careful!
 
 ### How to avoid creating many reduncant copies of important files: Using __`ln`__
 
-Sometimes you will want to just create a shortcut to a file rather than actually making a copy. Perhaps it is a reference FASTA file that is very big, so making mulitple copies of it isn't economical. In the following example, notice how big the `genome.fa` file is:
+Sometimes you will want to just create a shortcut to a file rather than actually making a copy. Perhaps it is a reference FASTA file that is very big, so making multiple copies of it isn't economical. In the following example, notice how big the `genome.fa` file is:
 ```{bash}
 ls -lh /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/
 ```
@@ -133,7 +133,7 @@ Notice the notation that indicates that myGenome is a link rather than a file. A
 
 ### How do I look at the contents of a file: __`less`__ is __`more`__
 
-Sometimes less is more.  And when you are using linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  Unlike text editors in windows and macs, `less` does not wait for the entire file to load into memory before showing you it's contents. Rather, it starts *paging* the file contents onto the screen so you can begin looking at it immediately. While you are doing that, it is quietly contintuing to load the rest of the file into memory in case you want to see more of it. By now you should already be somewhat familiar with how `less` works, but we will repeat the basic syntax and keystrokes that you use with `less`: 
+Sometimes less is more.  And when you are using Linux suddenly `less` literally is a more advanced version of the `more` command.  The `more` command was long used for looking at very large text files.  And `less` does the same basic job as `more`.  Have a gigantic file that you can't even look at in excel?  `less` will probably open that file without even flinching.  Unlike text editors in windows and macs, `less` does not wait for the entire file to load into memory before showing you it's contents. Rather, it starts *paging* the file contents onto the screen so you can begin looking at it immediately. While you are doing that, it is quietly continuing to load the rest of the file into memory in case you want to see more of it. By now you should already be somewhat familiar with how `less` works, but we will repeat the basic syntax and keystrokes that you use with `less`: 
 
 ```{bash, eval=FALSE}
 cd ~/sandbox/myData
@@ -145,8 +145,8 @@ Key stroke | Function |\| | Key stroke | Function |
 -----------|----------|-|------------|----------|
 q|Quit|\||Up or Down Arrow |Move up or down a line|
 `space`|Next page|\||`/`abc|Search for text "abc"|
-b|Back a page|\||n|Find next occurence of "abc"|
-\#\# g|Go to line \#\#|\||?|Find previous occurence of "abc"|
+b|Back a page|\||n|Find next occurrence of "abc"|
+\#\# g|Go to line \#\#|\||?|Find previous occurrence of "abc"|
 G|Go to end|\||h|Show help for `less`|
 
 Note that `less` is great for looking at your files, but you should remember that it is read-only, meaning you can't change anything. If you need to edit the contents of a file, you will need to use a text editor.
@@ -281,11 +281,11 @@ grep '>' FEC_seq.fasta | wc -l
 
 ### Parsing your files: Using __`cut`__,  __`sort`__, and __`uniq`__
 
-A surprisingly large portion of bioinformatics work is that of parsing your data files, or in other words, extracting and organizing the useful bits of information so that you can ask the questions you want. The linux command line has a multitude of tools that can parse data files. However...
+A surprisingly large portion of bioinformatics work is that of parsing your data files, or in other words, extracting and organizing the useful bits of information so that you can ask the questions you want. The Linux command line has a multitude of tools that can parse data files. However...
 
-These tools are notoriously picky. The command syntax is very unforgiving, and the format of your data files can give you headaches if they aren't organized just so. So these commands are useful for small tasks where you want to find a simple answer, do a quick check, etc. But if you have more serious data munging tasks (and most of you do) there are much easier ways to do this. High level scripting languages such as R, python, or perl are almost always infinetly easier to use and more powerful. That is why workflows almost invariably flow from linux command line into one of these other scripting languages and why we will focus more on learning these tasks in R than from the shell.  
+These tools are notoriously picky. The command syntax is very unforgiving, and the format of your data files can give you headaches if they aren't organized just so. So these commands are useful for small tasks where you want to find a simple answer, do a quick check, etc. But if you have more serious data munging tasks (and most of you do) there are much easier ways to do this. High level scripting languages such as R, python, or perl are almost always infinitely easier to use and more powerful. That is why workflows almost invariably flow from Linux command line into one of these other scripting languages and why we will focus more on learning these tasks in R than from the shell.  
 
-Here are some simple examples of how you could parse a file. Consider this following tab delimited data file, Marrus_claudanielis.txt: This file contains information about a series of deep sea expeditions, including the name of the dive, the date, lattitude, longitude and depth. 
+Here are some simple examples of how you could parse a file. Consider this following tab delimited data file, Marrus_claudanielis.txt: This file contains information about a series of deep sea expeditions, including the name of the dive, the date, latitude, longitude and depth. 
 ```{bash}
 cd ~/sandbox/myData/
 cat Marrus_claudanielis.txt
@@ -322,7 +322,7 @@ tar -zxvf myFile.tar.gz
 
 ### Fixing bad line endings with __`dos2unix`__
 
-`dos2unix` is a useful command to know about. Text files from windows will typically have different line endings from text files from unix. And that can be a problem if you need to parse files by line. `dos2unix` fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
+`dos2unix` is a useful command to know about. Text files from windows will typically have different line endings from text files from Unix. And that can be a problem if you need to parse files by line. `dos2unix` fixes files that have been formatted for windows so that the line endings are the same.  So the following command will fix the `myFile.txt`.
 
 ```{bash, eval=FALSE}
 dos2unix myFile.txt
@@ -340,7 +340,7 @@ If when you do the above command, a file with windows style line endings will ha
 ####  <span style="color:blue">__Exercise L2:__</span>
 
 1. Navigate to your home directory.
-2. Using cat, concatentate FEC00007_1.seq and FEC00007_2.seq and save the output to a file called FEC00007.seq.
+2. Using cat, concatenate FEC00007_1.seq and FEC00007_2.seq and save the output to a file called FEC00007.seq.
 3. Using cat, append FEC00007_3.seq to FEC0007.seq.
 4. Using nano, open FEC0007.seq and edit the sequence names.
 4. Using ls, grep, wc, and pipe, display all files in ~/sandbox/myData that have the `.seq` extension and output a count of these to the screen.
@@ -355,7 +355,7 @@ If when you do the above command, a file with windows style line endings will ha
 
 ### Using __`find`__
 
-The find command is for finding files in the filesystem.  But it is actually VERY powerful because like everything else today it can be paired with the other toys in the Linux toybox.  The find command takes a couple of arguments. The 1st is the part of the directory to search in and the secons is what to look for.  A common way to use find is to find a file with a specific name.  So to find a file named `bob.txt` in your local directory could could do this
+The find command is for finding files in the file system.  But it is actually VERY powerful because like everything else today it can be paired with the other toys in the Linux toy box.  The find command takes a couple of arguments. The 1st is the part of the directory to search in and the second is what to look for.  A common way to use find is to find a file with a specific name.  So to find a file named `bob.txt` in your local directory could could do this
 
 ```{bash, eval=FALSE}
 find . -name 'bob.txt'
@@ -418,7 +418,7 @@ commandThatTakesALongTimeToRun &
 
 ### Using __`nohup`__ 
 
-Sometimes you will want a job to run and you already know that it's going to take several hours. When that happens, you might worry that if you log out your job will not complete. For this circumstance you will want to use the `nohup` command (or: no hang up).  You can use it to run a command in the background.  `nohup` will keep running that process untill it either finishes or until someone kills it.  You can use `nohup` like this:
+Sometimes you will want a job to run and you already know that it's going to take several hours. When that happens, you might worry that if you log out your job will not complete. For this circumstance you will want to use the `nohup` command (or: no hang up).  You can use it to run a command in the background.  `nohup` will keep running that process until it either finishes or until someone kills it.  You can use `nohup` like this:
 
 ```{bash, eval=FALSE}
 nohup command &
@@ -570,13 +570,13 @@ A list of many of the most common shell commands. For most of you, these will co
 When getting data from your data center or from a repository, it is often compressed into an archive file. It is important to know how to work with these.
 1. Copy the compressed archive file `/tools/sampledata/course2/homework.tar.gz` into `~/sandbox/myData`
 2. Discover what is in the archive file using the `tar` command. Using the `man` page, set the appropriate flags to use an archive file and verbosely list the contents. 
-3. Unpack this file using the `tar` command. Usiong the `man` page, set the appropriate flags to use an archive file, filter the archive file through gzip, extract the files from the archive, and verbosely list the files processed.
+3. Unpack this file using the `tar` command. Using the `man` page, set the appropriate flags to use an archive file, filter the archive file through gzip, extract the files from the archive, and verbosely list the files processed.
 
 ####  <span style="color:blue">__Homework 2: __</span>
-If you generate a text file on your Windows machine and then try to work with it on linux, you may run into issues with the fact that windows style line endings are not recognized properly in unix systems. It is therefore good to know how to check and correct those line endings.
+If you generate a text file on your Windows machine and then try to work with it on Linux, you may run into issues with the fact that windows style line endings are not recognized properly in Unix systems. It is therefore good to know how to check and correct those line endings.
 1. Find the file 'badtextfile.txt' in ~/sandbox/myData. Use the `find` command if you have to.
 2. Using `cat -v` check the line endings in this file.
-3. Convert the line endings from dos to unix style line endings. Recheck the line endings to ensure it worked.
+3. Convert the line endings from dos to Unix style line endings. Recheck the line endings to ensure it worked.
 4. Rename the file 'goodtextfile.txt'
 
 ####  <span style="color:blue">__Homework 3: __</span>
@@ -598,7 +598,7 @@ Using `zcat`, `pipe`, and `head`, print out the first 2 *reads* of one of the fa
 
 ####  <span style="color:blue">__Homework 4: __</span>
 Creating links is a useful way to deal with large data files that you don't want to copy.
-1.  The `/tools/references` directory contains reference sequence information for several model organisms. Create a link in `~/sandbox/myData` to the whole genome fasta file for the _D. melanogaster_ dm3 referene sequence. Call the link flyGenome.fasta.
+1.  The `/tools/references` directory contains reference sequence information for several model organisms. Create a link in `~/sandbox/myData` to the whole genome fasta file for the _D. melanogaster_ dm3 reference sequence. Call the link flyGenome.fasta.
 2. Genome fasta files contain sequence information for all chromosomes. Each chromosome is delineated by `>Chromosome Name`. How many chromosomes are given in the dm3 genome?
 
 
@@ -611,7 +611,7 @@ It is common to pass as an argument a text file that contains the paths to sever
 ####  <span style="color:blue">__Homework 6: __</span>
 You may get an output file that contains many columns and rows. You can do some gentle parsing of this to get a sense of the data. If you want to do more complex parsing, it's best to use something like R or python.
 1. Go to `~/sandbox/myData/homework/de`.
-2. Here you will discover four files with a `.diff` extension. These are outputs from a differential expression analysis. The analysis looked for differential expression based on gene region, coding sequences, promotor regions, or alternative splicing sites.
+2. Here you will discover four files with a `.diff` extension. These are outputs from a differential expression analysis. The analysis looked for differential expression based on gene region, coding sequences, promoter regions, or alternative splicing sites.
 3. Take a peak inside the file `gene_exp.diff` to see how it is structured.
 4. Using `cut`, parse the file to only show the columns "gene", "locus", "status", and "p_value".
 5. Using `cut` to show the same columns, try to find to the top 20 most differentially expressed genes using `sort` and `head`. These are the genes who's status is "OK", and that have the smallest p-value.
@@ -633,10 +633,10 @@ tar -zxvf homework.tar.gz
 ```
 
 ####  <span style="color:blue">__Homework 2: __</span>
-If you generate a text file on your Windows machine and then try to work with it on linux, you may run into issues with the fact that windows style line endings are not recognized properly in unix systems. It is therefore good to know how to check and correct those line endings.
+If you generate a text file on your Windows machine and then try to work with it on Linux, you may run into issues with the fact that windows style line endings are not recognized properly in Unix systems. It is therefore good to know how to check and correct those line endings.
 1. Find the file 'badtextfile.txt' in ~/sandbox/myData. Use the `find` command if you have to.
 2. Using `cat -v` check the line endings in this file.
-3. Convert the line endings from dos to unix style line endings. Recheck the line endings to ensure it worked.
+3. Convert the line endings from dos to Unix style line endings. Recheck the line endings to ensure it worked.
 4. Rename the file 'goodtextfile.txt'
 
 ```{bash, eval=FALSE}
@@ -673,7 +673,7 @@ zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep "@HWI" | wc -l
 
 ####  <span style="color:blue">__Homework 4: __</span>
 Creating links is a useful way to deal with large data files that you don't want to copy.
-1.  The `/tools/references` directory contains reference sequence information for several model organisms. Create a link in `~/sandbox/myData` to the whole genome fasta file for the _D. melanogaster_ dm3 referene sequence. Call the link flyGenome.fasta.
+1.  The `/tools/references` directory contains reference sequence information for several model organisms. Create a link in `~/sandbox/myData` to the whole genome fasta file for the _D. melanogaster_ dm3 reference sequence. Call the link flyGenome.fasta.
 2. Genome fasta files contain sequence information for all chromosomes. Each chromosome is delineated by `>Chromosome Name`. How many chromosomes are given in the dm3 genome?
 
 ```{bash, eval=FALSE}
@@ -697,7 +697,7 @@ ls */transcripts.gtf > assembly_GTF.txt
 ####  <span style="color:blue">__Homework 6: __</span>
 You may get an output file that contains many columns and rows. You can do some gentle parsing of this to get a sense of the data. If you want to do more complex parsing, it's best to use something like R or python.
 1. Go to `~/sandbox/myData/homework/de`.
-2. Here you will discover four files with a `.diff` extension. These are outputs from a differential expression analysis. The analysis looked for differential expression based on gene region, coding sequences, promotor regions, or alternative splicing sites.
+2. Here you will discover four files with a `.diff` extension. These are outputs from a differential expression analysis. The analysis looked for differential expression based on gene region, coding sequences, promoter regions, or alternative splicing sites.
 3. Take a peak inside the file `gene_exp.diff` to see how it is structured.
 4. Using `cut`, parse the file to only show the columns "gene", "locus", "status", and "p_value".
 5. Using `cut` to show the same columns, try to find to the top 20 most differentially expressed genes using `sort` and `head`. These are the genes whose status is "OK", and that have the smallest p-value.
