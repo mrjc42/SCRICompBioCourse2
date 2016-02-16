@@ -128,9 +128,9 @@ rm -r ourData
 
 Obviously using the -r flag with rm can be dangerous. So please be very careful!
 
-### How to avoid creating many reduncant copies of important files: Using __`ln`__
+### How to avoid creating many redundant copies of important files: Using __`ln`__
 
-Sometimes you will want to just create a shortcut to a file rather than actually making a copy. Perhaps it is a reference FASTA file that is very big, so making multiple copies of it isn't economical. In the following example, notice how big the `genome.fa` file is:
+Sometimes you will want to just create a shortcut to a file rather than actually making a copy. Perhaps it is a reference FASTA file that is very big, so making multiple copies of it isn't practical. In the following example, notice how big the `genome.fa` file is:
 ```{bash}
 ls -lh /tools/references/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/
 ```
@@ -169,7 +169,7 @@ b|Back a page|\||n|Find next occurrence of "abc"|
 \#\# g|Go to line \#\#|\||?|Find previous occurrence of "abc"|
 G|Go to end|\||h|Show help for `less`|
 
-Note that `less` is great for looking at your files, but you should remember that it is read-only, meaning you can't change anything. If you need to edit the contents of a file, you will need to use a text editor.
+Note that `less` is great for looking at your files, and it's "safe" because it is read-only, meaning you can't change anything. If you need to edit the contents of a file, you will need to use a text editor.
 
 ### How do I edit the contents of a file: text editors
 
@@ -246,11 +246,11 @@ cd ~/sandbox/myData
 cat FEC00001_1.seq FEC00002_1.seq
 ```
 
-Again, displaying it on the screen is not so useful. What you would really like to do is save the output to a new file. For this, you use `>`, the redirect operator.
+Again, displaying it on the screen is not so useful. What you would really like to do is save the output to a new file. For this, you use `>`, the redirection operator.
 
 ### Redirecting output to a file: Using __`>`__ and __`>>`__
 
-If at any time you want to save the output from a command or set of commands, you would use the re-direct operator", or "bent pipe" or `>`
+If at any time you want to save the output from a command or set of commands, you would use the "redirection operator", or "bent pipe" which is also known as: `>`
 
 ```{bash, eval=FALSE}
 cd ~/sandbox/myData
@@ -276,7 +276,7 @@ less FEC_seq.fasta
 
 ### Redirecting output into another command: __`pipes`__ or __`|`__
 
-You have seen how you can use `>` or `>>` to redirect output to a file. Using the __pipe__ redirect or `|` it is also possible to redirect the output of a command directly into another. This is extremely useful because it allows you to use commands in combination to do more interesting types of things. Here are some examples:
+You have seen how you can use `>` or `>>` to redirect output to a file. Using the __pipe__ redirection operator or `|` it is also possible to redirect the output of a command directly into another. This is extremely useful because it allows you to use commands in combination to do more interesting types of things. Here are some examples:
 
 We have already seen that you can use `grep` to search for a string of text line by line. 
 ```{bash, eval=FALSE}
@@ -344,15 +344,6 @@ tail -n +2 Marrus_claudanielis.txt | cut -d " " -f1 | sort | uniq
 Use the man pages for `tail`, `cut`, `sort`, and `uniq` to learn about each of the flags used in this example and understand the logic of how this command was constructed. As you can see though, this starts to get a little out of hand, and when we get into R, you will find that there are better tools for parsing down to this level. 
 
 
-### Compression and decompression with __`tar`__
-
-`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar: 
-
-```{bash, eval=FALSE}
-tar -zxvf myFile.tar.gz
-```
-
-
 
 ### Fixing bad line endings with __`dos2unix`__
 
@@ -386,6 +377,16 @@ If when you do the above command, a file with windows style line endings will ha
 ***
 ***
 # Additional tools to know about
+
+
+### Compression and decompression with __`tar`__
+
+`tar` is a useful compression and decompression utility.  Sometimes you will see files that end with a `.tar` extensions.  These are just files that have been compressed with the `tar` utility.  Usually, you will see files that end with the double extension `.tar.gz`.  These are are actually double compressed files that have been compressed with both `tar` and `gzip` (zip) compression. Files that look like this are often called 'tarballs'. The good news is you can use tar to unpack those with ease.  Here is an example of how you can unpack a tarball using tar: 
+
+```{bash, eval=FALSE}
+tar -zxvf myFile.tar.gz
+```
+
 
 ### Using __`find`__
 
@@ -597,7 +598,7 @@ D. rerio
 ```
 The pattern is easy enough: abbreviate the first word to the first letter, add a period, and retain the second word. But can you accomplish this with a simple search and replace in Excel? You would have to individually search for the strings *Homo*, then *Drosophila*, etc and replace each one, which is not very efficient.
 
-Regular expressions provide a powerful way to perform these sorts of pattern based search and replace queries. The above problem would be mind-blowingly trivial for a single regular expression query, even if the list were hundreds of species long. Using regular expressions could fill a course on its own. We will touch only briefly on these in Course 4, but we encourage you to explore them more on your own or come to office hours where we can spend more time on them.
+Regular expressions provide a powerful way to perform these sorts of pattern based search and replace queries. The above problem would be mind-blowingly trivial for a single regular expression query, even if the list were hundreds of species long. Using regular expressions could fill a course on its own. We will touch only briefly on these in Course 6, but we encourage you to explore them more on your own or come to office hours where we can spend more time on them.
 
 #### Appendix 3: Shell Commands
 A list of many of the most common shell commands. For most of you, these will cover ~95% of all of your Linux command needs, so they are worth spending time getting to know.

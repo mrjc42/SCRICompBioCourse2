@@ -531,6 +531,8 @@ unique(c(shortLetters,shortLetters))
 ***
 
 
+# Homework (required)
+
 #### double bracket subsetting operator `[[` 
 
 As we discussed previously, lists in R can hold different kinds of objects in each of a list elements.  It's a useful analogy to think of list objects like a train, where each car can hold different kinds of content:
@@ -538,7 +540,7 @@ As we discussed previously, lists in R can hold different kinds of objects in ea
 ### Lists act like a train
 ![Diagram 1](TheListTrain.png)
 
-But a direct consequence of having an object that can hold multiple different things, is that you will need more than one way to subset information from it.  In other words, sometimes you will want to subset a list to just get a shorter list, and other times you will want to subset a list so that you extract the contents from just one of the cars...
+But a direct consequence of having an object that can hold multiple different things is that you will need more than one way to subset information from it.  In other words, sometimes you will want to subset a list in order to produce a shorter list, and other times you will want to subset a list so that you extract the contents from one of the list elements (remove contents from one of the train cars)...
 
 So in addition to the single bracket subsetting operator, list objects also support a double bracket subsetting operator.  This kind of operator is normally only used with list like objects such as `data.frame`s and `list`s.  The difference between the single and double bracket operator is in the type of data that is returned.  While the single bracket operator will try to return the same type of object as it was used on, the double bracket will return the type of thing that is 'in' the container.  Lets look again at our list example:
 
@@ -759,6 +761,11 @@ month.abb[grepl('J',month.abb)]
 
 month.abb[!month.abb %in% 'Jun']
 ```
+
+
+
+
+## Answers For Homework Exercises:
 
 
 ####  <span style="color:blue">__Exercise R5:__</span> 
