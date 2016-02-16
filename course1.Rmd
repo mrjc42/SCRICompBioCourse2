@@ -618,23 +618,23 @@ ls
 ```{bash, eval=FALSE}
 cd /tools/sampledata/course1
 cp Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj \
-    ~/sandbox/ourData/shared/ 
+    ~/sandbox/myData/ 
 ```
 
 4. Alternative answer using Syntax 3 from man page.
 ```{bash, eval=FALSE}
-cp -t ~/sandbox/ourData/shared/ \
+cp -t ~/sandbox/myData/ \
 Marrus_claudanielis.txt structure_1ema.pdb shaver_etal.csv nanodrop_abs.ndj
 ```
 
 5. This should return an error. Because the name has a space in it, the command is expecting to find two files, one named 'Optode' and another named 'run011.xls'. Because neither of those files exists, the command fails.
 ```{bash, eval=FALSE}
-cp Optode run011.xls ~/sandbox/ourData/shared/
+cp Optode run011.xls ~/sandbox/myData/
 ```
 
 5. Using the "\" before a space tells the command that the space is part of the file name. This is annoying though, so as a general rule we can see that putting spaces in file names is a bad idea.
 ```{bash, eval=FALSE}
-cp Optode\ run011.xls ~/sandbox/ourData/sharedData/
+cp Optode\ run011.xls ~/sandbox/myData/
 ```
 
 *** 
