@@ -2,7 +2,7 @@
 title: "More fun with command line Linux"
 author: "Sean, Marc, Bronson, Debbie"
 date: "2/17/2016"
-output: html_document
+output: pdf_document
 ---
 
 # Homework Review
@@ -610,12 +610,14 @@ A list of many of the most common shell commands. For most of you, these will co
 
 ####  <span style="color:blue">__Homework 1: Upack a archive file (.tar.gz)__</span>
 When getting data from your data center or from a repository, it is often compressed into an archive file. It is important to know how to work with these.
+
 1. Copy the compressed archive file `/tools/sampledata/course2/homework2.tar.gz` into `~/sandbox/myData`
 2. Discover what is in the archive file using the `tar` command. Using the `man` page, set the appropriate flags to use an archive file and verbosely list the contents. 
 3. Unpack this file using the `tar` command. Using the `man` page, set the appropriate flags to use an archive file, filter the archive file through gzip, extract the files from the archive, and verbosely list the files processed.
 
 ####  <span style="color:blue">__Homework 2: __</span>
 If you generate a text file on your Windows machine and then try to work with it on Linux, you may run into issues with the fact that windows style line endings are not recognized properly in Unix systems. It is therefore good to know how to check and correct those line endings.
+
 1. Find the file 'badtextfile.txt' in ~/sandbox/myData. Use the `find` command if you have to.
 2. Using `cat -v` check the line endings in this file.
 3. Convert the line endings from dos to Unix style line endings. Recheck the line endings to ensure it worked.
@@ -623,6 +625,7 @@ If you generate a text file on your Windows machine and then try to work with it
 
 ####  <span style="color:blue">__Homework 3: __</span>
 You often want to know how many entries you have in a particular data file. This can be daunting, especially if the data file is very big. 
+
 1. Go to `~/sandbox/myData/homework/sequences`
 2. Here you will discover four sequence files produced by a Illumina HiSeq instrument in fastq format. A fastq file contains sequence and associated quality scores for potentially millions of sequence reads. A fastq read consists of four lines: 
 
@@ -640,18 +643,21 @@ Using `zcat`, `pipe`, and `head`, print out the first 2 *reads* of one of the fa
 
 ####  <span style="color:blue">__Homework 4: __</span>
 Creating links is a useful way to deal with large data files that you don't want to copy.
+
 1.  The `/tools/references` directory contains reference sequence information for several model organisms. Create a link in `~/sandbox/myData` to the whole genome fasta file for the _D. melanogaster_ dm3 reference sequence. Call the link flyGenome.fasta.
 2. Genome fasta files contain sequence information for all chromosomes. Each chromosome is delineated by `>Chromosome Name`. How many chromosomes are given in the dm3 genome?
 
 
 ####  <span style="color:blue">__Homework 5: __</span>
 It is common to pass as an argument a text file that contains the paths to several input files. This homework example will give you some ideas on how to do that. 
+
 1. Go to `~/sandbox/myData/homework/expression`
 2. Here you will discover four directories corresponding to four samples in a RNASeq experiment. Inside each sample directory is a gene annotation file called `transcripts.gtf`. 
 3. Use `ls` with `*` and `>` to output the paths to each of these files and save it to a new file called `assembly_GTF.txt`
 
 ####  <span style="color:blue">__Homework 6: __</span>
 You may get an output file that contains many columns and rows. You can do some gentle parsing of this to get a sense of the data. If you want to do more complex parsing, it's best to use something like R or python.
+
 1. Go to `~/sandbox/myData/homework/de`.
 2. Here you will discover four files with a `.diff` extension. These are outputs from a differential expression analysis. The analysis looked for differential expression based on gene region, coding sequences, promoter regions, or alternative splicing sites.
 3. Take a peak inside the file `gene_exp.diff` to see how it is structured.
@@ -662,6 +668,7 @@ You may get an output file that contains many columns and rows. You can do some 
 #__Answers for Homework Exercises__ 
 ####  <span style="color:blue">__Homework 1: Upack a archive file (.tar.gz)__</span>
 When getting data from your data center or from a repository, it is often compressed into an archive file. It is important to know how to work with these.
+
 1. Copy the compressed archive file `/tools/sampledata/course2/homework2.tar.gz` into `~/sandbox/myData`
 2. Discover what is in the archive file using the `tar` command. Using the `man` page, set the appropriate flags to use an archive file and verbosely list the contents. 
 3. Unpack this file using the `tar` command. Using the `man` page, set the appropriate flags to use an archive file, filter the archive file through gzip, extract the files from the archive, and verbosely list the files processed.
@@ -676,6 +683,7 @@ tar -zxvf homework2.tar.gz
 
 ####  <span style="color:blue">__Homework 2: __</span>
 If you generate a text file on your Windows machine and then try to work with it on Linux, you may run into issues with the fact that windows style line endings are not recognized properly in Unix systems. It is therefore good to know how to check and correct those line endings.
+
 1. Find the file 'badtextfile.txt' in ~/sandbox/myData. Use the `find` command if you have to.
 2. Using `cat -v` check the line endings in this file.
 3. Convert the line endings from dos to Unix style line endings. Recheck the line endings to ensure it worked.
@@ -692,6 +700,7 @@ mv badtextfile.txt goodtextfile.txt
 
 ####  <span style="color:blue">__Homework 3: __</span>
 You often want to know how many entries you have in a particular data file. This can be daunting, especially if the data file is very big. 
+
 1. Go to `~/sandbox/myData/homework/sequences`
 2. Here you will discover four sequence files produced by a Illumina HiSeq instrument in fastq format. A fastq file contains sequence and associated quality scores for potentially millions of sequence reads. A fastq read consists of four lines: 
 
@@ -715,6 +724,7 @@ zcat H_KH-540077-Normal-cDNA-1-lib1_ds_10pc_1.fastq.gz | grep "@HWI" | wc -l
 
 ####  <span style="color:blue">__Homework 4: __</span>
 Creating links is a useful way to deal with large data files that you don't want to copy.
+
 1.  The `/tools/references` directory contains reference sequence information for several model organisms. Create a link in `~/sandbox/myData` to the whole genome fasta file for the _D. melanogaster_ dm3 reference sequence. Call the link flyGenome.fasta.
 2. Genome fasta files contain sequence information for all chromosomes. Each chromosome is delineated by `>Chromosome Name`. How many chromosomes are given in the dm3 genome?
 
@@ -727,6 +737,7 @@ grep ">" flyGenome.fasta | wc -l
 
 ####  <span style="color:blue">__Homework 5: __</span>
 It is common to pass as an argument a text file that contains the paths to several input files. This homework example will give you some ideas on how to do that. 
+
 1. Go to `~/sandbox/myData/homework/expression`
 2. Here you will discover four directories corresponding to four samples in a RNASeq experiment. Inside each sample directory is a gene annotation file called `transcripts.gtf`. 
 3. Use `ls` with `*` and `>` to output the paths to each of these files and save it to a new file called `assembly_GTF.txt`
@@ -738,6 +749,7 @@ ls */transcripts.gtf > assembly_GTF.txt
 
 ####  <span style="color:blue">__Homework 6: __</span>
 You may get an output file that contains many columns and rows. You can do some gentle parsing of this to get a sense of the data. If you want to do more complex parsing, it's best to use something like R or python.
+
 1. Go to `~/sandbox/myData/homework/de`.
 2. Here you will discover four files with a `.diff` extension. These are outputs from a differential expression analysis. The analysis looked for differential expression based on gene region, coding sequences, promoter regions, or alternative splicing sites.
 3. Take a peak inside the file `gene_exp.diff` to see how it is structured.
