@@ -13,5 +13,5 @@ cp /tools/sampledata/course1/Marrus_claudanielis.txt \
 	/tools/sampledata/course1/structure_1ema.pdb \
 	/tools/sampledata/course1/shaver_etal.csv \
 	/tools/sampledata/course1/nanodrop_abs.ndj \
-	~/sandbox/ourData/shared/ 
-cp /tools/sampledata/course1/Optode\ run011.xls ~/sandbox/ourData/shared/
+	~/sandbox/myData/ 
+cp /tools/sampledata/course1/Optode\ run011.xls ~/sandbox/myData/
