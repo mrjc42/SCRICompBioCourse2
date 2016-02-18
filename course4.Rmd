@@ -199,7 +199,11 @@ Write a function that appends a fictional extension '.extension' to any string.
 
 ***
 
-
+***
+***
+#BREAK
+***
+***
 
 # Flow control
 
@@ -357,9 +361,10 @@ Now write call that function using lapply to get a vector of answers.  Don't for
 ***
 
 
+# Homework (required)
 
 
-# Writing good code
+## Writing good code
 R makes it easy to write functions.  But sometimes it seems that it makes it too easy.  You will find yourself thinking this someday when you have to decipher some horribly written R function that someone passes along to you.  Far worse though, is the realization that you yourself wrote an awful function years ago and now have to translate it today.  This section will attempt to help you avoid some of the misery associated with writing poor R code by giving you a few useful tips. 
 
 ### Check your arguments when writing functions
@@ -589,6 +594,7 @@ res
 
 ***
 
+## Answers For Homework Exercises:
 
 ####  <span style="color:blue">__Exercise R4:__</span> 
 
