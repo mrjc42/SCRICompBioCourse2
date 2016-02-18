@@ -2,7 +2,7 @@
 title: "Using R for Computational Biology"
 author: "Marc, Bronson, Debbie and Sean"
 date: "3/9/2016"
-output: html_document
+output: pdf_document
 ---
 
 This week we will start by introducing you to basic plotting functionalities and then move on to some of the ways that the R programming language intersects with computational Biology.
