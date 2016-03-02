@@ -515,7 +515,7 @@ Write a function that appends a fictional extension '.extension' to any string.
 As mentioned in the question, there are at least two different ways you can do this.  The first one is to use R exclusively like this:
 
 ```{r, eval=FALSE}
-## Find the workding directory
+## Find the working directory
 getwd()
 ## now list the contents of the directory
 dir()
@@ -524,7 +524,7 @@ dir()
 The second approach is to use system and the UNIX commands that you already know.  This approach is not as good as the one above because the code is not platform independent.  But on the plus side you do get access to all those command line flags...
 
 ```{r, eval=FALSE}
-## Find the workding directory
+## Find the working directory
 system('pwd')
 ## now list the contents of the directory
 system('ls -alh')
@@ -537,7 +537,7 @@ You can do this by just calling the paste function inside your custom function.
 
 ```{r}
 myPasteFun <- function(x){
-  paste(x, 'extension', sep=".")
+    paste(x, 'extension', sep=".")
 }
 myPasteFun('testStr')
 ```
