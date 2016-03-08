@@ -421,7 +421,44 @@ undebug(mean)
 
 ### `trace`
 
-The one big bummer about `debug` is that it doesn't work on methods.  This would not be a problem except that a lot of functions are actually S4 methods (so `debug` won't let you look inside of these).  The `trace` method is better in the sense that it works on everything, but it's worse in the sense that you have to use several arguments to get it to help you.  So it's not as convenient as `debug`.
+The one big bummer about `debug` is that it doesn't work on methods.  This would not be a problem except that a lot of functions are actually S4 methods (so `debug` won't let you look inside of these).  The `trace` method is better in the sense that it works on everything, but it's worse in the sense that you have to use several arguments to get it to help you.  So it's not as convenient as `debug`.  Lets consider an example of how you can use `trace` to debug the `show` method for an `ExpressionSet` object.  First lets introduce the concept of a `show` method.  `show` methods are what S4 objects use to control how they are displayed.  Lets look at an example:
+
+```{r, echo=FALSE, }
+suppressMessages(library(Biobase))
+```
+
+```{r}
+library(Biobase)
+data(sample.ExpressionSet)
+show(sample.ExpressionSet)
+```
+
+Please note this produced the same thing as:
+
+```{r}
+
+sample.ExpressionSet
+```
+
+So whenever you just 'look' at any S4 object, you are actually (secretly) calling it's show method.  And each kind of object will therefore have it's own show method defined for it.  This is what methods allow: they let you have the same function name defined to do different things when you use them with different kinds of objects.  But because methods are more complex in their implementation than simple functions, they also require that you use `trace` to debug them.  So below is an example of how `trace` can help us step inside of the `show` method for our `ExpressionSet` object.  In order for `trace` to do this though, we not only have to specify the name of the method, but we also have to indicate what we want to happen when we call it (IOW we want to call the `browser` function).  And we also have to declare the "signature"" that this method is written for.  What is a "signature"?  Well for a method, the signature just means the kind of object that it is written to be used on.  So in our case: "signature" will mean `ExpressionSet`.
+
+```{r}
+trace(what=show, tracer=browser, signature='ExpressionSet')
+```
+
+Then we can actually 'call' the method and step into it:
+
+```{r, eval=FALSE}
+show(sample.ExpressionSet)
+```
+
+And afterwards, we have to turn off the tracing (making sure to indicate which signature we wish to turn off tracing for).
+
+```{r}
+untrace(show, signature='ExpressionSet')
+```
+
+
 
 ### Using RStudio to debug
 
