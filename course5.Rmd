@@ -139,6 +139,10 @@ As you can see `GRanges` objects have (at a minimum) all the information needed 
 
 In addition to `GRanges`, Sometimes it is helpful to create lists of `GRanges` objects in order to represent nested structures (like exons contained inside of transcripts).  For these circumstances there is the `GRangesList` object.  Usually you will see these objects when looking at certain kinds of annotations.  Here  is an example of how that can come up:
 
+```{r, echo=FALSE}
+suppressMessages(library(Homo.sapiens))
+```
+
 ```{r, GRangesList}
 library(Homo.sapiens)
 txby <- transcriptsBy(Homo.sapiens, by='gene', columns=c('SYMBOL','GENEID'))
@@ -169,13 +173,30 @@ Then you can see that the GRanges object returned by the `transcriptsBy` method 
 
 ## How can I learn more about what I might do with all these fancy S4 Objects?
 
-Often you will encounter a new object and wonder: "what is that for"?  It's a perfectly reasonable question to find yourself asking.  And there is a good way  to get answers.  The thing to do in this circumstance is to call `methods` and then look at the list of methods associated with that object.  So for example, you can use `methods` to get a list of all the methods associated with `ExpressionSet` objects like this:
+Often you will encounter a new object and wonder: "what is that for"?  It's a perfectly reasonable question to find yourself asking.  And there is a good way to get answers.  The thing to do in this circumstance is to call `methods` and then look at the list of methods associated with that object.  So for example, you can use `methods` to get a list of all the methods associated with `ExpressionSet` objects like this:
 
 ```{r, methods}
 methods(class='ExpressionSet')
 ```
 
 Now that you know the names of the associated methods, you can look up manual pages and explore more about what is possible for this object.  This is especially helpful when using Bioconductor where there are a lot of these rich S4 objects (and associated methods).
+
+But lets also take a moment and look at the output from this `methods` call.  Some of the answers will sound like things you may have heard about before like `show` or `exprs`.  But then you might wonder "What about `[`?""  Well that is the single bracket subsetter.  Depending on the object, the behavior of this method may act a little differently.  For the `ExpressionSet` object here, it will extract rows and columns from the expression data and simultaneously keep track of any associated annotations.  
+
+But then you might wonder "what about these ones with an assignment arrow next to them like: `notes<-` ?".  That's a great question, and the asnwer is that any method which is written with an assignmentoperator attached is a 'setter' method.  What is a 'setter'?  A 'setter' is a method that allows you to assign a different value to an object than the one it currently has.  So the `notes<-` method is what allows you to change the value of the objects notes.  So you can see the notes with the objects 'getter' method like this:
+
+```{r}
+notes(sample.ExpressionSet)
+```
+
+And then you can set it by using the objects 'setter' method like this.
+
+```{r}
+notes(sample.ExpressionSet) <- "my extra note."
+notes(sample.ExpressionSet)
+```
+
+Now you might notice that this 'setter' is a little different from what you typically see.  The usual thing for a 'setter' to do is to simply overwrite the contents of the slot in question.  But the notes 'setter' is special and so it just appends another element to a list.
 
 
 ***
@@ -283,7 +304,6 @@ Now save your barplot to a pdf file.
 
 ```{r,ans1}
 plot(mtcars[,c('wt','hp')])
-
 ```
 
 ```{r,ans1b}
