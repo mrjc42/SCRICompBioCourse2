@@ -2,7 +2,7 @@
 title: "Getting work done"
 author: "Sean, Bronson, Debbie and Marc"
 date: "3/16/2016"
-output: html_document
+output: pdf_document
 ---
 
 
@@ -29,7 +29,7 @@ knit_hooks$set(plot = function(x, options) {
 
 
 ## Introduction
-We have spent the last 3 courses trying to show you the basic building blocks for command line computing. Now it is time to put all the pieces together and talk about the mechanics of actually getting your work done. To do this we will step through a small RNA-Seq workflow. We will not focus too much on the science behind the workflow at this time. The purpose of this course is to show you how to use the resources we have made available and how to use your new skills as a computational biologist. It is hoped that by going through this workflow, you will get some experience with how to organize your data flow and how to execute a series of commands that you can now generalize to other applications beyond RNA-Seq.
+We have spent the last several courses trying to show you the basic building blocks for command line computing and scripting with R. Now it is time to put all the pieces together and talk about the mechanics of actually getting your work done. To do this we will step through a small RNA-Seq workflow. We will not focus too much on the science behind the workflow at this time. The purpose of this course is to show you how to use the resources we have made available and how to use your new skills as a computational biologist. It is hoped that by going through this workflow, you will get some experience with how to organize your data flow and how to execute a series of commands that you can now generalize to other applications beyond RNA-Seq.
 
 In order to save time and to help everyone keep up, we will be providing a text document that has all of the commands already populated. You might need to adjust one or two things, but otherwise you can just copy and paste. Here are a few tips and tricks regarding copying and pasting into a Linux terminal:
 
@@ -75,12 +75,12 @@ MobaXTerm has a decent editor built into it which you can access under the 'Tool
 
 ####  <span style="color:blue">__Exercise L0:__</span> 
 
-1. From the above location, copy the folder 'Course4Exercises' to your O drive. 
+1. From the above location, copy the folder 'Course6Exercises' to your O drive. 
 
 2. Open the text editor of your choice. I will be using Notepad++. 
 
 3. From within the text editor, open the file `ExerciseL1-L3.sh` from the CourseExercises folder that you obtained earlier. If you cannot find it, you can get it again from the following Departmental Share location:
-`\\childrens\research\ISInformaticsTransfer\CourseDownloads\Course4Exercises`
+`\\childrens\research\ISInformaticsTransfer\CourseDownloads\Course6Exercises`
 
 ***
 
@@ -104,7 +104,7 @@ __Concepts used__
 ***
 ####  <span style="color:blue">__Exercise L1:__</span> 
 
-First, let's make a space to do our work. The best place to do this is on your share drive. For uniformity's sake and demonstration purposes, we will do this in the next best place, which is `/data`.
+First, let's make a space to do our work. We are going to be making links to reference files, so we will need some local scratch space, so we will set up shop in the `/data` location.
 
 1. Let's make a working directory for ourselves. Note how we use the command substitution operator to ensure that everyone creates a valid, but unique directory/
 ```{bash, eval=FALSE}
@@ -126,7 +126,7 @@ echo $RNASEQ
 cd $RNASEQ
 mkdir data
 cd data
-cp /tools/sampledata/rnaseq/data/* .
+cp /tools/sampledata/course6/rnaseq/data/* .
 ```
 
 Let's quickly take a look at our raw data
@@ -287,6 +287,10 @@ ls -1 */accepted_hits.bam
 
 
 ***
+***
+#Break
+***
+***
 
 ## Perform feature counting
 The next step is count how many reads align to each feature in our gene model. There are many methods to do this, but we will pick `htseq-count`. We choose this because it is fairly straightforward and quick to run, which makes it ideal for demonstration purposes. Also it feeds nicely into a powerful package from Bioconductor called `DESeq2` which does differential expression testing. 
@@ -395,9 +399,63 @@ There are several packages available for differential expression analysis. We wi
 
 * Bioconductor
 
+* Regular expressions
+
+### Regular expressions
+
+We have made many passing references to the use of regular expressions without going into any detail. Indeed, regular expressions could be a class all by itself. But they are extremely useful and we make use of them in this next section, so I will touch briefly on some important points. 
+
+#### What are regular expressions
+Regular expressions are merely a set of wild card symbols used for doing pattern searching. You use them when you want to match very general patterns. For example:
+
+* Any digit: `\\d`
+* Any letter, number or `_`: `\\w` 
+* Any white space: `\\s`
+* Any character: `.`
+
+You can also add some modifiers to use in combination with the above:
+
+* `+`: Look for the longest possible match of one or more of the preceeding characters
+* `?`: Added after `+` to look for the shortest possible match
+
+Examples:
+
+* `\\d+` : Match a string of digits
+* `.+`: Match all characters
+
+#### Using with search and replace
+The real power from regular expressions comes with the ability to find a match, and capture portions of that match to use as a replacement term. 
+
+* `()`: Capture the search results between the parenthesis
+* `\\1`: Substitute the contents of capture here
+
+In R, you would commonly use this in conjunction with the `gsub` (global substitution) command. `gsub` takes as its arguments
+
+* a search pattern
+* a substitution string
+* a vector to search through
+
+The function will search each element of the vector for a match to the pattern. If the match is successful, it will replace that element with the substituion string. 
+
+Regular expressions are a handy way to extract useful bits of information from text strings, thus saving you the trouble of having to type in lots of information by hand and risk mistyping. Consider the following file samples:
+
+```{r}
+samples <- c('Sample1_Normal', 'Sample2_Tumor', 'Sample3_Tumor', 'Sample4_Normal')
+samples
+```
+
+We can use `gsub` to easily extract both the sample names and the sample type into their own vectors:
+```{r}
+samplenames <- gsub('(Sample\\d).+', '\\1', samples)
+samplenames
+
+sampletypes <- gsub('Sample\\d_(.+)', '\\1', samples)
+sampletypes
+```
+
 ***
 ####  <span style="color:blue">__Exercise L4:__</span>
-1. Open RStudio by pointing your Firefox browser at https://sideswiper:8787. From the Files pane (usually the lower right pane), browse to `/tools/sampledata/course4Exercises/` and open the file `ExerciseL4-L5.R`)
+1. Open RStudio by pointing your Firefox browser at https://sideswiper:8787. From the Files pane (usually the lower right pane), browse to `/tools/sampledata/course6/exercises/` and open the file `ExerciseL4-L5.R`)
 
 2. Set up your work space by loading all the appropriate libraries you will need. 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE}
@@ -430,11 +488,16 @@ counts<-lapply(countsfiles, function (x) {
 lapply(counts, head)
 
 # Merge the data frames into a single dataframe
+# R has 'merge' function that you can use to merge two data frames. However, it only works on two data frames at a time. If you want to merge a list of data frames, you can take advantage of the 'Reduce' function, which is supplied from a handy package called 'plyr'. Don't get fussed about the syntax. Take it on faith that it works.
 counts<-Reduce(function(...) merge(..., all=TRUE), counts)
 head(counts)
 
 # Notice that in addition to gene counts, the first 5 rows detail various categories of reads that did not map to any gene. We will want to remove these from our table. Also note that the first column of the data frame contains the gene id. We want to turn this column into the row names. This sounds like a lot, but is actually acheived quite simply in two lines of code:
+
+# Set the row names for the data frame
 row.names(counts)<-counts$gene_id
+
+# Subset the data frame to exclude the first five rows, and the first column.
 counts<-counts[-c(1:5),-1]
 head(counts)
 ```
@@ -470,6 +533,11 @@ results[order(results$padj),]
 ```{r, eval=FALSE, tidy=TRUE}
 write.csv(results[order(results$padj),], file = paste0(workingpath, 'diffex_results.csv', quote = FALSE))
 ```
+
+***
+***
+# Break
+***
 ***
 
 ## Visualize the results
@@ -559,7 +627,8 @@ Analyses like these tend to generate a good number of intermediate files. When y
     + The exact commands and parameters used
     
     + The version numbers of any software, programs, or packages that you used
-    
+
+***
 
 ## Using shell scripts
 One the most powerful aspects of working in the command line is the ability to write your own mini pieces of software, called *scripts*. At first, you may think that this is well beyond your ability. However, it is actually very easy. If you have taken the trouble to keep track of all the commands that you have executed, you are already 90% there! In fact, the text document that you have been using to copy and paste from up to this point is already a fully executable piece of custom software.
@@ -604,7 +673,7 @@ rm -r refs
 2. Copy the script into your working directory. Note that it shouldn't matter what my current working directory is because I have used absolute path names throughout the script. But for uniformity sake, I am copying it into our $RNASEQ directory
 ```{bash, eval=FALSE}
 cd $RNASEQ
-cp /tools/sampledata/course4Exercises/ExerciseL1-L3.sh .
+cp /tools/sampledata/course6/exercises/ExerciseL1-L3.sh .
 ```
 
 3. Execute the script by calling it with it's full path
@@ -617,12 +686,12 @@ $RNASEQ/ExerciseL1-L3.sh
 ```
 
 ####  <span style="color:blue">__Optional Homework L7:__</span>
-Creating the above script can be tedious and/or challenging when you are trying to repeat the same command on different files. This is where a good text editor and the judicious use of regular expressions can save you a lot of work. Learning regular expressions is beyond the scope of this course. However, this bonus exercise should be sufficient to give you a taste of why they are so useful and perhaps motivate you to learn more about them outside of this class. 
+Creating the above script can be tedious and/or challenging when you are trying to repeat the same command on different files. This is where a good text editor and the judicious use of regular expressions can save you a lot of work. A full lesson on regular expressions is beyond the scope of this course. However, this bonus exercise should be sufficient to give you some practice with the general principles that we covered earlier, as well as a taste of why they are so useful and perhaps motivate you to learn more about them outside of this class. 
 
 1. Open a good text editor. 
 
-2. Open the file `HomeworkL7.sh` from the Course4Exercises folder that you obtained earlier. If you cannot find it, you can get it again from the following Departmental Share location:
-`\\childrens\ISInformaticsTransfer\CourseDownloads\Course4Exercises`
+2. Open the file `HomeworkL7.sh` from the Course6Exercises folder that you obtained earlier. If you cannot find it, you can get it again from the following Departmental Share location:
+`\\childrens\ISInformaticsTransfer\CourseDownloads\Course6Exercises`
 
 3. The document consists of three examples of how you would use a text editor to build a command string from a list of input files.
 
@@ -670,7 +739,7 @@ __Disadvantages__
 ***
 ####  <span style="color:blue">__Homework L8:__</span>
 
-1. Within RStudio, use the __Files__ pane (usually in the lower right corner) to find and open the following file: `/tools/sampledata/course4Exercises/HomeworkL8.R`
+1. Within RStudio, use the __Files__ pane (usually in the lower right corner) to find and open the following file: `/tools/sampledata/course6/exercises/HomeworkL8.R`
 
 2. Go through the script and execute it line by line. *Hint: use `Ctrl-ENTER` to send a single line of code (or a selected code chunk) to the R console.* As with Homework L6, you will want to clear out your working directory so the script has a fresh start.
 
